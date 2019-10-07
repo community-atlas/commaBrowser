@@ -1,0 +1,294 @@
+{
+    "type": "FeatureCollection",
+    "nonGeoFeatures": [
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Kiezstube Mehringpltz",
+                "marker-symbol": "square\r",
+                "start_date": "",
+                "description": "",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "GEWOBAG",
+                "marker-symbol": "circle\r",
+                "start_date": "1919-05-01T13:00:00.000-07:00",
+                "description": "One of the six municipal housing companies in Berlin. On behalf of the State of Berlin, Gewobag pursues the goal of providing affordable housing for large population and increasing municipal housing stock. With over 62,000 apartments and more than 100,000 tenants, the Gewobag portfolio is the size of a medium-sized city - and it continues to grow. Gewobag is the main real estate owner of Mehringplatz",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Sanierungsgebiet Südliche Friedrichstadt",
+                "marker-symbol": "star\r",
+                "start_date": "2011-04-01T06:00:00.000-07:00",
+                "description": "",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Sanierungsbeirates Südliche Friedrichstadt, Friedrichstadt Süd\n",
+                "marker-symbol": "circle\r",
+                "start_date": "",
+                "description": "\nAdvisory and exchange committee between the local authority and other stakeholders.\nInfluencing important decision-making processes and goals of redevelopment. In particular:\n- information and advice on construction measures to be developed and implemented with funding for urban regeneration to improve public infrastructure and public space;\n- participation in the design of concepts and formulation and modification of reconstruction targets structure.\nIt consists of: Territorial Representation and the employees of the District and Senate Administration responsible for the redevelopment area and their representatives. Aditionally, the Quartiersmanagement of Mehringplatz and Gewobag take part of the advisory council.",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Metropolenhaus am Judisches Museum",
+                "marker-symbol": "square\r",
+                "start_date": "",
+                "description": "\nPxB baufeld V - The project is composed by residential and commercial units - including green and recreational spaces.\nThe ground floor is intended to host four separable and combinable project rooms and artist studios, two restaurants and five small-scale shops; these should integrate local initiatives and facilitate \"\"exchange, networking, and urban co-existence\"\"(quote) according to the spirit of the ‘intercultural mosaic’, with its orientation towards art, design and everyday life with a focus on exchange between oriental, Jewish and German culture. Additional support to this purpose should come from neighboring cultural institutions such as the Berlinische Galerie and the Jewish Museum.\n- The cultural and commercial concept is funded on the economic backbone of cross-financing: the sale of apartments on the upper floors finances the construction of the ground floor space, and at the same time each owner of an apartment will in the future be a shareholder in these temporarily available facilities.",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Erzählcafè",
+                "marker-symbol": "triangle\r",
+                "start_date": "2019-09-26T04:00:00.000-07:00",
+                "description": "A series of meetings with informed citizens and long time residents telling their stories and experience of the area of the Südliche Friedrichstadt. Part of the activities to facilitate the integration  of the new developments of the PXB plan realised at the Bauhütte in 2017",
+                "end_date": "2017-09-26T04:00:00.000-07:00"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Projektgruppe X Blumenmarkt",
+                "marker-symbol": "star\r",
+                "start_date": "2012-09-26T03:00:00.000-07:00",
+                "description": "The ex-Blumengroßmarkt project group (PxB) emerged from Berlin's first concept-based real estate allocation process. It is an amalgamation of the three assembly groups and planning teams who initiated the projects on the construction sites II, IV and V at the former flower wholesale market and will realise these in three different development models.\n\nSince the award decision in December 2012, all three project teams have been working together to implement their respective building projects in a model-like way in dialogue with the neighbourhood, the district and the Senate and the users.",
+                "end_date": "2019-09-26T03:00:00.000-07:00"
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Bauhutte",
+                "marker-symbol": "square\r",
+                "start_date": "2015-04-30T16:00:00.000-07:00",
+                "description": "Bauhütte\na civil society platform. A temporary structure built to facilitate the social integration of the new development projects of the Baufeld program. The construction field development on the former flower wholesale market relies on participation. In the center of the site was placed the Bauhütte, a 60-square-meter project space, where the threads of the discussion about public participation, urban politics and architecture, youth and education converge. Here, residents, construction workers and architects, future users and builders meet at eye level to discuss on temporary use and trade development. So a small house makes a big contribution to the social cohesion of the people in the neighborhood. They get to know each other and can benefit from each other. For two years, it it has worked as a civil society platform in the middle of the construction site between Friedrichstrasse and the Jewish Museum. In summer 2019 the structure has been relocated to a new location next to the TAZ new building, surrounded by a new community garden. ",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Soziale Stadt - Quartiersmanagement am Mehringplatz  ",
+                "marker-symbol": "star\r",
+                "start_date": "2005-09-26T00:00:00.000-07:00",
+                "description": "In 2005 the area around Mehringplatz has been targeted by the national Soziale Stadt program (Socially Integrative City ), identifying this territory as a deprived neighbourhood in need for specific social support measures according to standards defined at Federal level. Soziale Stadt is a complex and comprehensive community-led local development scheme that combines a tight spatial focus, local participation, and the integration of policies and human and financial resources. This federal programme, jointly financed by European Regional Development Funds and national funds, decentralises decision-making, by delegating responsibility for small-scale projects to residents living in deprived areas selected by the Berlin Senate. The program establishes a local Quartiermanagement that manages different types of Neighbourhood Funds, each covering a different type of project and working with the direct involvement of residents. The Quartiersmanagement teams provide a platform for networking and interaction, enabling groups and actors to debate and identify local needs, values and responses.",
+                "end_date": ""
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Besselpark Regeneration ",
+                "marker-symbol": "square\r",
+                "start_date": "2019-08-14T16:00:00.000-07:00",
+                "description": "Redesign of the park in course as part of the Regeneration plan (Senierungsgebiet). The project has ben selected though a competition with a public consultation",
+                "end_date": ""
+            }
+        }
+    ],
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Die Globale e.V.",
+                "marker-symbol": "circle\r",
+                "start_date": "2007-09-29T16:00:00.000-07:00",
+                "description": "\t\tDie Globale eV was founded in 2007 and focuses on early childhood education as well as social integration and community work. For years the association has been active at Mehringplatz and in Donaukiez. In the area of ​​educational work, the association operates two learning workshops in Kreuzberg and Neukölln as well as three day nurseries that work with the concept of discovery learning. The offer of the learning workshops is aimed at children between the ages of four and 12 years. It aims to support the learning and learning motivation of adolescents and their interest in exploring their natural and social environment as an essential prerequisite for a successful educational process. The different offers take into account the different living conditions and lifestyles of the families in order to give the children a variety of access to educational processes. The work promotes the special interests and abilities of children and strengthens families as important educational partners for their children.\n\nThe second focus of our work is the development of neighborhood structures at Mehringplatz. As part of its offers, the club has established a good contact with the neighborhood. Through various activities (festivals, flea market, book rental), the association is known in the area and has already on numerous occasions supported residents to develop and implement offers for a neighborly gathering. From January 2015, the Neighborhood Commissioner will also be a permanent contact person for the residents of the neighborhood, with whom joint projects can be developed and implemented. The Neighborhood Café on Mehringplatz 7 also offers a public space where people from the neighborhood meet, articulate their needs and interests and use the place for encounters. The association is well connected with other social and cultural institutions and other organizations (Gewobag, Mieterbeirat, education network, tradesmen, AOK, Platzgärtner etc.) in the quarter. Through the daily presence in the square we know the existing problems, but also see the potential of the neighborhood, to whose development we would like to make our contribution.\n",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39248,
+                    52.49974
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Café MaDaMe",
+                "marker-symbol": "square\r",
+                "start_date": "",
+                "description": "Café that acts as a essential community hub in the neghibourhood.",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39248,
+                    52.49974
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Vielfalt E.V.",
+                "marker-symbol": "circle\r",
+                "start_date": "",
+                "description": "Sozialpädagogische Familienverein und Träger der öffentlichen Jugendhilfe/ Social-Educational Family Association for public youth welfare\n\ndescription\n\n\"Strave to a society fully supportive of the development of its younger participants -Support for children, teenagers and young people of all cultures with open dialogue and confrontation.Protect/strengthen/implementation of childrens and teenagers rights.\n- Support of families with migration background (if necessary also in their language of origin) and promotion of coexistence in diversity. - Focus on help and advice on educational questions; assistance including: family therapy, social group work, child support, childcare assistance, family welfare counseling and intensive individual social care. \"",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39274,
+                    52.4996
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Donut Wedge with Two Balls ",
+                "marker-symbol": "monument\r",
+                "start_date": "",
+                "description": "Large sculpture  donated in 2010 to the city of Berlin by the San Francisco based artist Fletcher Benton . ",
+                "end_date": "2010-09-26T06:00:00.000-07:00"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39144,
+                    52.50353
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Quartiermanagement am Mehringplaz - Kunstwelt .v.",
+                "marker-symbol": "circle\r",
+                "start_date": "1998-09-26T01:00:00.000-07:00",
+                "description": "Im Juli 2005 beauftragte die Senatsverwaltung für Stadtentwicklung in Zusammenarbeit mit dem Bezirksamt Friedrichshain-Kreuzberg den gemeinnützigen Verein Kunstwelt e.V., der seit 1998 seinen Sitz am Mehringplatz hat, mit der Umsetzung des Quartiersmanagements am Mehringplatz. Zusammen mit BewohnerInnen und \"starken Partnern der Quartiersentwicklung\" ermittelt und diskutiert das Vor-Ort-Team seither die wichtigsten Bedarfe, entwickelt Projektideen und bringt diese auf den Weg.",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.3918,
+                    52.50006
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Ela Kagel - Supermarkt",
+                "marker-symbol": "cross\r",
+                "start_date": "",
+                "description": "Interview with Ela Kagel, cofounder of Supermarkt.\nRealised in the frame of EULER - Switch On Mehringplatz Erasmus plus program.\nThis video is part of a set of interview to local social, economic and institutional stakeholders realised as part of Mehringplatz Solidarity Curriculum, a neighbourhood atlas aimed at survey existing resources and potentialities of the Südliche Friedrichstadt. Recorded 13.03.2017 at Supermarkt by Vicky Kiefer and Lorenzo Tripodi\nCamera and editing Manuela Conti - OginoKnauss\n",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39265,
+                    52.4996
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Supermarkt",
+                "marker-symbol": "circle\r",
+                "start_date": "2010-09-29T16:00:00.000-07:00",
+                "description": "Platform for digital culture, alternative economies and new forms of work. Organizes and hosts workshops and conferences, both in its space and in cooperation with other spaces. Own programme with an emphasis on Open Source Technologies, Freelance Work and Social Innovation. / eine Plattform für digitale Kultur, kollaborative Ökonomie & neue Arbeitsformen. Veranstaltet Workshops und Konferenzen, sowohl in seinem Raum als auch in Kooperation mit anderen Spaces. Eigenes Programm rund um Open Source, aktuelle Arbeitsmodelle und soziale Innovation.",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39265,
+                    52.4996
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "TAZ Neubau",
+                "marker-symbol": "square\r",
+                "start_date": "2018-09-29T16:00:00.000-07:00",
+                "description": "Building site for the new building of the TAZ Newspaper. \n\nNew house for the Taz, die Tageszeitung, created through a common investment of its cooperative members to respond better to the changes of the new digital structure and organization of work, in order to improve the working conditions and at the same time secure the Taz’s company through a capital investment.\nThe design concept follows the idea of (quote) “a system without hierarchies”, where the network is the structural guiding principle.\nIt claims to be a (quote) “ living organism”: besides allowing all employees currently working in three different buildings to work together under one roof, it looks to its new role as part of the creative quarter’s project and wants to achieve openness to outside, addressing not only the past supporters of taz, cooperative members, founders, limited partners, subscribers and readers, but in general to all those who want to support the house project and participate in the cooperative.\nRecently completed, is becoming operational",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39135,
+                    52.50315
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Hedwig Dohm Gedenktafel",
+                "marker-symbol": "monument\r",
+                "start_date": "",
+                "description": "Marianne Adelaide Hedwig Dohm  (20 September 1831 – 1 June 1919) was a German feminist, and author. She was one of the first feminist thinkers. She lived in this house until 1851.",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39107,
+                    52.50225
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Victoria Versicherung Kreuzberg",
+                "marker-symbol": "square\r",
+                "start_date": "1913-09-29T16:00:00.000-08:00",
+                "description": "Neo- baroque building ",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39625,
+                    52.50373
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "KMA Antenne",
+                "marker-symbol": "circle\r",
+                "start_date": "1987-09-29T16:00:00.000-07:00",
+                "description": "Youth centre",
+                "end_date": ""
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39179,
+                    52.50062
+                ]
+            }
+        }
+    ]
+}
