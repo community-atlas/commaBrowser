@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
-      
-        <link type="text/css" rel="stylesheet" href="css/comma.css"/>
+<head>
 
-        <script src="js/comma.js"></script>
 
-    </head>
-    <body>
-        <div id="base">
-            <div id="header"></div>
-            <div id="card-wrapper"></div>
-            <div id="map-wrapper"></div>
-            <div id="timeline-wrapper"></div>
+    <link title="timeline-styles" rel="stylesheet"
+        href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/comma.css" />
+
+    <script type="text/javascript" src="js/mixitup.js"></script>
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
+
+</head>
+
+<body>
+    <div id="base">
+        <div id="header"></div>
+        <div id="controls" class="controls" data-ref="controls">
         </div>
-    </body>
+        <div id="card-wrapper">
+            <div id="cards" class="cards" data-ref="container">
+                <div class="gap" data-ref="first-gap"></div>
+                <div class="gap"></div>
+                <div class="gap"></div>
+            </div>
+        </div>
+        <div id="map-wrapper">
+            <div id="map"></div>
+            <div>
+                <div id="timeline-wrapper">
+                    <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+                </div>
+            </div>
+            <script src="js/comma.js"></script>
+</body>
+
 </html>
