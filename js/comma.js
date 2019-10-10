@@ -34,15 +34,15 @@ function commaExtractFeatureTypes(features) {
  */
 function commaGetFeatures(params) {
     console.log(params);
-    let features = commaUnifyFeatures(commaGeo);    
-    if (params && params.filter) {        
+    let features = commaUnifyFeatures(commaGeo);
+    if (params && params.filter) {
         features = features.filter(function (feature) {
             let keep = params.filter.type.indexOf(feature.properties.type) !== -1;
-            console.log(`${keep}: ${feature.properties.type} `  )
+            console.log(`${keep}: ${feature.properties.type} `)
             return keep;
         });
     }
-    if (params && params.class) {        
+    if (params && params.class) {
         features = features.filter(function (feature) {
             let keep = false;
             if (params.class == 'geo') { keep = feature.hasOwnProperty('geometry') }
@@ -53,7 +53,7 @@ function commaGetFeatures(params) {
     return features;
 }
 
-function commaGetGlobals(){
+function commaGetGlobals() {
     return commaGeo.properties;
 }
 //---------------------------Timeline
@@ -99,12 +99,12 @@ function createTimelineEvent(feature) {
  * 
  */
 
-function convertFeaturesToTimeline(features) {    
-    let events = features.map(createTimelineEvent);    
+function convertFeaturesToTimeline(features) {
+    let events = features.map(createTimelineEvent);
     // remove nulls
     events = events.filter(x => x);
     let globals = commaGetGlobals();
-    
+
 
     const timeline = {
         "events": events,
@@ -161,8 +161,8 @@ const mixer = mixitup(container, {
 
 function renderCard(feature) {
     console.log((feature.geometry !== null))
-    let event = feature.properties.start_date?'event':'';
-    let geo = (feature.hasOwnProperty('geometry'))? 'geo' :'';
+    let event = feature.properties.start_date ? 'event' : '';
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
     return `<div class="card ${feature.properties.type} ${event} ${geo}" data-ref="card">
     <div class="image" style="background-image:url(${feature.properties.image})"></div>
     <img class="calendar" src="images/calendar.png">    
@@ -173,14 +173,14 @@ function renderCard(feature) {
 }
 
 
-function renderCards(features) {    
+function renderCards(features) {
     const types = commaExtractFeatureTypes(features);
     renderFilters(types);
 
 
-     // We can now set up a handler to listen for "click" events on our UI buttons
+    // We can now set up a handler to listen for "click" events on our UI buttons
 
-     controls.addEventListener('click', function(e) {
+    controls.addEventListener('click', function (e) {
         handleButtonClick(e.target);
     });
 
@@ -264,10 +264,14 @@ function handleButtonClick(button) {
 
         return;
     }
-    
+
     let features = commaGetFeatures({ "filter": { "type": [type] } });
     mixer.dataset(features);
-    renderTimeline('timeline-embed',features);
+    renderTimeline('timeline-embed', features);
+    renderMapFeatures(map, commaGetFeatures({ 
+        "filter": { "type": [type] }, 
+        "class":"geo" 
+    }));
 
 }
 
@@ -275,52 +279,84 @@ function handleButtonClick(button) {
 
 const mapContainer = "map";
 mapboxgl.accessToken = mapBoxToken;
+var map = {};
 
-function renderMap(features){      
-  var map = new mapboxgl.Map({
-    container: 'map',
-   /* style: {
-        "version": 8,
-        "sources": {
-        "raster-tiles": {
-        "type": "raster",
-        "tiles": ["https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"],
-        "tileSize": 256,
-        "attribution": 'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
-        }
-        },
-        "layers": [{
-        "id": "simple-tiles",
-        "type": "raster",
-        "source": "raster-tiles",
-        "minzoom": 0,
-        "maxzoom": 22
-        }]
-        },*/
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [13.39, 52.49],
-    zoom: 10,
-  });
+function renderMap(container) {
+    var myMap = new mapboxgl.Map({
+        "container": container,
+         /*style: {
+             "version": 8,
+             "sources": {
+             "raster-tiles": {
+             "type": "raster",
+             "tiles": ["https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"],
+             "tileSize": 256,
+             "attribution": 'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
+             }
+             },
+             "layers": [{
+             "id": "simple-tiles",
+             "type": "raster",
+             "source": "raster-tiles",
+             "minzoom": 0,
+             "maxzoom": 22
+             }]
+             },*/
+        style: 'mapbox://styles/mapbox/streets-v9',
+        //center: [13.39, 52.49],
+        //zoom: 10,
+    });
+    var geojson = {
+        "type": "FeatureCollection",
+        "features": []
+    };
+    myMap.on('load', function () {
+        myMap.addSource('nodes', { type: 'geojson', data: geojson });
+        myMap.addLayer({
+            "id": "points",
+            "type": "circle",
+            "source": "nodes",
+            "paint": {
+                "circle-radius": 6,
+                "circle-color": "#B42222"
+            },
+            filter: ['in', '$type', 'Point'] // only show points
+        });       
+        map.addLayer({
+            "id": "lines",
+            "type": "line",
+            "source": "nodes",
+            layout: {
+                'line-cap': 'round',
+                'line-join': 'round'
+            },
+            paint: {
+                'line-color': '#000',
+                'line-width': 2.5
+            },
+            filter: ['in', '$type', 'LineString'] // find the lines     
+        });
+    });
+    //@todo: add polygons
+    return myMap;
+}
 
-  const featureCollection = { "type": "FeatureCollection", "features":features };
-  console.log(featureCollection);
-  map.on('load', function(){
-  map.addLayer({
-    "id": "points",
-    "type": "symbol",
-    "source": {
-      "type": "geojson",
-      "data": featureCollection    
-     },
-     "layout": {
-        "icon-image": "{icon}-15",
-        "text-field": "{title}",
-        "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-        "text-offset": [0, 0.6],
-        "text-anchor": "top"
-        } 
-  });
-  });
+function renderMapFeatures(map, features) {
+
+    // find the right zoom
+    let bounds = new mapboxgl.LngLatBounds();
+    
+    features.forEach(function (feature) {
+        bounds.extend(feature.geometry.coordinates);
+    });
+    const geojson = {
+        "type": "FeatureCollection",
+        "features": features
+    }; 
+    // add it to the map
+    map.getSource('nodes').setData(geojson);
+    map.fitBounds(bounds, { padding: 120 });
+
 }
 
 
@@ -334,7 +370,10 @@ $(document).ready(function () {
         commaGeo = data;
         console.log("Got data");
         renderCards(commaGetFeatures());
-        renderTimeline('timeline-embed', commaGetFeatures());        
-        renderMap(commaGetFeatures({class:'geo'}));
+        renderTimeline('timeline-embed', commaGetFeatures());
+        map = renderMap(mapContainer);
+        map.on('load', function () {
+            renderMapFeatures(map, commaGetFeatures({ class: 'geo' }))
+        });
     });
 });
