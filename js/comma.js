@@ -35,7 +35,7 @@ function commaExtractFeatureTypes(features) {
 function commaGetFeatures(params) {
     console.log(params);
     let features = commaUnifyFeatures(commaGeo);
-    if (params && params.filter) {
+    if (params && params.filter && (params.filter.type.indexOf('All') == -1) ) {
         features = features.filter(function (feature) {
             let keep = params.filter.type.indexOf(feature.properties.type) !== -1;
             console.log(`${keep}: ${feature.properties.type} `)
@@ -200,6 +200,7 @@ function renderFilter(type) {
 
 function renderFilters(categories) {
     const filters = categories.map(renderFilter);
+    filters.push(renderFilter('All'));
     console.log(filters);
     $('#controls').html(filters.concat());
 }
