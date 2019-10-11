@@ -35,34 +35,38 @@
     <div id="base">
         <div id="header"></div>
         <div id="intro">
-          <h1 id="title">Community Atlas</h1>
-          <div id="source"></div>
-          <p id="description"></p>
+            <h1 id="title">Community Atlas</h1>
+            <div id="source"></div>
+            <p id="description"></p>
         </div>
-        <div id="view">
-            <div id="view-toggle"><a class="toggle" href="#">Toggle view</a></div>
-        </div>
-        <div id="controls" class="controls" data-ref="controls">
-        </div>
-       
+
+
+
         <div id="map-wrapper">
-            <!-- <div id="map"></div> -->            
+            <!-- <div id="map"></div> -->
             <div id="leafletMap"></div>
         </div>
         <div id="timeline-wrapper" class="inactive">
-                <h2>Timeline</h2>
-                <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+            <h2>Timeline</h2>
+            <div id='timeline-embed'></div>
+        </div>
+        <div id=control-wrapper>
+            <div id="controls" class="controls" data-ref="controls"></div>
+            <div id="views" class="views"  data-ref="views">
+                <button type="button" class="control control-view" data-ref="view" data-type="map">Map</button>
+                <button type="button" class="control control-view" data-ref="view"
+                    data-type="timeline">Timeline</button>
             </div>
-        
+        </div>
         <div id="card-wrapper">
-                <div id="cards" class="cards" data-ref="container">
-                    <div class="gap" data-ref="first-gap"></div>
-                    <div class="gap"></div>
-                    <div class="gap"></div>
-                </div>
+            <div id="cards" class="cards" data-ref="container">
+                <div class="gap" data-ref="first-gap"></div>
+                <div class="gap"></div>
+                <div class="gap"></div>
             </div>
+        </div>
 
-        
+
 
 
 

@@ -114,6 +114,10 @@ function convertFeaturesToTimeline(features) {
             },
         },
     }
+
+    if (activeType !== 'All') {
+        timeline.title.text.headline+= "("+activeType+")"
+    }
     return timeline;
 }
 
@@ -141,7 +145,7 @@ var controls = document.querySelector('[data-ref="controls"]');
 var filters = document.querySelectorAll('[data-ref="filter"]');
 var sorts = document.querySelectorAll('[data-ref="sort"]');
 
-var activeType = '';
+var activeType = 'All';
 
 const mixer = mixitup(container, {
     data: {
@@ -186,7 +190,7 @@ function renderCards(features) {
 
     // Set controls the active controls on startup to match the default filter and sort
 
-    activateButton(controls.querySelector('[data-type="all"]'), filters);
+    activateButton(controls.querySelector('[data-type="All"]'), filters);
     activateButton(controls.querySelector('[data-order="asc"]'), sorts);
 
     console.log(features);
@@ -401,20 +405,54 @@ function renderLeafletFeatures(features) {
 
 //==========================================================
 
-function toggleViewer(){
-    $('#view-toggle a.toggle').click(function() {
-        $(this).toggleClass("map-view");
-        $("#timeline-wrapper").toggleClass('inactive');
-        $("#map-wrapper").toggleClass('inactive');
+var views = document.querySelector('[data-ref="views"]');
+var activeView = "map"; // set the map as default view
 
+function renderViewControls(){
+    // We can now set up a handler to listen for "click" events on our UI buttons
 
-       /* // timeline does not like to be rendered hidden. 
-       if (!$("#timeline-wrapper").hasClass('hidden')) {
-          let features = commaGetFeatures({ "filter": { "type": [activeType] } });   
+    views.addEventListener('click', function (e) {
+        toggleViewer(e.target);
+    });
+    console.log(views);
+}
+
+function toggleViewer(button){
+    console.log("toggel view");
+    console.log(button);
+    var view = activeView;
+       // If button is already active, or an operation is in progress, ignore the click
+
+    if (button.classList.contains('control-active')) return;
+
+    // Else, check what type of button it is, if any
+
+    if (button.matches('[data-ref="view"]')) {
+        // Filter button
+
+        activateButton(button, views);
+
+        view = activeview = button.getAttribute('data-type');
+
+        if (view=='map') {
+           $("#timeline-wrapper").addClass('inactive');
+           $("#map-wrapper").removeClass('inactive');
+           leafletMap._onResize(); 
+
+        } else if (view=="timeline") {
+            $("#timeline-wrapper").removeClass('inactive');
+            $("#map-wrapper").addClass('inactive');
+             // timeline does not like to be rendered hidden.??
+            let features = commaGetFeatures({ "filter": { "type": [activeType] } });   
           console.log("rendering timeline");     
           renderTimeline('timeline-embed', features);
-       }*/
-      });
+
+        }
+    }  else {
+        // Not a button
+
+        return;
+    }
 
 }
 //==========================================================
@@ -437,6 +475,6 @@ $(document).ready(function () {
         });*/
        renderLeaflet();
        renderLeafletFeatures(commaGetFeatures({ class: 'geo' })) 
-       toggleViewer(); 
+       renderViewControls();
     });
 });
