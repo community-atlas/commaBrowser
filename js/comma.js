@@ -269,10 +269,13 @@ function handleButtonClick(button) {
     let features = commaGetFeatures({ "filter": { "type": [type] } });
     mixer.dataset(features);
     renderTimeline('timeline-embed', features);
-    renderMapFeatures(map, commaGetFeatures({ 
-        "filter": { "type": [type] }, 
-        "class":"geo" 
-    }));
+   let geoFeatures = commaGetFeatures({ 
+    "filter": { "type": [type] }, 
+    "class":"geo" 
+    })
+
+   // renderMapFeatures(map, geoFeatures);
+    renderLeafletFeatures(geoFeatures);
 
 }
 
@@ -361,8 +364,59 @@ function renderMapFeatures(map, features) {
 }
 
 
+// ------------------------ Leaflet
+
+var leafletMap = {};
+var leafletNodeLayer = {};
+
+function renderLeaflet(){
+    leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: mapBoxToken
+    }).addTo(leafletMap);
+    
+}
 
 
+function renderLeafletFeatures(features) {
+    var bounds = new L.LatLngBounds();
+    features.forEach(function (feature) {
+        bounds.extend(feature.geometry.coordinates);
+    });
+    const geojson = {
+        "type": "FeatureCollection",
+        "features": features
+    }; 
+    if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
+    leafletNodeLayer = L.geoJSON().addTo(leafletMap);
+    leafletNodeLayer.addData(geojson);
+    // add it to the map    
+    //leafletMap.fitBounds(bounds, { padding: 120 });
+    leafletMap.fitBounds(leafletNodeLayer.getBounds(), { padding: [20, 20] });
+}
+
+
+//==========================================================
+
+function toggleViewer(){
+    $('#view-toggle a.toggle').click(function() {
+        $(this).toggleClass("map-view");
+        $("#timeline-wrapper").toggleClass('inactive');
+        $("#map-wrapper").toggleClass('inactive');
+
+
+       /* // timeline does not like to be rendered hidden. 
+       if (!$("#timeline-wrapper").hasClass('hidden')) {
+          let features = commaGetFeatures({ "filter": { "type": [activeType] } });   
+          console.log("rendering timeline");     
+          renderTimeline('timeline-embed', features);
+       }*/
+      });
+
+}
 //==========================================================
 
 $(document).ready(function () {
@@ -370,11 +424,19 @@ $(document).ready(function () {
     $.getJSON(commaJSONUrl).done(function (data) {
         commaGeo = data;
         console.log("Got data");
+        let globals = commaGetGlobals();
+        console.log(globals);
+        $("#title").html(globals.title);
+
         renderCards(commaGetFeatures());
         renderTimeline('timeline-embed', commaGetFeatures());
+     /*
         map = renderMap(mapContainer);
         map.on('load', function () {
             renderMapFeatures(map, commaGetFeatures({ class: 'geo' }))
-        });
+        });*/
+       renderLeaflet();
+       renderLeafletFeatures(commaGetFeatures({ class: 'geo' })) 
+       toggleViewer(); 
     });
 });

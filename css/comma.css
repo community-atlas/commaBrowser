@@ -10,6 +10,10 @@ body {
     box-sizing: border-box;
 }
 
+
+.inactive {
+    width:10%;
+}
 /* Controls
 ---------------------------------------------------------------------- */
 
@@ -234,7 +238,30 @@ body {
     }
 }
 
-#map {
-  width:100%;
-  height:800px;
+#map {     
+  width:400px;
+  height:400px;
+}
+
+#map-wrapper {
+    float:left;
+    width:90%;
+}
+
+#map-wrapper.inactive {
+    width:10%;
+}
+
+
+
+#leafletMap {    
+    height: 400px;
+}
+
+#timeline-wrapper {
+    width:90%;
+}
+
+#timeline-wrapper.inactive {
+    width:10%;
 }
