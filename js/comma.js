@@ -1,10 +1,10 @@
+
+
 const commaJSONUrl = "https://raw.githubusercontent.com/the-greenman/community-atlas/master/geojson/atlas1.geojson"
 const mapBoxToken = "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg";
 
 // create our global variable for storing our data
 let commaGeo = {};
-
-
 
 
 //---------------------------Utils
@@ -35,7 +35,8 @@ function commaExtractFeatureTypes(features) {
 function commaGetFeatures(params) {
     console.log(params);
     let features = commaUnifyFeatures(commaGeo);
-    if (params && params.filter && (params.filter.type.indexOf('All') == -1) ) {
+    // filter 
+    if (params && params.filter && (params.filter.type.indexOf('All') == -1)) {
         features = features.filter(function (feature) {
             let keep = params.filter.type.indexOf(feature.properties.type) !== -1;
             console.log(`${keep}: ${feature.properties.type} `)
@@ -55,6 +56,39 @@ function commaGetFeatures(params) {
 
 function commaGetGlobals() {
     return commaGeo.properties;
+}
+
+
+/**
+ * Returns a single feature matching a selector
+ * @param {*} id 
+ */
+function commaGetSelected(selector) {
+    let features = commaUnifyFeatures(commaGeo);
+    console.log('selecting');
+    let selected = features.find(function (feature) {
+        console.log('id:' + feature.id);
+        return feature.id == selector
+    });
+    return selected;
+}
+
+
+function GetURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}
+
+function changeUrl(url) {
+    var new_url = window.location
+    window.history.pushState("data", "Title", new_url);
+    document.title = url;
 }
 //---------------------------Timeline
 
@@ -116,7 +150,7 @@ function convertFeaturesToTimeline(features) {
     }
 
     if (activeType !== 'All') {
-        timeline.title.text.headline+= "("+activeType+")"
+        timeline.title.text.headline += "(" + activeType + ")"
     }
     return timeline;
 }
@@ -127,7 +161,7 @@ function convertFeaturesToTimeline(features) {
  * @param {*} element 
  * @param {*} comma 
  */
-function renderTimeline(element, features) {
+function renderTimeline(features) {
     console.log("Rendering comma as timeline");
     const timeline = convertFeaturesToTimeline(features);
     console.log(JSON.stringify(timeline));
@@ -167,12 +201,12 @@ function renderCard(feature) {
     console.log((feature.geometry !== null))
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    return `<div class="card ${feature.properties.type} ${event} ${geo}" data-ref="card">
+    return `<div class="card ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
     <div class="image" style="background-image:url(${feature.properties.image})"></div>
     <img class="calendar" src="images/calendar.png">    
     <img class="marker" src="images/marker.png">    
-    <h4>${feature.properties.title}</h4>
-    
+    <h4><a href="#${feature.id}">${feature.properties.title}</a></h4>
+    <div class="featureID">${feature.id}</div>
     </div>`;
 }
 
@@ -210,6 +244,8 @@ function renderFilters(categories) {
 }
 
 
+
+
 /**
             * A helper function to set an active styling class on an active button,
             * and remove it from its siblings at the same time.
@@ -222,6 +258,8 @@ function renderFilters(categories) {
 function activateButton(activeButton, siblings) {
     var button;
     var i;
+    console.log("Activeate");
+    console.log(siblings);
     for (i = 0; i < siblings.length; i++) {
         button = siblings[i];
 
@@ -273,97 +311,13 @@ function handleButtonClick(button) {
     let features = commaGetFeatures({ "filter": { "type": [type] } });
     mixer.dataset(features);
     renderTimeline('timeline-embed', features);
-   let geoFeatures = commaGetFeatures({ 
-    "filter": { "type": [type] }, 
-    "class":"geo" 
+    let geoFeatures = commaGetFeatures({
+        "filter": { "type": [type] },
+        "class": "geo"
     })
 
-   // renderMapFeatures(map, geoFeatures);
+    // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
-
-}
-
-//----------------------------Map
-
-const mapContainer = "map";
-mapboxgl.accessToken = mapBoxToken;
-var map = {};
-
-function renderMap(container) {
-    var myMap = new mapboxgl.Map({
-        "container": container,
-         /*style: {
-             "version": 8,
-             "sources": {
-             "raster-tiles": {
-             "type": "raster",
-             "tiles": ["https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg"],
-             "tileSize": 256,
-             "attribution": 'Map tiles by <a target="_top" rel="noopener" href="http://stamen.com">Stamen Design</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a target="_top" rel="noopener" href="http://openstreetmap.org">OpenStreetMap</a>, under <a target="_top" rel="noopener" href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>'
-             }
-             },
-             "layers": [{
-             "id": "simple-tiles",
-             "type": "raster",
-             "source": "raster-tiles",
-             "minzoom": 0,
-             "maxzoom": 22
-             }]
-             },*/
-        style: 'mapbox://styles/mapbox/streets-v9',
-        //center: [13.39, 52.49],
-        //zoom: 10,
-    });
-    var geojson = {
-        "type": "FeatureCollection",
-        "features": []
-    };
-    myMap.on('load', function () {
-        myMap.addSource('nodes', { type: 'geojson', data: geojson });
-        myMap.addLayer({
-            "id": "points",
-            "type": "circle",
-            "source": "nodes",
-            "paint": {
-                "circle-radius": 6,
-                "circle-color": "#B42222"
-            },
-            filter: ['in', '$type', 'Point'] // only show points
-        });       
-        map.addLayer({
-            "id": "lines",
-            "type": "line",
-            "source": "nodes",
-            layout: {
-                'line-cap': 'round',
-                'line-join': 'round'
-            },
-            paint: {
-                'line-color': '#000',
-                'line-width': 2.5
-            },
-            filter: ['in', '$type', 'LineString'] // find the lines     
-        });
-    });
-    //@todo: add polygons
-    return myMap;
-}
-
-function renderMapFeatures(map, features) {
-
-    // find the right zoom
-    let bounds = new mapboxgl.LngLatBounds();
-    
-    features.forEach(function (feature) {
-        bounds.extend(feature.geometry.coordinates);
-    });
-    const geojson = {
-        "type": "FeatureCollection",
-        "features": features
-    }; 
-    // add it to the map
-    map.getSource('nodes').setData(geojson);
-    map.fitBounds(bounds, { padding: 120 });
 
 }
 
@@ -372,16 +326,19 @@ function renderMapFeatures(map, features) {
 
 var leafletMap = {};
 var leafletNodeLayer = {};
+var leafletFeatureLookup = {};
 
-function renderLeaflet(){
-    leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13);
+function renderLeaflet() {
+    L.mapbox.accessToken = mapBoxToken;
+    leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+/*
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: mapBoxToken
     }).addTo(leafletMap);
-    
+*/
 }
 
 
@@ -393,9 +350,15 @@ function renderLeafletFeatures(features) {
     const geojson = {
         "type": "FeatureCollection",
         "features": features
-    }; 
+    };
     if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
-    leafletNodeLayer = L.geoJSON().addTo(leafletMap);
+    leafletNodeLayer = L.geoJSON(null,{
+        onEachFeature: onEachFeature,
+        //style: L.mapbox.simplestyle.style
+        pointToLayer: L.mapbox.marker.style
+    }).addTo(leafletMap);
+
+
     leafletNodeLayer.addData(geojson);
     // add it to the map    
     //leafletMap.fitBounds(bounds, { padding: 120 });
@@ -403,58 +366,97 @@ function renderLeafletFeatures(features) {
 }
 
 
+
+function onEachFeature(feature, layer) {
+    leafletFeatureLookup[feature.id] = layer._polygonId; 
+    layer.on('click', function (e) {
+      console.log('feature event');
+	  // does this feature have a property named popupContent?
+	  if (e.target.feature.id && e.target.feature.properties.title) {
+          commaHighlighter(commaGetSelected(e.target.feature.id));		
+    }
+});
+}
+
 //==========================================================
 
-var views = document.querySelector('[data-ref="views"]');
-var activeView = "map"; // set the map as default view
+/**
+ * 
+ */
+function viewTabEventsInit(){
+  document.querySelector('[data-mui-controls="timeline-wrapper"]').addEventListener('mui.tabs.showend',  function(){ 
+    console.log("render timeline tab");  
+    // timeline does not like to be rendered hidden.??
+      let features = commaGetFeatures({ "filter": { "type": [activeType] } });
+      console.log("rendering timeline");
+      renderTimeline(features);
+   });
+   document.querySelector('[data-mui-controls="map-wrapper"]').addEventListener('mui.tabs.showend',  function(){ 
+    console.log("render map tab");  
+    leafletMap._onResize();
+   });
+  
 
-function renderViewControls(){
-    // We can now set up a handler to listen for "click" events on our UI buttons
-
-    views.addEventListener('click', function (e) {
-        toggleViewer(e.target);
-    });
-    console.log(views);
+  
 }
 
-function toggleViewer(button){
-    console.log("toggel view");
-    console.log(button);
-    var view = activeView;
-       // If button is already active, or an operation is in progress, ignore the click
+// =======================================================
+function commaBrowser() {
+    let globals = commaGetGlobals();
+    $('#commaBrowser').addClass('active').removeClass('inactive');
+    $('#commaFeature').addClass('inactive').removeClass('active');
+    document.title = "Community Atlas >> "+ globals.title;
+    window.location.assign("#");
+    console.log("back");
 
-    if (button.classList.contains('control-active')) return;
+}
 
-    // Else, check what type of button it is, if any
 
-    if (button.matches('[data-ref="view"]')) {
-        // Filter button
+function commaFeature(feature) {
+    let globals = commaGetGlobals();
+    $('#commaFeature').addClass('active').removeClass('inactive');
+    $('#commaBrowser').addClass('inactive').removeClass('active');
+    console.log(feature);
+    $("#appbar #title").html(feature.properties.title);
+    document.title = "Community Atlas >> "+globals.title + " >> " + feature.properties.title;
+}
 
-        activateButton(button, views);
 
-        view = activeview = button.getAttribute('data-type');
-
-        if (view=='map') {
-           $("#timeline-wrapper").addClass('inactive');
-           $("#map-wrapper").removeClass('inactive');
-           leafletMap._onResize(); 
-
-        } else if (view=="timeline") {
-            $("#timeline-wrapper").removeClass('inactive');
-            $("#map-wrapper").addClass('inactive');
-             // timeline does not like to be rendered hidden.??
-            let features = commaGetFeatures({ "filter": { "type": [activeType] } });   
-          console.log("rendering timeline");     
-          renderTimeline('timeline-embed', features);
-
+function commaHighlighter(feature) {
+    console.log('highlighter'); 
+    console.log(feature);
+    /*
+     If we don't have a feature, populate from globals
+    */
+    if (!feature) {
+        feature = {
+            'properties': commaGetGlobals(),
+            'id':'all'
         }
-    }  else {
-        // Not a button
-
-        return;
-    }
-
+    } 
+    
+    let image = feature.properties.image?feature.properties.image:'/images/marker.png';
+    
+    $("#highlighter-wrapper").html(
+        `<img class="card-image" src="${image}" />
+        <h2>${feature.properties.title}</h2>        
+        `
+    )    
+    
 }
+
+function cardClick(event) {
+    let featureId = event.target.dataset.id
+    console.log(event.target.dataset.id);
+    //window.location.assign("#" + featureId);
+    //commaFeature(commaGetSelected(featureId))
+    commaHighlighter(commaGetSelected(featureId));
+    leafletNodeLayer.eachLayer(function(layer) {
+        setHighlighted(layer, doesRelate(layer._polygonId, leafletFeatureLookup[featureId])); 
+    })
+}
+
+
 //==========================================================
 
 $(document).ready(function () {
@@ -464,17 +466,28 @@ $(document).ready(function () {
         console.log("Got data");
         let globals = commaGetGlobals();
         console.log(globals);
-        $("#title").html(globals.title);
-
+        viewTabEventsInit();
         renderCards(commaGetFeatures());
-        renderTimeline('timeline-embed', commaGetFeatures());
-     /*
-        map = renderMap(mapContainer);
-        map.on('load', function () {
-            renderMapFeatures(map, commaGetFeatures({ class: 'geo' }))
-        });*/
-       renderLeaflet();
-       renderLeafletFeatures(commaGetFeatures({ class: 'geo' })) 
-       renderViewControls();
+        renderTimeline(commaGetFeatures());
+        /*
+           map = renderMap(mapContainer);
+           map.on('load', function () {
+               renderMapFeatures(map, commaGetFeatures({ class: 'geo' }))
+           });*/
+        renderLeaflet();
+        renderLeafletFeatures(commaGetFeatures({ class: 'geo' }))
+      // renderViewControls();
+        $(".card").click(cardClick);
+        $('#backButton').click(commaBrowser);
+        let selectedFeature = null;
+        //lets see if we have a valid feature selected        
+        if (selectedId = window.location.hash) {
+            selectedFeature = commaGetSelected(selectedId.substr(1));
+            if (selectedFeature) commaFeature(selectedFeature);
+        } else {
+            commaBrowser();
+        }
+        commaHighlighter(selectedFeature);
+
     });
 });

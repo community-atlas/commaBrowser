@@ -2,70 +2,104 @@
 <html>
 
 <head>
-
     <meta http-equiv="Content-Security-Policy"
         content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * ; connect-src *">
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
+    <link type="text/css" rel="stylesheet" href="css/comma.css" />
     <link title="timeline-styles" rel="stylesheet"
         href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
-    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/comma.css" />
-
-    <script type="text/javascript" src="js/mixitup.js"></script>
-
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
-
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    
+<!--
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
         integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
         crossorigin=""></script>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+-->
+        <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+        
+        
+
+
+
+    <link type="text/css" rel="stylesheet" href="css/mui.css" />
+    <script type="text/javascript" src="js/mui.js"></script>
+
+
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/mixitup.js"></script>
+
+    <style>
+        body {
+            font-family: "Roboto", "Helvetica Neue", Helvetica, Arial;
+        }
+    </style>
 
 </head>
 
 <body>
     <div id="base">
-        <div id="header"></div>
-        <div id="intro">
-            <h1 id="title">Community Atlas</h1>
-            <div id="source"></div>
-            <p id="description"></p>
-        </div>
+        <div id="appbar" class="mui-appbar">
+            <h1 id="title">Community Atlas</h1>              
+                    <!-- content -->
+        </div>        
+        <section id="commaBrowser" class="mui-contianer">
 
-
-
-        <div id="map-wrapper">
-            <!-- <div id="map"></div> -->
-            <div id="leafletMap"></div>
-        </div>
-        <div id="timeline-wrapper" class="inactive">
-            <h2>Timeline</h2>
-            <div id='timeline-embed'></div>
-        </div>
-        <div id=control-wrapper>
-            <div id="controls" class="controls" data-ref="controls"></div>
-            <div id="views" class="views"  data-ref="views">
-                <button type="button" class="control control-view" data-ref="view" data-type="map">Map</button>
-                <button type="button" class="control control-view" data-ref="view"
-                    data-type="timeline">Timeline</button>
+            <div id="intro">
+                
             </div>
-        </div>
-        <div id="card-wrapper">
-            <div id="cards" class="cards" data-ref="container">
-                <div class="gap" data-ref="first-gap"></div>
-                <div class="gap"></div>
-                <div class="gap"></div>
-            </div>
-        </div>
+            <ul class="mui--z4 mui-tabs__bar mui-tabs__bar--justified">
+                    <li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="map-wrapper">Map</a></li>
+                    <li><a data-mui-toggle="tab" data-mui-controls="timeline-wrapper">Timeline</a></li>                    
+                  </ul>
 
+           <!--
+            <div id="views" class="views" data-ref="views">
+                    <button type="button" class="control control-view" data-ref="view" data-type="map">Map</button>
+                    <button type="button" class="control control-view" data-ref="view"
+                        data-type="timeline">Timeline</button>
+                </div> -->
+            <div id="map-wrapper"  class="mui-tabs__pane mui--is-active">
+                <!-- <div id="map"></div> -->
+                <div id="leafletMap"></div>
+            </div>
+            <div id="timeline-wrapper" class="mui-tabs__pane" >                
+                <div id='timeline-embed'></div>
+            </div>
+            <div id="highlighter-wrapper">
+                 <h2>Community Atlas</h2>
+            </div>
+            <div id=control-wrapper>
+                <div id="controls" class="controls" data-ref="controls"></div>                
+            </div>
+            <div id="card-wrapper">
+                <div id="cards" class="cards" data-ref="container">
+                    <div class="gap" data-ref="first-gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                </div>
+            </div>
+        </section>
+        <section id="commaFeature">
+            <div id="intro">
+                <a id="backButton">back</a>
+                <h1 id="title">Community Atlas</h1>
+                <div id="source"></div>
+                <p id="description"></p>
+            </div>
+
+
+        </section>
 
 
 

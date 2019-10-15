@@ -11,9 +11,30 @@ body {
 }
 
 
-.inactive {
-    width:10%;
+/* 
+Sections
+---------------------------------------------------------------------*/
+
+#commaBrowser.inactive, #commaFeature.inactive {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
 }
+
+
+/*
+Highlighter
+---------------------------------------------------------------------*/
+#highlighter-wrapper {
+    width:100%;
+    height: 100px
+}
+
+#highlighter-wrapper .card-image  {
+    height:100%
+}
+
+
 /* Controls
 ---------------------------------------------------------------------- */
 
@@ -216,75 +237,63 @@ body {
     width:100%;
     height:50px;
 }
+
+
 /* Grid Breakpoints
 ---------------------------------------------------------------------- */
 
-/* 2 Columns */
+/* 2 Columns    - tiny */ 
 
 .card,
 .gap {
     width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
 }
 
-/* 3 Columns */
+#map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
+    height:350px;
+  }
+
+/* 3 Columns   - small */
 
 @media screen and (min-width: 541px) {
     .card,
     .gap {
         width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
     }
+   
+      
 }
 
-/* 4 Columns */
+/* 4 Columns  - medium  */
 
 @media screen and (min-width: 961px) {
     .card,
     .gap {
         width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
     }
+    #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
+        height:400px;
+      }
+     
 }
 
-/* 5 Columns */
+/* 5 Columns  - large */
 
 @media screen and (min-width: 1281px) {
     .card,
     .gap {
         width: calc(100%/5 - (((5 - 1) * 1rem) / 5));
     }
-}
-
-#map {     
-  width:400px;
-  height:400px;
-}
-
-
-#map-wrapper {
-  height:700px;
-}
-#map-wrapper.inactive {
-    position: absolute;
-   top: -9999px;
-   left: -9999px;
+    #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
+        height:500px;
+      }
+     
 }
 
 
+  
 
-#leafletMap {    
-    height: 600px;
-}
 
-#timeline-wrapper {
-  height:700px;
-}
-
-#timeline-embed {
-  width: 100%; 
-  height: 600px;
-}
-
-#timeline-wrapper.inactive {
-    position: absolute;
-   top: -9999px;
-   left: -9999px;
-}
+ 
+  
+  
