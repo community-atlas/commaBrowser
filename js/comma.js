@@ -134,6 +134,7 @@ function createTimelineEvent(feature) {
  */
 
 function convertFeaturesToTimeline(features) {
+    console.log(features);
     let events = features.map(createTimelineEvent);
     // remove nulls
     events = events.filter(x => x);
@@ -163,7 +164,7 @@ function convertFeaturesToTimeline(features) {
  */
 function renderTimeline(features) {
     console.log("Rendering comma as timeline");
-    const timeline = convertFeaturesToTimeline(features);
+    let timeline = convertFeaturesToTimeline(features);
     console.log(JSON.stringify(timeline));
     window.timeline = new TL.Timeline('timeline-embed', timeline, { debug: false });
 }
@@ -233,7 +234,7 @@ function renderCards(features) {
 }
 
 function renderFilter(type) {
-    return `<button type="button" class="control control-filter" data-ref="filter" data-type="${type}">${type}</button>`
+    return `<button type="button" class="mui-btn control control-filter" data-ref="filter" data-type="${type}">${type}</button>`
 }
 
 function renderFilters(categories) {
@@ -309,8 +310,11 @@ function handleButtonClick(button) {
     }
 
     let features = commaGetFeatures({ "filter": { "type": [type] } });
+    console.log("filtering by "+type);
+   
     mixer.dataset(features);
-    renderTimeline('timeline-embed', features);
+    console.log(features);
+    renderTimeline(features);
     let geoFeatures = commaGetFeatures({
         "filter": { "type": [type] },
         "class": "geo"
@@ -329,16 +333,15 @@ var leafletNodeLayer = {};
 var leafletFeatureLookup = {};
 
 function renderLeaflet() {
-    L.mapbox.accessToken = mapBoxToken;
-    leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-/*
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+   // L.mapbox.accessToken = mapBoxToken;
+   // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+   leafletMap = L.map('leafletMap');
+   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: mapBoxToken
     }).addTo(leafletMap);
-*/
 }
 
 
@@ -351,17 +354,16 @@ function renderLeafletFeatures(features) {
         "type": "FeatureCollection",
         "features": features
     };
-    if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
+    console.log(leafletNodeLayer);
+   // if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
     leafletNodeLayer = L.geoJSON(null,{
         onEachFeature: onEachFeature,
-        //style: L.mapbox.simplestyle.style
-        pointToLayer: L.mapbox.marker.style
+      //  style: L.mapbox.simplestyle.style
+        //pointToLayer: L.mapbox.marker.style
     }).addTo(leafletMap);
-
-
+    console.log('rendering map')
+    console.log(features);
     leafletNodeLayer.addData(geojson);
-    // add it to the map    
-    //leafletMap.fitBounds(bounds, { padding: 120 });
     leafletMap.fitBounds(leafletNodeLayer.getBounds(), { padding: [20, 20] });
 }
 
@@ -395,9 +397,42 @@ function viewTabEventsInit(){
     console.log("render map tab");  
     leafletMap._onResize();
    });
-  
 
   
+}
+
+function initDrawers(){
+        var $bodyEl = $('body'),
+         $sidedrawerEl = $('#sidedrawer');
+      
+      
+        function showSidedrawer() {
+          // show overlay
+          var options = {
+            onclose: function() {
+              $sidedrawerEl
+                .removeClass('active')
+                .appendTo(document.body);
+            }
+          };
+      
+          var $overlayEl = $(mui.overlay('on', options));
+      
+          // show element
+          $sidedrawerEl.appendTo($overlayEl);
+          setTimeout(function() {
+            $sidedrawerEl.addClass('active');
+          }, 20);
+        }
+      
+      
+        function hideSidedrawer() {
+          $bodyEl.toggleClass('hide-sidedrawer');
+        }
+      
+      
+        $('.js-show-sidedrawer').on('click', showSidedrawer);
+        $('.js-hide-sidedrawer').on('click', hideSidedrawer);
 }
 
 // =======================================================
@@ -439,7 +474,8 @@ function commaHighlighter(feature) {
     
     $("#highlighter-wrapper").html(
         `<img class="card-image" src="${image}" />
-        <h2>${feature.properties.title}</h2>        
+        <h2>${feature.properties.title}</h2> 
+        <p>${feature.properties.description}</p>       
         `
     )    
     
@@ -467,6 +503,7 @@ $(document).ready(function () {
         let globals = commaGetGlobals();
         console.log(globals);
         viewTabEventsInit();
+        initDrawers();
         renderCards(commaGetFeatures());
         renderTimeline(commaGetFeatures());
         /*
