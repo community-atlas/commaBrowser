@@ -64,10 +64,8 @@ function commaGetGlobals() {
  * @param {*} id 
  */
 function commaGetSelected(selector) {
-    let features = commaUnifyFeatures(commaGeo);
-    console.log('selecting');
-    let selected = features.find(function (feature) {
-        console.log('id:' + feature.id);
+    let features = commaUnifyFeatures(commaGeo);    
+    let selected = features.find(function (feature) {        
         return feature.id == selector
     });
     return selected;
@@ -202,11 +200,11 @@ function renderCard(feature) {
     console.log((feature.geometry !== null))
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    return `<div class="card ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
+    return `<div class="mui--z2 card ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
     <div class="image" style="background-image:url(${feature.properties.image})"></div>
     <img class="calendar" src="images/calendar.png">    
     <img class="marker" src="images/marker.png">    
-    <h4><a href="#${feature.id}">${feature.properties.title}</a></h4>
+    <h4>${feature.properties.title}</h4>
     <div class="featureID">${feature.id}</div>
     </div>`;
 }
@@ -368,17 +366,65 @@ function renderLeafletFeatures(features) {
 }
 
 
+var clickedMarker;
+var clickedIcon;
 
-function onEachFeature(feature, layer) {
-    leafletFeatureLookup[feature.id] = layer._polygonId; 
+var greenIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+  var blueIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+function onEachFeature(feature, layer) { 
+  
+    leafletFeatureLookup[feature.id] = L.stamp(layer); 
     layer.on('click', function (e) {
-      console.log('feature event');
+    
+      if (clickedMarker) {
+          clickedMarker.setIcon(blueIcon);
+      }
+      clickedIcon = e.target.icon;
+      clickedMarker = e.target;
+      e.target.setIcon(greenIcon);
 	  // does this feature have a property named popupContent?
 	  if (e.target.feature.id && e.target.feature.properties.title) {
           commaHighlighter(commaGetSelected(e.target.feature.id));		
     }
 });
 }
+
+function leafletHighightMarker(featureId) {
+  //console.log(leafletFeatureLookup);  
+  let _leaflet_id = leafletFeatureLookup[featureId];
+  console.log(_leaflet_id);
+  leafletMap.eachLayer(function(layer) {
+    if(layer._leaflet_id == _leaflet_id) {
+        console.log('highlight');
+        console.log(layer);        
+        if (clickedMarker) {
+            clickedMarker.setIcon(blueIcon);
+        }        
+        clickedMarker = layer;
+        layer.setIcon(greenIcon); 
+    }
+});
+
+
+
+}
+
+
 
 //==========================================================
 
@@ -487,9 +533,7 @@ function cardClick(event) {
     //window.location.assign("#" + featureId);
     //commaFeature(commaGetSelected(featureId))
     commaHighlighter(commaGetSelected(featureId));
-    leafletNodeLayer.eachLayer(function(layer) {
-        setHighlighted(layer, doesRelate(layer._polygonId, leafletFeatureLookup[featureId])); 
-    })
+    leafletHighightMarker(featureId);    
 }
 
 
