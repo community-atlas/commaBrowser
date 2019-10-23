@@ -49,6 +49,19 @@ body {
     padding-left: 10px;
   }
 
+  #zoomdrawer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+    right: -400px;
+    overflow: auto;
+    z-index: 0;    
+    transition: transform 0.2s;
+    padding-left: 10px;
+  }
+
+
   #appbar {
     z-index:2;
   }
@@ -82,28 +95,45 @@ body {
       transform: translate(200px);
     }
   
+    #zoomdrawer {
+      transform: translate(-400px);
+    }
+  
+
     #content-wrapper {
       margin-left: 200px;
+      margin-right:400px;
     }
   
     #footer {
       margin-left: 200px;
+      margin-right:400px;
     }
   
     body.hide-sidedrawer #header {
       left: 0;
     }
+    body.hide-zoomdrawer #header {
+      right:0;
+    }
   
-    body.hide-sidedrawer #sidedrawer {
+    body.hide-sidedrawer #sidedrawer, body.hide-zoomdrawer #zoomdrawer {
       transform: translate(0px);
     }
   
     body.hide-sidedrawer #content-wrapper {
       margin-left: 0;
     }
+
+    body.hide-zoomdrawer #content-wrapper {
+      margin-right:0;
+    }
   
     body.hide-sidedrawer #footer {
       margin-left: 0;
+    }
+    body.hide-zoomdrawer #footer {
+      margin-right: 0;
     }
   }
   
@@ -111,11 +141,12 @@ body {
   /**
    * Toggle Side drawer
    */
-  #sidedrawer.active {
+  #sidedrawer.active, #zoomdrawer.active {
     transform: translate(200px);
   }
   
   
+
   /**
    * Header CSS
    */
@@ -135,6 +166,7 @@ body {
   }
   
   
+
   /**
    * Footer CSS
    */
@@ -175,6 +207,7 @@ Highlighter
     float:left;
     height:100%;
     padding: 5px 10px;
+    max-width: 150px;
 }
 
 
@@ -287,10 +320,15 @@ Highlighter
 }
 
 .cards {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 10px;
+  
     padding: 1rem;
     text-align: justify;
     font-size: 0.1px;
     background-color: #fff;
+    overflow: hidden;
 }
 
 .cards:after {
@@ -324,14 +362,6 @@ Highlighter
 
 .card.geo {
     color: #91e6c7;
-}
-
-.card.pink {
-    color: #d595aa;
-}
-
-.card.blue {
-    color: #5ecdde;
 }
 
 .card h4 {
@@ -384,23 +414,25 @@ Highlighter
 
 /* 2 Columns    - tiny */ 
 
-.card,
-.gap {
-    width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
-}
 
 #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
     height:350px;    
     z-index: 1;    
   }
+/*
+  .card,
+  .gap {
+      width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
+  }
+  */
 
-/* 3 Columns   - small */
+  /* 3 Columns   - small */
 
 @media screen and (min-width: 541px) {
-    .card,
+   /* .card,
     .gap {
         width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
-    }
+    }*/
     .card .image {
       width:30px;
     }
@@ -414,10 +446,10 @@ Highlighter
 /* 4 Columns  - medium  */
 
 @media screen and (min-width: 961px) {
-    .card,
+   /* .card,
     .gap {
         width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
-    }
+    }*/
     #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
         height:400px;
       }
@@ -433,10 +465,10 @@ Highlighter
 /* 5 Columns  - large */
 
 @media screen and (min-width: 1281px) {
-    .card,
+  /*  .card,
     .gap {
         width: calc(100%/5 - (((5 - 1) * 1rem) / 5));
-    }
+    }*/
     #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
         height:500px;
       }
