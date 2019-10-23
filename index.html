@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Security-Policy"
-        content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * ; connect-src *">
+        content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * blob: * ; connect-src *">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +15,11 @@
     <link title="timeline-styles" rel="stylesheet"
         href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
 
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   <!-- <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
         integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-        crossorigin=""></script>
+        crossorigin=""></script>-->
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -32,6 +33,7 @@
 
 
     <link type="text/css" rel="stylesheet" href="css/mui.css" />
+    <link type="text/css" rel="stylesheet" href="css/mui-custom.css" />
     <script type="text/javascript" src="js/mui.js"></script>
 
 
@@ -52,7 +54,7 @@
         <div id="sidedrawer" class="mui--no-user-select mui--z3">
             <!-- Side drawer content goes here -->
             <div id="sidedrawer-intro" class="mui--appbar-line-height">
-                <img src="images/atlas-logo-x1.png" alt ="Community Atlas">                
+                <img src="images/atlas-logo-x1.png" alt="Community Atlas">
             </div>
             <div class="mui-divider"></div>
 
@@ -94,8 +96,14 @@
                     <div id="timeline-wrapper" class="mui-tabs__pane mui--z3 ">
                         <div id='timeline-embed'></div>
                     </div>
-                    <div id="highlighter-wrapper" class="mui--bg-accent-dark mui-container-fluid mui--z2">
-                        <h2>Community Atlas</h2>
+                    <div id="highlighter-wrapper" class="mui--bg-accent mui-container-fluid mui--z2">
+                        <div id="highlight-content">
+                            <h2>Community Atlas</h2>
+                        </div>
+                        <div id="zoomtoggle"> <a
+                                class="zoomdrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-zoomdrawer">></a>
+                            <a class="zoomdrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-zoomdrawer">></a></div>
+
                     </div>
                 </div>
                 <div id="card-wrapper" class=" mui-container-fluid">
@@ -106,26 +114,29 @@
                     </div>
                 </div>
             </section>
-            <section id="commaFeature"  >
-                <div id="intro" class=" mui--z4">
-                    <a id="backButton">back</a>
-                    <h1 id="title">Community Atlas</h1>
-                    <div id="source"></div>
-                    <p id="description"></p>
-                </div>
-            </section>
         </div>
-        <footer id="footer">
-            <div class="mui-container-fluid">
-                <br>
-                The community atlas browser from Commensi
+
+        <div id="zoomdrawer" class="mui--no-user-select mui--z3 mui--bg-accent">
+            <div id="zoomdrawer-intro" class="mui--appbar-line-height">
+                    DETAIL
             </div>
-        </footer>
+            
+            <a class="zoomdrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-zoomdrawer">x</a>
+            <div class="mui-divider"></div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="mui-container-fluid">
+            <br>
+            The community atlas browser from Commensi
+        </div>
+    </footer>
 
 
 
 
-        <script src="js/comma.js"></script>
+    <script src="js/comma.js"></script>
 </body>
 
 </html>

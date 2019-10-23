@@ -328,26 +328,25 @@ function handleButtonClick(button) {
 
 var leafletMap = {};
 var leafletNodeLayer = {};
+var leafletPolygonLayer = {};
+var leafletLayerGroup = {};
 var leafletFeatureLookup = {};
 
 function renderLeaflet() {
    // L.mapbox.accessToken = mapBoxToken;
    // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-   leafletMap = L.map('leafletMap');
+   // leafletMap = L.Wrld.map('leafletMap', '68e0ce6179ac3f8ae3df7a9949927879');
+  leafletMap = L.map('leafletMap');
    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: mapBoxToken
-    }).addTo(leafletMap);
+    }).addTo(leafletMap); 
+    leafletLayerGroup = L.layerGroup();
 }
 
-
-function renderLeafletFeatures(features) {
-    var bounds = new L.LatLngBounds();
-    features.forEach(function (feature) {
-        bounds.extend(feature.geometry.coordinates);
-    });
+function renderLeafletFeatures(features) {   
     const geojson = {
         "type": "FeatureCollection",
         "features": features
@@ -358,11 +357,28 @@ function renderLeafletFeatures(features) {
         onEachFeature: onEachFeature,
       //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
+        filter: function(feature){return feature.geometry.type.toLowerCase() == 'point'}
     }).addTo(leafletMap);
+
+    leafletPolygonLayer = L.geoJSON(null,{
+       // onEachFeature: onEachFeature,
+      //  style: L.mapbox.simplestyle.style
+        //pointToLayer: L.mapbox.marker.style
+        filter: function(feature){return feature.geometry.type.toLowerCase() != 'point'}
+    }).addTo(leafletMap);
+
+    
     console.log('rendering map')
-    console.log(features);
+    //console.log(features);
     leafletNodeLayer.addData(geojson);
-    leafletMap.fitBounds(leafletNodeLayer.getBounds(), { padding: [20, 20] });
+    leafletPolygonLayer.addData(geojson);
+    
+    // make sure that we get the right bounds for our data
+    let bounds = leafletNodeLayer.getBounds();
+    let polyBounds = leafletPolygonLayer.getBounds();
+    bounds.extend(polyBounds.getNorthEast());
+    bounds.extend(polyBounds.getSouthWest());
+    leafletMap.fitBounds(bounds, { padding: [20, 20] });
 }
 
 
@@ -450,7 +466,7 @@ function viewTabEventsInit(){
 function initDrawers(){
         var $bodyEl = $('body'),
          $sidedrawerEl = $('#sidedrawer');
-      
+         $zoomdrawerEl = $('#zoomdrawer');
       
         function showSidedrawer() {
           // show overlay
@@ -476,9 +492,40 @@ function initDrawers(){
           $bodyEl.toggleClass('hide-sidedrawer');
         }
       
+        function showZoomdrawer() {
+            console.log('zoom');
+            // show overlay
+            var options = {
+              onclose: function() {
+                $zoomdrawerEl
+                  .removeClass('active')
+                  .appendTo(document.body);
+              }
+            };
+        
+            var $overlayEl = $(mui.overlay('on', options));
+        
+            // show element
+            $zoomdrawerEl.appendTo($overlayEl);
+            setTimeout(function() {
+              $zoomdrawerEl.addClass('active');
+            }, 20);
+          }
+        
+        
+          function hideZoomdrawer() {
+            console.log('unzoom');
+            $bodyEl.toggleClass('hide-zoomdrawer');
+          }
+        
       
         $('.js-show-sidedrawer').on('click', showSidedrawer);
         $('.js-hide-sidedrawer').on('click', hideSidedrawer);
+        
+        
+        $('.js-show-zoomdrawer').on('click', showZoomdrawer);
+        $('.js-hide-zoomdrawer').on('click', hideZoomdrawer);
+
 }
 
 // =======================================================
@@ -518,7 +565,7 @@ function commaHighlighter(feature) {
     
     let image = feature.properties.image?feature.properties.image:'/images/marker.png';
     
-    $("#highlighter-wrapper").html(
+    $("#highlight-content").html(
         `<img class="card-image" src="${image}" />
         <h2>${feature.properties.title}</h2> 
         <p>${feature.properties.description}</p>       
