@@ -563,12 +563,13 @@ function commaHighlighter(feature) {
         }
     } 
     
-    let image = feature.properties.image?feature.properties.image:'/images/marker.png';
+    let image = feature.properties.image?feature.properties.image:'../images/marker.png';
     
+    let description = feature.properties.description.slice(0,255) + "..." || '';
     $("#highlight-content").html(
         `<img class="card-image" src="${image}" />
         <h2>${feature.properties.title}</h2> 
-        <p>${feature.properties.description}</p>       
+        <p>${description}</p>       
         `
     )    
     
