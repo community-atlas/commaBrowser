@@ -243,6 +243,10 @@ Highlighter
 /* Controls
 ---------------------------------------------------------------------- */
 
+.control.active {
+  background-color: palevioletred;
+}
+
 /*
 #control-wrapper {
    width:100%;
@@ -383,6 +387,10 @@ Highlighter
     position: relative;
 }
 
+
+.card.active {
+  background-color: palevioletred;
+}
 .card:before {
     content: '';
     display: inline-block;
@@ -506,7 +514,9 @@ Highlighter
 
 
   
+/* -------------------- Map fixes
 
+.leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated { will-change:auto !important; }
 
  
   

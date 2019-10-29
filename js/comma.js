@@ -1,10 +1,12 @@
-
-
 const commaJSONUrl = "https://raw.githubusercontent.com/the-greenman/community-atlas/master/geojson/atlas1.geojson"
 const mapBoxToken = "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg";
 
 // create our global variable for storing our data
 let commaGeo = {};
+// store our global filterset
+var filters = {};
+// The currently selected feature
+let selectedFeature = null;
 
 
 //---------------------------Utils
@@ -18,39 +20,60 @@ function commaUnifyFeatures(comma) {
 }
 
 /**
- * Returns an array of feature types defined
+ * Returns an array of a specific property from all features
  * 
  * @param {} features 
  */
-function commaExtractFeatureTypes(features) {
-    var types = features.map(function (feature) { return feature.properties.type });
-    types = [...new Set(types)];
-    return types;
+function commaExtractFeatureProperty(features, property = 'type') {
+    var properties = features.map(function (feature) { return feature.properties[property] });
+    properties = [...new Set(properties)];
+    return properties;
+}
+
+
+/**
+ * Returns an array of a feature categories
+ * 
+ * @param {} features 
+ */
+function commaExtractFeatureCategories(features) {
+    let categories = {}
+    features.forEach(feature => {                
+       if (feature.properties.category && !categories[feature.properties.category]) {
+           categories[feature.properties.category] = {
+               'category': feature.properties.category,
+               'description': feature.properties['category-description'],
+               'key':Object.keys(categories).length+1,
+           }
+       }    
+    });
+    return categories;
 }
 
 /**
  * Returns a filtered and sorted version of the unified dataset 
  * @param {object } params 
  */
-function commaGetFeatures(params) {
-    console.log(params);
+function commaGetFeatures(params=false,localFilters = false) {    
     let features = commaUnifyFeatures(commaGeo);
-    // filter 
-    if (params && params.filter && (params.filter.type.indexOf('All') == -1)) {
-        features = features.filter(function (feature) {
-            let keep = params.filter.type.indexOf(feature.properties.type) !== -1;
-            console.log(`${keep}: ${feature.properties.type} `)
-            return keep;
-        });
-    }
+    // filter the features
+    if (!localFilters) localFilters=filters;        
+    features = features.filter(function (feature) {
+        let keep = true;
+        Object.keys(localFilters).forEach(property => {
+            if (                
+                localFilters[property].indexOf(feature.properties[property]) == -1) keep=false;              
+        });          
+        return keep;
+    });
+    // we can also filter only for geo features
     if (params && params.class) {
         features = features.filter(function (feature) {
             let keep = false;
             if (params.class == 'geo') { keep = feature.hasOwnProperty('geometry') }
             return keep;
         });
-    }
-    console.log(features);
+    }    
     return features;
 }
 
@@ -58,35 +81,84 @@ function commaGetGlobals() {
     return commaGeo.properties;
 }
 
+/**
+ * Sets the current selected feature
+ * 
+ * @param {object} feature 
+ */
+function commaFeatureSelect(selector){
+  // if selector is already selected, we toggle
+  if (selectedFeature && selectedFeature.id == selector) selectedFeature = null 
+  else selectedFeature = commaFeatureFind(selector);
+  // get the id 
+  let id = null;
+  if (selectedFeature) id = selectedFeature.id;  
+  // update highligher
+  commaHighlighter(selectedFeature);
+  // update map
+  leafletHighightMarker(id);    
+  // update cards
+  cardHighlight(id);
+  commaUrlPush();
+}
 
 /**
  * Returns a single feature matching a selector
  * @param {*} id 
  */
-function commaGetSelected(selector) {
-    let features = commaUnifyFeatures(commaGeo);    
-    let selected = features.find(function (feature) {        
-        return feature.id == selector
-    });
+function commaFeatureFind(selector = null) {   
+    let selected = null;
+    if (!selector || (selectedFeature && selector == selectedFeature.id )) {
+        // if we have no selector, or the selector is the current selected feature
+        selected = selectedFeature;
+    } else if (selector) {        
+        // we are looking for a new feature
+        let features = commaUnifyFeatures(commaGeo);    
+        selected = features.find(function (feature) {        
+            return feature.id == selector
+        });        
+    } 
     return selected;
 }
 
 
-function GetURLParameter(sParam) {
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) {
-            return sParameterName[1];
-        }
-    }
+
+
+function commaUrlPush() {
+    const filterHash = filterEncode(filters);
+    const selectedHash = selectedFeature?"/"+encodeURIComponent(selectedFeature.id):'';
+    const url = '#' + filterHash + selectedHash;
+    window.location.assign(url);
 }
 
-function changeUrl(url) {
-    var new_url = window.location
-    window.history.pushState("data", "Title", new_url);
-    document.title = url;
+/**
+ * Retrieve settings from the URL
+ */
+function commaUrlPop() {
+  const hash = window.location.hash.substr(1);
+  console.log(hash);
+  if (hash) {
+    const components = hash.split('/');
+    console.log(components[0]);
+    if (components[0].length) {
+        filters = filterDecode(components[0]);
+    }
+    if (components[1]) {
+        console.log("select:"+components[1]);
+        selectedFeature = commaFeatureFind(decodeURIComponent(components[1]))
+    } 
+  }
+}
+
+function commaRender(){
+    let features = commaGetFeatures();
+    mixer.dataset(features);    
+    renderTimeline(features);
+    let geoFeatures = commaGetFeatures({        
+        "class": "geo"
+    })
+    // renderMapFeatures(map, geoFeatures);
+    renderLeafletFeatures(geoFeatures);
 }
 //---------------------------Timeline
 
@@ -175,7 +247,6 @@ const container = document.querySelector('[data-ref="container"]');
 var firstGap = document.querySelector('[data-ref="first-gap"]');
 
 var controls = document.querySelector('[data-ref="controls"]');
-var filters = document.querySelectorAll('[data-ref="filter"]');
 var sorts = document.querySelectorAll('[data-ref="sort"]');
 
 var activeType = 'All';
@@ -196,8 +267,9 @@ const mixer = mixitup(container, {
 });
 
 
-function renderCard(feature) {
-    console.log((feature.geometry !== null))
+
+
+function renderCard(feature) {    
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
     return `<div class="mui--z2 card ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
@@ -209,118 +281,21 @@ function renderCard(feature) {
     </div>`;
 }
 
+function cardHighlight(selector) {
+    let selected = document.querySelector('.card.active');
+    if (selected) selected.classList.remove('active');
+    if (selector)  document.querySelector("[data-id='"+selector+"']").classList.add('active');
+}
+
 
 function renderCards(features) {
-    const types = commaExtractFeatureTypes(features);
-    renderFilters(types);
-
-
-    // We can now set up a handler to listen for "click" events on our UI buttons
-
-    controls.addEventListener('click', function (e) {
-        handleButtonClick(e.target);
-    });
-
-    // Set controls the active controls on startup to match the default filter and sort
-
-    activateButton(controls.querySelector('[data-type="All"]'), filters);
-    activateButton(controls.querySelector('[data-order="asc"]'), sorts);
-
-    console.log(features);
-    console.log(types);
-    mixer.dataset(features);
-}
-
-function renderFilter(type) {
-    return `<button type="button" class="mui-btn control control-filter" data-ref="filter" data-type="${type}">${type}</button>`
-}
-
-function renderFilters(categories) {
-    const filters = categories.map(renderFilter);
-    filters.push(renderFilter('All'));
-    console.log(filters);
-    $('#controls').html(filters.concat());
+       mixer.dataset(features);
 }
 
 
-
-
-/**
-            * A helper function to set an active styling class on an active button,
-            * and remove it from its siblings at the same time.
-            *
-            * @param {HTMLElement} activeButton
-            * @param {HTMLELement[]} siblings
-            * @return {void}
-            */
-
-function activateButton(activeButton, siblings) {
-    var button;
-    var i;
-    console.log("Activeate");
-    console.log(siblings);
-    for (i = 0; i < siblings.length; i++) {
-        button = siblings[i];
-
-        button.classList[button === activeButton ? 'add' : 'remove']('control-active');
-    }
-}
-
-/**
- * A click handler to detect the type of button clicked, read off the
- * relevent attributes, call the API, and trigger a dataset operation.
- *
- * @param   {HTMLElement} button
- * @return  {void}
- */
-
-function handleButtonClick(button) {
-    // Define default values for color, sortBy and order
-    // incase they are not present in the clicked button
-
-    var type = activeType;
-    var sortBy = 'id';
-    var order = 'asc';
-
-    // If button is already active, or an operation is in progress, ignore the click
-
-    if (button.classList.contains('control-active') || mixer.isMixing()) return;
-
-    // Else, check what type of button it is, if any
-
-    if (button.matches('[data-ref="filter"]')) {
-        // Filter button
-
-        activateButton(button, filters);
-
-        type = activeType = button.getAttribute('data-type');
-    } else if (button.matches('[data-ref="sort"]')) {
-        // Sort button
-
-        activateButton(button, sorts);
-
-        sortBy = button.getAttribute('data-key');
-        order = button.getAttribute('data-order');
-    } else {
-        // Not a button
-
-        return;
-    }
-
-    let features = commaGetFeatures({ "filter": { "type": [type] } });
-    console.log("filtering by "+type);
-   
-    mixer.dataset(features);
-    console.log(features);
-    renderTimeline(features);
-    let geoFeatures = commaGetFeatures({
-        "filter": { "type": [type] },
-        "class": "geo"
-    })
-
-    // renderMapFeatures(map, geoFeatures);
-    renderLeafletFeatures(geoFeatures);
-
+function cardClick(event) {
+    let featureId = event.target.dataset.id;
+    commaFeatureSelect(featureId);
 }
 
 
@@ -352,16 +327,16 @@ function renderLeafletFeatures(features) {
         "features": features
     };
     console.log(leafletNodeLayer);
-   // if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
+   if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
     leafletNodeLayer = L.geoJSON(null,{
-        onEachFeature: onEachFeature,
+        onEachFeature: mapOnEachFeaturePoints,
       //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
         filter: function(feature){return feature.geometry.type.toLowerCase() == 'point'}
     }).addTo(leafletMap);
-
+    if (leafletPolygonLayer) leafletMap.removeLayer(leafletPolygonLayer);
     leafletPolygonLayer = L.geoJSON(null,{
-       // onEachFeature: onEachFeature,
+        onEachFeature: mapOnEachFeaturePoly,
       //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
         filter: function(feature){return feature.geometry.type.toLowerCase() != 'point'}
@@ -402,45 +377,215 @@ var greenIcon = new L.Icon({
     shadowSize: [41, 41]
   });
 
-function onEachFeature(feature, layer) { 
+/**
+ * Process every point feature
+ * @param {*} feature 
+ * @param {*} layer 
+ */
+function mapOnEachFeaturePoints(feature, layer) { 
   
     leafletFeatureLookup[feature.id] = L.stamp(layer); 
     layer.on('click', function (e) {
-    
-      if (clickedMarker) {
-          clickedMarker.setIcon(blueIcon);
-      }
+      mapResetMarkers();
       clickedIcon = e.target.icon;
       clickedMarker = e.target;
       e.target.setIcon(greenIcon);
 	  // does this feature have a property named popupContent?
 	  if (e.target.feature.id && e.target.feature.properties.title) {
-          commaHighlighter(commaGetSelected(e.target.feature.id));		
+        commaFeatureSelect(e.target.feature.id);          
     }
 });
 }
 
-function leafletHighightMarker(featureId) {
-  //console.log(leafletFeatureLookup);  
-  let _leaflet_id = leafletFeatureLookup[featureId];
-  console.log(_leaflet_id);
-  leafletMap.eachLayer(function(layer) {
-    if(layer._leaflet_id == _leaflet_id) {
-        console.log('highlight');
-        console.log(layer);        
-        if (clickedMarker) {
-            clickedMarker.setIcon(blueIcon);
+var clickedPoly;
+var clickedPolyColor;
+let mapFeaturePolyLookup = {};
+
+function mapOnEachFeaturePoly(feature,layer){
+    // store a reference
+    mapFeaturePolyLookup[feature.id] = L.stamp(layer); 
+    layer.on('click', e => {
+        mapResetMarkers();        
+        clickedPoly = e.target;
+        clickedPolyColor = e.target.options.color;
+        clickedPoly.setStyle({'color':'#ff3333'});
+        commaFeatureSelect(e.target.feature.id);          
+    });
+}
+
+/**
+ * Reset any currently highlighed map features 
+ * */
+function mapResetMarkers() {
+    if (clickedPoly) { 
+        clickedPoly.setStyle({'color':clickedPolyColor});
+    }    
+    if (clickedMarker) {
+        clickedMarker.setIcon(blueIcon);
+    }
+}
+
+/**
+ * Highlight the currently selected marker
+ * @todo Unify highlighting
+ * @param {string} featureId 
+ */
+function leafletHighightMarker(featureId) {  
+  //reset the current marker
+  mapResetMarkers();
+    if (featureId) {
+        let _leaflet_id = leafletFeatureLookup[featureId];  
+        if (_leaflet_id) {
+            
+            leafletMap.eachLayer(function(layer) {
+                if(layer._leaflet_id == _leaflet_id) {                                
+                    clickedMarker = layer;
+                    layer.setIcon(greenIcon); 
+                }
+            });
+        } 
+        else if (_leaflet_id = mapFeaturePolyLookup[featureId]) {            
+            leafletMap.eachLayer(function(layer) {
+                if(layer._leaflet_id == _leaflet_id) {                                
+                    clickedPoly = layer;
+                    clickedPolyColor = layer.options.color;
+                    clickedPoly.setStyle({'color':'#ff3333'});
+                }
+            });
+            
+        }
+    }
+}
+
+// ======================== Filters
+
+// returns the current filters
+function filterGet(){
+    return filters;
+}
+
+// set the state of a filter
+function filterSet(attribute, value, state) {
+  if (filters[attribute]) {
+      let index = filters[attribute].indexOf(value);
+      if (state && index == -1) {
+        filters[attribute].push(value);
+      } else if (!state && index !== -1) {
+          // remove the value 
+          if (filters[attribute].length==1) {
+              delete filters[attribute];
+          } else {
+            filters[attribute].splice(index,1);
+          }            
+      }
+  } else if (!filters[attribute] && state) {
+      // Add a new property
+      filters[attribute]=[value];
+  }
+ }
+
+// handle a click on a filter
+function filterClick(element){
+  let state = !element.classList.contains('active');
+  Object.keys(element.dataset).forEach(attribute => {
+      if (attribute != "ref") filterSet(attribute, element.dataset[attribute],state);
+      
+  });
+  filterDisplayUpdate(filters);
+  commaUrlPush();
+  commaRender();
+}
+
+// Update all filter elements with the active class
+function filterDisplayUpdate(localFilters = null){
+   if (!localFilters) localFilters= filters;
+   let elements = document.querySelectorAll('[data-ref="filter"]');
+   elements.forEach(element => {
+     element.classList.remove('active');
+     Object.keys(localFilters).forEach(property => {
+       if (localFilters[property].includes(element.dataset[property])) element.classList.add('active')       
+    });
+  });
+}
+
+
+/**
+ * Returns a string that can be used in the url hash
+ * @param {object} filters 
+ */
+function filterEncode(filters) {
+    let path = Object.keys(filters).map(filter => {
+        if (filters[filter]) {
+            let encoded = filters[filter].map(encodeURIComponent)
+            return encodeURIComponent(filter)+":"+encoded.join(',')
         }        
-        clickedMarker = layer;
-        layer.setIcon(greenIcon); 
+    });
+    return path.join('::');
+}
+
+/**
+ * Returns an object containing the filters defined in the url hash
+ * @param {string} hash 
+ */
+function filterDecode(hash) {
+  let filters = {};
+  const components = hash.split('::');
+  components.forEach(element => {
+      const propertyFilter = element.split(':');
+      filters[decodeURIComponent(propertyFilter[0])]=propertyFilter[1].split(',').map(decodeURIComponent);
+  });
+  console.log(filters);
+  return filters;
+}
+
+/**
+ * Renders a set of simple filters for a given property
+ * @param { array } values  An array of possible values
+ * @param { string } property   The name of the property being filtered
+ */
+function renderPropertyFilters(values,property = 'type' ) {
+    
+    function renderFilter(value) {
+        return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
+                   data-ref="filter" data-${property}="${value}" >${value}</button>`
     }
-});
-
-
-
+    const filters = values.map(renderFilter);    
+    console.log(filters);
+    $('#controls-'+property).html(filters.concat());
 }
 
 
+/**
+ * Renders the filters for the categories
+ * @param {array of objects} values 
+ */
+function renderCategoryFilters(values) {
+    const property = 'category';
+    function renderFilter(key) {
+        let value = values[key];
+        return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
+          data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
+    }    
+    const filters = Object.keys(values).map(renderFilter);    
+    console.log(filters);
+    $('#controls-category').html(filters.concat());
+}
+
+
+function renderFilters(features) {
+  const categories = commaExtractFeatureCategories(features);
+  const types = commaExtractFeatureProperty(features,'type');
+  renderPropertyFilters(types);
+  renderCategoryFilters(categories);
+  const filterControls = document.querySelectorAll('[data-ref="filter"]');
+    // We can now set up a handler to listen for "click" events on our UI buttons
+
+    filterControls.forEach(control => {
+        control.addEventListener('click', function (e) {
+            filterClick(e.target);
+        });
+    }); 
+}
 
 //==========================================================
 
@@ -550,9 +695,7 @@ function commaFeature(feature) {
 }
 
 
-function commaHighlighter(feature) {
-    console.log('highlighter'); 
-    console.log(feature);
+function commaHighlighter(feature) {    
     /*
      If we don't have a feature, populate from globals
     */
@@ -575,48 +718,36 @@ function commaHighlighter(feature) {
     
 }
 
-function cardClick(event) {
-    let featureId = event.target.dataset.id
-    console.log(event.target.dataset.id);
-    //window.location.assign("#" + featureId);
-    //commaFeature(commaGetSelected(featureId))
-    commaHighlighter(commaGetSelected(featureId));
-    leafletHighightMarker(featureId);    
-}
 
 
 //==========================================================
 
 $(document).ready(function () {
-    console.log("ready!");
-    $.getJSON(commaJSONUrl).done(function (data) {
+       $.getJSON(commaJSONUrl).done(function (data) {
         commaGeo = data;
-        console.log("Got data");
-        let globals = commaGetGlobals();
-        console.log(globals);
+        let globals = commaGetGlobals();        
+        let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data        
+
+        // perform initial rendering of all aspects so that we start will all the right data
         viewTabEventsInit();
         initDrawers();
-        renderCards(commaGetFeatures());
-        renderTimeline(commaGetFeatures());
-        /*
-           map = renderMap(mapContainer);
-           map.on('load', function () {
-               renderMapFeatures(map, commaGetFeatures({ class: 'geo' }))
-           });*/
+        
+        renderFilters(allFeatures); 
+        renderCards(allFeatures);
+        renderTimeline(commaGetFeatures());        
         renderLeaflet();
-        renderLeafletFeatures(commaGetFeatures({ class: 'geo' }))
+        renderLeafletFeatures(commaGetFeatures({ class: 'geo' }));
+        
+        // Now, if there are any updates pushed from the url or config update the display
+        commaUrlPop(); 
+        filterDisplayUpdate();
+        commaRender();
+
       // renderViewControls();
         $(".card").click(cardClick);
-        $('#backButton').click(commaBrowser);
-        let selectedFeature = null;
-        //lets see if we have a valid feature selected        
-        if (selectedId = window.location.hash) {
-            selectedFeature = commaGetSelected(selectedId.substr(1));
-            if (selectedFeature) commaFeature(selectedFeature);
-        } else {
-            commaBrowser();
-        }
-        commaHighlighter(selectedFeature);
+      //  $('#backButton').click(commaBrowser);       
+        //lets see if we have a valid feature selected                      
+        commaHighlighter(commaFeatureFind());
 
     });
 });
