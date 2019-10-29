@@ -550,8 +550,8 @@ function renderPropertyFilters(values,property = 'type' ) {
                    data-ref="filter" data-${property}="${value}" >${value}</button>`
     }
     const filters = values.map(renderFilter);    
-    console.log(filters);
-    $('#controls-'+property).html(filters.concat());
+    const title = "<h2>"+property+"</h2>";
+    $('#controls-'+property).html(title + filters.join(''));
 }
 
 
@@ -559,16 +559,19 @@ function renderPropertyFilters(values,property = 'type' ) {
  * Renders the filters for the categories
  * @param {array of objects} values 
  */
-function renderCategoryFilters(values) {
-    const property = 'category';
-    function renderFilter(key) {
-        let value = values[key];
-        return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
-          data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
-    }    
-    const filters = Object.keys(values).map(renderFilter);    
-    console.log(filters);
-    $('#controls-category').html(filters.concat());
+function renderCategoryFilters(values) {    
+        function renderFilter(key) {
+            let value = values[key];
+            return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
+            data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
+        }    
+        
+        const property = 'category';
+        const filters = Object.keys(values).map(renderFilter).join('');                
+        const title = "<h2>"+property+"</h2>";
+        const content = title + filters;
+        console.log(content);
+        $('#controls-category').html(content);    
 }
 
 
