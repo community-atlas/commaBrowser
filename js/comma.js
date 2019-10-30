@@ -192,8 +192,6 @@ function createTimelineEvent(feature) {
         if (feature.properties.image) event.background = { "url": feature.properties.image };
         if (feature.properties.image) event.media = { "url": feature.properties.image };
 
-
-        console.log(event);
         return event;
     }
 }
@@ -233,9 +231,7 @@ function convertFeaturesToTimeline(features) {
  * @param {*} comma 
  */
 function renderTimeline(features) {
-    console.log("Rendering comma as timeline");
     let timeline = convertFeaturesToTimeline(features);
-    console.log(JSON.stringify(timeline));
     window.timeline = new TL.Timeline('timeline-embed', timeline, { debug: false });
 }
 
@@ -272,12 +268,22 @@ const mixer = mixitup(container, {
 function renderCard(feature) {    
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    return `<div class="mui--z2 card ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
-    <div class="image" style="background-image:url(${feature.properties.image})"></div>
-    <img class="calendar" src="images/calendar.png">    
-    <img class="marker" src="images/marker.png">    
-    <h4>${feature.properties.title}</h4>
-    <div class="featureID">${feature.id}</div>
+    return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
+    <div class="card-image blue-grey darken-1 waves-effect waves-block waves-light">
+    <img src="${feature.properties.image}">
+    </div>
+    
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>${feature.properties.title}</span>
+        </div>
+        <div class="card-action">
+          <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
+          <i class="small material-icons map" alt="Feature appears on map">map</i>
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>
+            <p >${feature.properties.description}</p>
+        </div>    
     </div>`;
 }
 
@@ -294,7 +300,7 @@ function renderCards(features) {
 
 
 function cardClick(event) {
-    let featureId = event.target.dataset.id;
+    let featureId = event.currentTarget.parentElement.dataset.id;
     commaFeatureSelect(featureId);
 }
 
@@ -304,6 +310,7 @@ function cardClick(event) {
 var leafletMap = {};
 var leafletNodeLayer = {};
 var leafletPolygonLayer = {};
+var leafletClusterLayer = {};
 var leafletLayerGroup = {};
 var leafletFeatureLookup = {};
 
@@ -317,8 +324,7 @@ function renderLeaflet() {
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: mapBoxToken
-    }).addTo(leafletMap); 
-    leafletLayerGroup = L.layerGroup();
+    }).addTo(leafletMap);     
 }
 
 function renderLeafletFeatures(features) {   
@@ -333,7 +339,8 @@ function renderLeafletFeatures(features) {
       //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
         filter: function(feature){return feature.geometry.type.toLowerCase() == 'point'}
-    }).addTo(leafletMap);
+    }); // .addTo(leafletMap);
+
     if (leafletPolygonLayer) leafletMap.removeLayer(leafletPolygonLayer);
     leafletPolygonLayer = L.geoJSON(null,{
         onEachFeature: mapOnEachFeaturePoly,
@@ -348,6 +355,13 @@ function renderLeafletFeatures(features) {
     leafletNodeLayer.addData(geojson);
     leafletPolygonLayer.addData(geojson);
     
+    // clustering
+    if (leafletClusterLayer) leafletMap.removeLayer(leafletClusterLayer);
+    leafletClusterLayer = L.markerClusterGroup();
+    leafletClusterLayer.addLayer(leafletNodeLayer);
+    leafletMap.addLayer(leafletClusterLayer);
+
+
     // make sure that we get the right bounds for our data
     let bounds = leafletNodeLayer.getBounds();
     let polyBounds = leafletPolygonLayer.getBounds();
@@ -546,12 +560,14 @@ function filterDecode(hash) {
 function renderPropertyFilters(values,property = 'type' ) {
     
     function renderFilter(value) {
-        return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
-                   data-ref="filter" data-${property}="${value}" >${value}</button>`
+        return `<div class="chip control-filter control-filter-${property}" 
+        data-ref="filter" data-${property}="${value}" >${value}</div>`
+
+    
+
     }
     const filters = values.map(renderFilter);    
-    const title = "<h2>"+property+"</h2>";
-    $('#controls-'+property).html(title + filters.join(''));
+    $('#controls-'+property).html(filters.join(''));
 }
 
 
@@ -562,14 +578,19 @@ function renderPropertyFilters(values,property = 'type' ) {
 function renderCategoryFilters(values) {    
         function renderFilter(key) {
             let value = values[key];
-            return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
-            data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
+          //  return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
+          //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
+          
+                      
+           return `<div class="chip control-filter control-filter-${property}" 
+           data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</div>`
+
+
         }    
         
         const property = 'category';
         const filters = Object.keys(values).map(renderFilter).join('');                
-        const title = "<h2>"+property+"</h2>";
-        const content = title + filters;
+        const content = filters;
         console.log(content);
         $('#controls-category').html(content);    
 }
@@ -593,22 +614,14 @@ function renderFilters(features) {
 //==========================================================
 
 /**
- * 
+ * handle the re-rednering of map and timeline when the tab changes with new filters
  */
-function viewTabEventsInit(){
-  document.querySelector('[data-mui-controls="timeline-wrapper"]').addEventListener('mui.tabs.showend',  function(){ 
-    console.log("render timeline tab");  
+function materializeTabs(e){
+   //@todo: check active tab
     // timeline does not like to be rendered hidden.??
-      let features = commaGetFeatures({ "filter": { "type": [activeType] } });
-      console.log("rendering timeline");
-      renderTimeline(features);
-   });
-   document.querySelector('[data-mui-controls="map-wrapper"]').addEventListener('mui.tabs.showend',  function(){ 
-    console.log("render map tab");  
-    leafletMap._onResize();
-   });
-
-  
+    let features = commaGetFeatures();
+    renderTimeline(features);
+    leafletMap._onResize();  
 }
 
 function initDrawers(){
@@ -676,14 +689,20 @@ function initDrawers(){
 
 }
 
+/**
+ * Initialise the matarialize interface features
+ */
+function initMaterialize(){
+    M.AutoInit();
+    let tabElement = document.querySelector('.tabs')
+    var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});
+}
 // =======================================================
 function commaBrowser() {
     let globals = commaGetGlobals();
     $('#commaBrowser').addClass('active').removeClass('inactive');
     $('#commaFeature').addClass('inactive').removeClass('active');
-    document.title = "Community Atlas >> "+ globals.title;
-    window.location.assign("#");
-    console.log("back");
+    document.title = "Community Atlas >> "+globals.title; 
 
 }
 
@@ -729,11 +748,14 @@ $(document).ready(function () {
        $.getJSON(commaJSONUrl).done(function (data) {
         commaGeo = data;
         let globals = commaGetGlobals();        
-        let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data        
+        let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data       
+        document.title = "Community Atlas >> "+globals.title; 
+        $("nav #title").html(globals.title);
+
 
         // perform initial rendering of all aspects so that we start will all the right data
-        viewTabEventsInit();
-        initDrawers();
+        //viewTabEventsInit();
+      //  initDrawers();
         
         renderFilters(allFeatures); 
         renderCards(allFeatures);
@@ -745,9 +767,11 @@ $(document).ready(function () {
         commaUrlPop(); 
         filterDisplayUpdate();
         commaRender();
+        initMaterialize();
+        
 
       // renderViewControls();
-        $(".card").click(cardClick);
+        $(".card-image").click(cardClick);
       //  $('#backButton').click(commaBrowser);       
         //lets see if we have a valid feature selected                      
         commaHighlighter(commaFeatureFind());
