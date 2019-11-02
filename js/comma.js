@@ -10,6 +10,9 @@ let selectedFeature = null;
 
 
 //---------------------------Utils
+/** */
+
+
 /**
  * Combines all features into one list
  * @param {*} comma 
@@ -751,6 +754,7 @@ $(document).ready(function () {
         let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data       
         document.title = "Community Atlas >> "+globals.title; 
         $("nav #title").html(globals.title);
+        $("#cards-header-content").html(globals.title);
 
 
         // perform initial rendering of all aspects so that we start will all the right data

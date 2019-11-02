@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    background: #f2f2f2;
+    background: #fff;
 }
 
  
@@ -52,6 +52,15 @@ nav .brand-logo {
   padding-left: 20px;
 }
 
+nav {
+  z-index:3;
+}
+
+#content-wrapper 
+ {
+  z-index: 2;
+}
+
 /*
 Highlighter
 ---------------------------------------------------------------------*/
@@ -94,10 +103,24 @@ Highlighter
 
 
 */
-/* Container
+/* Cards
 ---------------------------------------------------------------------- */
-#card-wrapper {
+#cards-wrapper {
     clear: both;
+    z-index: 4;
+    border: solid 2px red;
+    background-color:#fff;
+}
+
+#cards-header {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  border-top: solid 2px black;
+  z-index: 4;
+  box-shadow: 0 -3px 2px 0 rgba(0, 0, 0, 0.14);
+
 }
 
 .cards {
@@ -105,9 +128,10 @@ Highlighter
   grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
   grid-gap: 10px;
   
-    padding: 1rem;  
+    padding: 0.75rem;  
     background-color: #fff;
     overflow: hidden;
+    z-index:4;
 }
 
 .cards:after {
