@@ -308,6 +308,7 @@ function renderCard(feature) {
         <div class="card-action">
           <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
           <i class="small material-icons map" alt="Feature appears on map">map</i>
+          
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>

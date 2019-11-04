@@ -236,11 +236,11 @@ Highlighter
 /* Grid Breakpoints
 ---------------------------------------------------------------------- */
 
-/* 2 Columns    - tiny */ 
+/* 2 Columns    - tiny  portrait*/ 
 
 
 #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
-    height:350px;    
+    height:600px;    
     z-index: 1;    
   }
 
