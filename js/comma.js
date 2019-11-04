@@ -308,7 +308,7 @@ function renderCard(feature) {
         <div class="card-action">
           <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
           <i class="small material-icons map" alt="Feature appears on map">map</i>
-          
+
         </div>
         <div class="card-reveal">
             <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>
@@ -685,7 +685,16 @@ function commaHighlighterZoom(element){
   bodyElement.classList.toggle('showDetail');  
 }
 
-  
+function commaViewer(element){
+    let target = element.currentTarget.dataset.view;
+    if (!bodyElement.classList.contains(target)) {
+        if (bodyElement.classList.length>0) bodyElement.classList.remove('viewMap','viewTimeline','viewCards');
+        bodyElement.classList.add(target);
+        let features = commaGetFeatures();
+        renderTimeline(features);
+        leafletMap._onResize();  
+    }
+}
 
 
 //==========================================================
@@ -722,6 +731,7 @@ $(document).ready(function () {
       // renderViewControls();
         $(".card-image").click(cardClick);
         $("#highlight-summary").click(commaHighlighterZoom);        
+        $("[data-ref='view']").click(commaViewer);        
       //  $('#backButton').click(commaBrowser);       
         //lets see if we have a valid feature selected                      
         commaHighlighter(commaFeatureFind());

@@ -35,10 +35,21 @@ margin-right:400px;
 }
 
 
-/*
-Drawers
-----------------------------------------------------
-*/
+#map-wrapper,#timeline-wrapper,#cards {
+  display:none;
+}
+
+.viewMap #map-wrapper, .viewTimeline #timeline-wrapper {
+  display: inline-block;
+}
+
+.viewCards #cards {
+  display:grid;
+}
+
+.viewer {
+  width:100%;
+}
 
 /*
 header
@@ -239,29 +250,13 @@ Highlighter
 /* 2 Columns    - tiny  portrait*/ 
 
 
-#map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
-    height:600px;    
+#content-wrapper, #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
+    height:100%;    
     z-index: 1;    
   }
 
 
-/* 4 Columns  - medium  */
 
-@media screen and (min-width: 992px) {
-    #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
-        height:400px;
-      }
-     
-}
-
-/* 5 Columns  - large */
-
-@media screen and (min-width: 1281px) {
-    #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
-        height:500px;
-      }
-     
-}
 
 /* ------------------------*/
 /* -------------------- Map fixes

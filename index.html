@@ -58,13 +58,20 @@
 
 </head>
 
-<body>
+<body class="viewMap">
 
     <div id="sidedrawer" class="sidenav">
         <!-- Side drawer content goes here -->
         <div id="sidedrawer-intro">
             <img id="logo" src="images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
         </div>
+        <div class="collection with-header">
+<h4 class="collection-header">Display</h4>
+<a class="collection-item" data-ref="view" data-view="viewMap">Map</a>
+<a class="collection-item" data-ref="view" data-view="viewTimeline">Timeline</a>
+<a class="collection-item" data-ref="view" data-view="viewCards">Cards</a>
+        </div>
+        
 
         <h4><i class="material-icons small">filter_list</i>Filter</h4>
         <ul id="control-wrapper" class="collapsible expandable">
@@ -78,7 +85,7 @@
             </li>
         </ul>
     </div>
-    <header id="header" class="navbar">
+    <header id="header" class="navbar-fixed">
         <nav class="light-blue lighten-1">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidedrawer" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
@@ -86,40 +93,28 @@
             </div>
         </nav>
     </header>
-    <div id="content-wrapper">
-        <section id="commaBrowser" class="">
-            <div class="row">
-                <div class="col s12">
-                    <ul class="tabs no-autoinit">
-                        <li class="tab col s6"><a href="#map-wrapper">Map</a></li>
-                        <li class="tab col s6"><a href="#timeline-wrapper">Timeline</a></li>
-                    </ul>
-                </div>
-                <div id="viewer-wrapper" class="row">
-                    <div id="map-wrapper" class="col s12">
+    <div id="content-wrapper">        
+                    
+                    <div id="map-wrapper" class="viewer" >
                         <!-- <div id="map"></div> -->
                         <div id="leafletMap"></div>
                     </div>
-                    <div id="timeline-wrapper" class="col s12">
+                    <div id="timeline-wrapper" class="viewer">
                         <div id='timeline-embed'></div>
                     </div>                    
-                </div>               
-            </div>
-            <div id="highlighter-wrapper" class="z-depth-2">
-                <div id="highlight-summary">                                          
-                </div> 
-                <div id="highlight-detail">
-                        <h2></h2>
-                        </div>                  
-            </div>
-            <div id="cards-header" class=""><div class="row"><div class="col s12" id="cards-header-content">Cards</div></div></div>
-                <div id="cards" class="cards" data-ref="container">
+
+                <div id="cards" class="cards viewer" data-ref="container">
                     <div class="gap" data-ref="first-gap"></div>
                     <div class="gap"></div>
                     <div class="gap"></div>
-                </div>            
-        </section>
-    </div>  
+                </div>                    
+    </div> 
+    <div id="highlighter-wrapper" class="z-depth-2">
+            <div id="highlight-summary">                                          
+            </div> 
+            <div id="highlight-detail">              
+            </div>                  
+        </div>
     <footer id="footer" class="page-footer">
         <div class="container">
             <br>
