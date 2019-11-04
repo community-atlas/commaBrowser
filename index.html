@@ -9,9 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-
-
     <link title="timeline-styles" rel="stylesheet"
         href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
@@ -63,7 +60,7 @@
 
 <body>
 
-    <div id="sidedrawer" class="sidenav sidenav-fixed">
+    <div id="sidedrawer" class="sidenav">
         <!-- Side drawer content goes here -->
         <div id="sidedrawer-intro">
             <img id="logo" src="images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
@@ -84,13 +81,13 @@
     <header id="header" class="navbar">
         <nav class="light-blue lighten-1">
             <div class="nav-wrapper">
-                <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="sidedrawer" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
                 <span id="title" class="brand-logo">Community Atlas</span>
             </div>
         </nav>
     </header>
     <div id="content-wrapper">
-        <section id="commaBrowser" class="contianer">
+        <section id="commaBrowser" class="">
             <div class="row">
                 <div class="col s12">
                     <ul class="tabs no-autoinit">
@@ -105,30 +102,24 @@
                     </div>
                     <div id="timeline-wrapper" class="col s12">
                         <div id='timeline-embed'></div>
-                    </div>
-                    <div id="highlighter-wrapper" class="col s12">
-                        <div id="highlight-content">
-                            <h2>Community Atlas</h2>
-                        </div>
-                    </div>
-                </div>
-               
+                    </div>                    
+                </div>               
+            </div>
+            <div id="highlighter-wrapper" class="z-depth-2">
+                <div id="highlight-summary">                                          
+                </div> 
+                <div id="highlight-detail">
+                        <h2></h2>
+                        </div>                  
             </div>
             <div id="cards-header" class=""><div class="row"><div class="col s12" id="cards-header-content">Cards</div></div></div>
                 <div id="cards" class="cards" data-ref="container">
                     <div class="gap" data-ref="first-gap"></div>
                     <div class="gap"></div>
                     <div class="gap"></div>
-                </div>
-            
+                </div>            
         </section>
-    </div>
-
-    <div id="zoomdrawer" class="mui--no-user-select mui--z3 mui--bg-accent">
-
-    </div>
-
-
+    </div>  
     <footer id="footer" class="page-footer">
         <div class="container">
             <br>

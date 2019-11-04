@@ -1,12 +1,32 @@
 const commaJSONUrl = "https://raw.githubusercontent.com/the-greenman/community-atlas/master/geojson/atlas1.geojson"
 const mapBoxToken = "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg";
 
+
+//--------------------------------------------------------------------- Globals
 // create our global variable for storing our data
 let commaGeo = {};
 // store our global filterset
 var filters = {};
 // The currently selected feature
 let selectedFeature = null;
+
+// Map globals
+var leafletMap = {};
+var leafletNodeLayer = {};
+var leafletPolygonLayer = {};
+var leafletClusterLayer = {};
+var leafletLayerGroup = {};
+var leafletFeatureLookup = {};
+
+var clickedMarker;
+var clickedIcon;
+var clickedPoly;
+var clickedPolyColor;
+let mapFeaturePolyLookup = {};
+
+// Elements 
+var bodyElement = {};
+
 
 
 //---------------------------Utils
@@ -103,6 +123,12 @@ function commaFeatureSelect(selector){
   // update cards
   cardHighlight(id);
   commaUrlPush();
+  if (id) {
+    bodyElement.classList.add('showFeatured');
+  }
+  else {
+      bodyElement.classList.remove('showFeatured')
+  }
 }
 
 /**
@@ -310,12 +336,6 @@ function cardClick(event) {
 
 // ------------------------ Leaflet
 
-var leafletMap = {};
-var leafletNodeLayer = {};
-var leafletPolygonLayer = {};
-var leafletClusterLayer = {};
-var leafletLayerGroup = {};
-var leafletFeatureLookup = {};
 
 function renderLeaflet() {
    // L.mapbox.accessToken = mapBoxToken;
@@ -374,8 +394,7 @@ function renderLeafletFeatures(features) {
 }
 
 
-var clickedMarker;
-var clickedIcon;
+
 
 var greenIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -413,10 +432,6 @@ function mapOnEachFeaturePoints(feature, layer) {
     }
 });
 }
-
-var clickedPoly;
-var clickedPolyColor;
-let mapFeaturePolyLookup = {};
 
 function mapOnEachFeaturePoly(feature,layer){
     // store a reference
@@ -627,71 +642,6 @@ function materializeTabs(e){
     leafletMap._onResize();  
 }
 
-function initDrawers(){
-        var $bodyEl = $('body'),
-         $sidedrawerEl = $('#sidedrawer');
-         $zoomdrawerEl = $('#zoomdrawer');
-      
-        function showSidedrawer() {
-          // show overlay
-          var options = {
-            onclose: function() {
-              $sidedrawerEl
-                .removeClass('active')
-                .appendTo(document.body);
-            }
-          };
-      
-          var $overlayEl = $(mui.overlay('on', options));
-      
-          // show element
-          $sidedrawerEl.appendTo($overlayEl);
-          setTimeout(function() {
-            $sidedrawerEl.addClass('active');
-          }, 20);
-        }
-      
-      
-        function hideSidedrawer() {
-          $bodyEl.toggleClass('hide-sidedrawer');
-        }
-      
-        function showZoomdrawer() {
-            console.log('zoom');
-            // show overlay
-            var options = {
-              onclose: function() {
-                $zoomdrawerEl
-                  .removeClass('active')
-                  .appendTo(document.body);
-              }
-            };
-        
-            var $overlayEl = $(mui.overlay('on', options));
-        
-            // show element
-            $zoomdrawerEl.appendTo($overlayEl);
-            setTimeout(function() {
-              $zoomdrawerEl.addClass('active');
-            }, 20);
-          }
-        
-        
-          function hideZoomdrawer() {
-            console.log('unzoom');
-            $bodyEl.toggleClass('hide-zoomdrawer');
-          }
-        
-      
-        $('.js-show-sidedrawer').on('click', showSidedrawer);
-        $('.js-hide-sidedrawer').on('click', hideSidedrawer);
-        
-        
-        $('.js-show-zoomdrawer').on('click', showZoomdrawer);
-        $('.js-hide-zoomdrawer').on('click', hideZoomdrawer);
-
-}
-
 /**
  * Initialise the matarialize interface features
  */
@@ -701,23 +651,6 @@ function initMaterialize(){
     var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});
 }
 // =======================================================
-function commaBrowser() {
-    let globals = commaGetGlobals();
-    $('#commaBrowser').addClass('active').removeClass('inactive');
-    $('#commaFeature').addClass('inactive').removeClass('active');
-    document.title = "Community Atlas >> "+globals.title; 
-
-}
-
-
-function commaFeature(feature) {
-    let globals = commaGetGlobals();
-    $('#commaFeature').addClass('active').removeClass('inactive');
-    $('#commaBrowser').addClass('inactive').removeClass('active');
-    console.log(feature);
-    $("#appbar #title").html(feature.properties.title);
-    document.title = "Community Atlas >> "+globals.title + " >> " + feature.properties.title;
-}
 
 
 function commaHighlighter(feature) {    
@@ -729,27 +662,38 @@ function commaHighlighter(feature) {
             'properties': commaGetGlobals(),
             'id':'all'
         }
-    } 
-    
+    }     
     let image = feature.properties.image?feature.properties.image:'../images/marker.png';
-    
-    let description = feature.properties.description.slice(0,255) + "..." || '';
-    $("#highlight-content").html(
-        `<img class="card-image" src="${image}" />
-        <h2>${feature.properties.title}</h2> 
-        <p>${description}</p>       
+    let description = feature.properties.description.replace(/\n/g, "<br />") || '';
+
+    $("#highlight-summary").html(
+        `<div class="card-image"><i class="material-icons left zoomClose">arrow_back</i><img src="${image}" /></div>
+        <h2><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
-    )    
-    
+    )
+    $("#highlight-detail").html(
+        `<p class="description">${description}<p> `
+    )        
 }
 
+/**
+ * Zooms into the emlement detail
+ * @param {*} element 
+ */
+function commaHighlighterZoom(element){
+  bodyElement.classList.toggle('showDetail');  
+}
+
+  
 
 
 //==========================================================
 
 $(document).ready(function () {
+    bodyElement = document.getElementsByTagName('body')[0];
+
        $.getJSON(commaJSONUrl).done(function (data) {
-        commaGeo = data;
+        commaGeo = data;        
         let globals = commaGetGlobals();        
         let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data       
         document.title = "Community Atlas >> "+globals.title; 
@@ -776,6 +720,7 @@ $(document).ready(function () {
 
       // renderViewControls();
         $(".card-image").click(cardClick);
+        $("#highlight-summary").click(commaHighlighterZoom);        
       //  $('#backButton').click(commaBrowser);       
         //lets see if we have a valid feature selected                      
         commaHighlighter(commaFeatureFind());

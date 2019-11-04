@@ -27,16 +27,18 @@ body {
 Layout
 -------------------------------------------------------------------*/
 
-header, #content-wrapper, footer {
-  padding-left: 300px;
+header, #content-wrapper, footer {  
 }
 
-@media only screen and (max-width : 992px) {
-  header, #content-wrapper, footer {
-    padding-left: 0;
-  }
+.showDetail header, .showDetail #content-wrapper, .showDetail footer {  
+margin-right:400px;
 }
 
+
+/*
+Drawers
+----------------------------------------------------
+*/
 
 /*
 header
@@ -64,34 +66,93 @@ nav {
 /*
 Highlighter
 ---------------------------------------------------------------------*/
+
 #highlighter-wrapper {
-  position: relative;
-  display: inline-block;
+  display:none;
+}
+
+#highlighter-wrapper {
+  position: absolute;
   vertical-align: top;
   overflow: hidden;  
-  width:100%;
+  z-index: 2; 
+  background-color: #fff;
+  border-radius:10px;
+  transition: height 0.3s;     
+}
+
+
+.showFeatured #highlighter-wrapper {
+  display: inline-block;
+  width:250px;
   height: 150px;
-  z-index: 0;
-        
+  top:160px;
+  right:25px;       
 }
 
-#highlighter-wrapper #highlight-content {
-  width:80%;
+.showDetail #highlighter-wrapper {
+  display: inline-block;
+  width:400px;
+  height: 100%;
+  top:0px;
+  right:0;       
+  position: fixed;
+  overflow: auto;  
 }
 
-#highlighter-wrapper #zoomtoggle {
-  position: absolute;
-  right:0px;
-  top: 20px;
-  padding:20px;
+.showFeatured  #highlight-summary .card-image  {    
+    width:100%;
+    padding: 0;
+    max-height: 70px;
+    overflow: hidden;
 }
 
-#highlighter-wrapper .card-image  {
-    float:left;
-    height:100%;
-    padding: 5px 10px;
-    max-width: 150px;
+.showDetail  #highlight-summary .card-image  {    
+  width:100%;
+  padding: 0;
+  max-height: 250px;
+  overflow: hidden;
 }
+#highlight-summary .card-image img {
+  object-fit: cover;
+  width:100%;
+}
+
+
+.showFeatured  #highlight-summary h2  {    
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.showDetail  #highlight-summary h2  {    
+  padding: 10px;
+  font-size: 2rem;
+}
+
+.showDetail  #highlight-summary .zoomOpen {
+  display:none;
+}
+
+.zoomClose {
+  display:none;
+}
+
+.showDetail .zoomClose {
+  display:inline-block;
+}
+
+
+#highlight-detail {
+  display:none; 
+}
+
+
+.showDetail #highlight-detail {
+  display:inline-block;
+  width:100%; 
+  padding:10px;
+}
+
 
 
 /* Controls
