@@ -93,7 +93,7 @@ Highlighter
 }
 
 
-.showFeatured #highlighter-wrapper {
+.viewMap.showFeatured #highlighter-wrapper {
   display: inline-block;
   width:250px;
   height: 150px;
@@ -101,7 +101,7 @@ Highlighter
   right:25px;       
 }
 
-.showDetail #highlighter-wrapper {
+.viewMap.showDetail #highlighter-wrapper, .viewCards.showDetail #highlighter-wrapper {
   display: inline-block;
   width:400px;
   height: 100%;
