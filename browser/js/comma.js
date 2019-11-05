@@ -1,14 +1,16 @@
-const commaJSONUrl = "https://raw.githubusercontent.com/the-greenman/community-atlas/master/geojson/atlas1.geojson"
-const mapBoxToken = "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg";
-
-
 //--------------------------------------------------------------------- Globals
 // create our global variable for storing our data
-let commaGeo = {};
+let commaGeo = {}; // the raw data
+let commaFeatures = []; // processed Features
 // store our global filterset
-var filters = {};
+let filters = {};
 // The currently selected feature
 let selectedFeature = null;
+// current view
+let currentView = "map";
+
+
+
 
 // Map globals
 var leafletMap = {};
@@ -30,7 +32,50 @@ var bodyElement = {};
 
 
 //---------------------------Utils
-/** */
+
+/**
+ * Returns the relevant config 
+ * @param {*} key 
+ */
+function commaGetConfig(key){
+    if (key) {
+        return CONFIG[key];
+    } else {
+        return CONFIG; 
+    }
+}
+
+/**
+ * Process the incoming geodata
+ * @param {object} geoData 
+ */
+function commaInitialiseGeoData(geoData) {
+    commaGeo = geoData;  
+    features = commaUnifyFeatures(geoData);
+    features = geoData.features.map(commaFeatureFill);
+    commaFeatures = features; 
+    return features;
+}
+
+/**
+ * Fills out any missing or invalid information in a feature
+ * @param {object} feature 
+ */
+var featureIdCounter = 1; // Used to assign ids to features
+function commaFeatureFill(feature) {
+  if (!feature.id) {
+      feature.id = featureIdCounter++; 
+  }
+
+  let propertyDefaults = {
+      "type" : '',
+      "description" : "",      
+  }
+
+  feature.properties = {...propertyDefaults, ...feature.properties}
+  feature.properties.description = feature.properties.description.replace(/\n/g, "<br />") || '';  
+  return feature; 
+}
 
 
 /**
@@ -73,12 +118,13 @@ function commaExtractFeatureCategories(features) {
     return categories;
 }
 
+
 /**
  * Returns a filtered and sorted version of the unified dataset 
  * @param {object } params 
  */
 function commaGetFeatures(params=false,localFilters = false) {    
-    let features = commaUnifyFeatures(commaGeo);
+    let features = commaFeatures;
     // filter the features
     if (!localFilters) localFilters=filters;        
     features = features.filter(function (feature) {
@@ -99,6 +145,8 @@ function commaGetFeatures(params=false,localFilters = false) {
     }    
     return features;
 }
+
+
 
 function commaGetGlobals() {
     return commaGeo.properties;
@@ -125,9 +173,11 @@ function commaFeatureSelect(selector){
   commaUrlPush();
   if (id) {
     bodyElement.classList.add('showFeatured');
+    if (currentView!=='map') bodyElement.classList.add('showDetail');  // force detail if we are not on the map
   }
   else {
-      bodyElement.classList.remove('showFeatured')
+      bodyElement.classList.remove('showFeatured');
+      if (currentView!=='map') bodyElement.classList.remove('showDetail');  // force detail if we are not on the map
   }
 }
 
@@ -142,7 +192,7 @@ function commaFeatureFind(selector = null) {
         selected = selectedFeature;
     } else if (selector) {        
         // we are looking for a new feature
-        let features = commaUnifyFeatures(commaGeo);    
+        let features = commaFeatures;    
         selected = features.find(function (feature) {        
             return feature.id == selector
         });        
@@ -156,7 +206,7 @@ function commaFeatureFind(selector = null) {
 function commaUrlPush() {
     const filterHash = filterEncode(filters);
     const selectedHash = selectedFeature?"/"+encodeURIComponent(selectedFeature.id):'';
-    const url = '#' + filterHash + selectedHash;
+    const url = '#' + currentView + "/" + filterHash + selectedHash;
     window.location.assign(url);
 }
 
@@ -167,13 +217,14 @@ function commaUrlPop() {
   const hash = window.location.hash.substr(1);
   console.log(hash);
   if (hash) {
-    const components = hash.split('/');
-    console.log(components[0]);
+    const components = hash.split('/');        
     if (components[0].length) {
-        filters = filterDecode(components[0]);
+        commaSetView(components[0]);
+    } 
+    if (components[1].length) {
+        filters = filterDecode(components[1]);
     }
-    if (components[1]) {
-        console.log("select:"+components[1]);
+    if (components[2]) {
         selectedFeature = commaFeatureFind(decodeURIComponent(components[1]))
     } 
   }
@@ -346,8 +397,8 @@ function renderLeaflet() {
    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: mapBoxToken
+        id: commaGetConfig('mapId'),
+        accessToken: commaGetConfig('mapBoxToken')
     }).addTo(leafletMap);     
 }
 
@@ -567,7 +618,6 @@ function filterDecode(hash) {
       const propertyFilter = element.split(':');
       filters[decodeURIComponent(propertyFilter[0])]=propertyFilter[1].split(',').map(decodeURIComponent);
   });
-  console.log(filters);
   return filters;
 }
 
@@ -581,9 +631,6 @@ function renderPropertyFilters(values,property = 'type' ) {
     function renderFilter(value) {
         return `<div class="chip control-filter control-filter-${property}" 
         data-ref="filter" data-${property}="${value}" >${value}</div>`
-
-    
-
     }
     const filters = values.map(renderFilter);    
     $('#controls-'+property).html(filters.join(''));
@@ -665,16 +712,49 @@ function commaHighlighter(feature) {
         }
     }     
     let image = feature.properties.image?feature.properties.image:'../images/marker.png';
-    let description = feature.properties.description.replace(/\n/g, "<br />") || '';
+    let event = feature.properties.start_date ? 'event' : '';
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
 
     $("#highlight-summary").html(
         `<div class="card-image"><i class="material-icons left zoomClose">arrow_back</i><img src="${image}" /></div>
         <h2><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
     )
-    $("#highlight-detail").html(
-        `<p class="description">${description}<p> `
-    )        
+    let fields = {
+        type: 'Type',
+        'start': 'Start',
+        'end': 'End',
+        'category': 'Category',
+        'subcategory': 'Sub category',
+
+    }
+    let properties = feature.properties;
+    $("#highlight-detail").html(`
+        <div id="highlight-detail-properties" class="${geo} ${event}">
+        <ul class="collection">
+            <li class="collection-item avatar">
+                <i class="material-icons circle small">folder</i>
+                <span class="type">${properties.type}</span>
+            </li>
+            <li class="collection-item avatar">
+                <i class="material-icons circle small">layers</i>
+                <span class="title">${properties.category}</span>
+                <p>${properties['sub-category']}</p>
+            </li>
+            <li class="collection-item avatar event small">
+                <i class="material-icons circle">date_range</i>
+                <p>
+                    ${fields.start} : ${properties.start_date}<br\>
+                    ${fields.end} : ${properties.end_date}<br\>
+                </p>
+            </li>
+        </ul>
+        </div>
+        <div id="highlight=detail-description">        
+            <p class="description">${properties.description}<p>
+        </div>
+        
+    `)        
 }
 
 /**
@@ -682,18 +762,51 @@ function commaHighlighter(feature) {
  * @param {*} element 
  */
 function commaHighlighterZoom(element){
-  bodyElement.classList.toggle('showDetail');  
+
+    bodyElement.classList.toggle('showDetail');  
 }
 
+/**
+ * Onclick handler for view change
+ * @param {object} element 
+ */
 function commaViewer(element){
-    let target = element.currentTarget.dataset.view;
-    if (!bodyElement.classList.contains(target)) {
-        if (bodyElement.classList.length>0) bodyElement.classList.remove('viewMap','viewTimeline','viewCards');
-        bodyElement.classList.add(target);
-        let features = commaGetFeatures();
-        renderTimeline(features);
-        leafletMap._onResize();  
+    commaSetView(element.currentTarget.dataset.view);
+}
+
+
+/**
+ * Changes the current view
+ * @param {string} view 
+ */
+function commaSetView(view) {
+    let cssClass; 
+    switch (view) {                    
+        case 'timeline': 
+          cssClass = 'viewTimeline';
+        break;
+        case 'cards': 
+          cssClass = 'viewCards';
+        break;
+        case 'map': 
+        default:
+          cssClass = 'viewMap';
+        break;
     }
+
+    if (!bodyElement.classList.contains(cssClass)) {
+        if (bodyElement.classList.length>0) bodyElement.classList.remove('viewMap','viewTimeline','viewCards');                
+        bodyElement.classList.add(cssClass);
+
+        if (view == 'timeline' )  { 
+            renderTimeline(commaFeatures);
+        }
+        else if (view == 'map') {
+          leafletMap._onResize();  
+        }
+        currentView = view; 
+    }
+    
 }
 
 
@@ -702,10 +815,10 @@ function commaViewer(element){
 $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
 
-       $.getJSON(commaJSONUrl).done(function (data) {
-        commaGeo = data;        
-        let globals = commaGetGlobals();        
-        let allFeatures = commaGetFeatures({},{}); // Pass two empty filter objects to make sure we get all data       
+       $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
+        commaInitialiseGeoData(data);
+
+        let globals = commaGetGlobals();                    
         document.title = "Community Atlas >> "+globals.title; 
         $("nav #title").html(globals.title);
         $("#cards-header-content").html(globals.title);
@@ -715,9 +828,9 @@ $(document).ready(function () {
         //viewTabEventsInit();
       //  initDrawers();
         
-        renderFilters(allFeatures); 
-        renderCards(allFeatures);
-        renderTimeline(commaGetFeatures());        
+        renderFilters(commaFeatures); 
+        renderCards(commaFeatures);
+        renderTimeline(commaFeatures);        
         renderLeaflet();
         renderLeafletFeatures(commaGetFeatures({ class: 'geo' }));
         
@@ -735,6 +848,6 @@ $(document).ready(function () {
       //  $('#backButton').click(commaBrowser);       
         //lets see if we have a valid feature selected                      
         commaHighlighter(commaFeatureFind());
-
+        commaSetView(currentView);
     });
 });

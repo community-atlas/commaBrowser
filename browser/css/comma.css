@@ -22,13 +22,15 @@ body {
     box-sizing: border-box;
 }
 
+body {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial;
+}
 
 /*
 Layout
 -------------------------------------------------------------------*/
 
-header, #content-wrapper, footer {  
-}
+
 
 .showDetail header, .showDetail #content-wrapper, .showDetail footer {  
 margin-right:400px;
@@ -105,7 +107,7 @@ Highlighter
   display: inline-block;
   width:400px;
   height: 100%;
-  top:0px;
+  top:64px;
   right:0;       
   position: fixed;
   overflow: auto;  
