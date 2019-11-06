@@ -29,7 +29,8 @@ let mapFeaturePolyLookup = {};
 // Elements 
 var bodyElement = {};
 
-
+// Global Config 
+var localConfig;
 
 //---------------------------Utils
 
@@ -38,10 +39,22 @@ var bodyElement = {};
  * @param {*} key 
  */
 function commaGetConfig(key){
+
+    function getLocalConfig(){                
+        let configDomain = null; 
+        let urlParameters = new URLSearchParams(document.URL.search);
+        if (!(configDomain = urlParameters.get("atlas")))  {
+          if (!(configDomain = window.location.hostname.split('.')[0])) {
+              configDomain = Object.keys(CONFIG)[0];
+          }
+        }
+        localConfig = CONFIG[configDomain];
+    }
+    if (!localConfig) getLocalConfig();
     if (key) {
-        return CONFIG[key];
+        return localConfig[key];
     } else {
-        return CONFIG; 
+        return localConfig; 
     }
 }
 
