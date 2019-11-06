@@ -43,13 +43,18 @@ function commaGetConfig(key){
     function getLocalConfig(){                
         let configDomain = null; 
         let urlParameters = new URLSearchParams(document.URL.search);
+        let configKeys = Object.keys(CONFIG);
+
+
         if (!(configDomain = urlParameters.get("atlas")))  {
-          if (!(configDomain = window.location.hostname.split('.')[0])) {
+          if (!(configDomain = window.location.hostname.split('.')[0]) || configKeys.indexOf(configDomain) == -1) {
               configDomain = Object.keys(CONFIG)[0];
           }
         }
+        console.log(configDomain); 
         localConfig = CONFIG[configDomain];
     }
+
     if (!localConfig) getLocalConfig();
     if (key) {
         return localConfig[key];
@@ -76,9 +81,20 @@ function commaInitialiseGeoData(geoData) {
  */
 var featureIdCounter = 1; // Used to assign ids to features
 function commaFeatureFill(feature) {
+    let geometry;
   if (!feature.id) {
       feature.id = featureIdCounter++; 
   }
+  if (!feature.properties.image) {
+      if (geometry = feature.geometry.coordinates) {
+         if (Array.isArray(geometry[0])) {
+             geometry = geometry[0][0];
+         }
+         feature.properties.image=`https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${geometry[0]},${geometry[1]},13,0,0/400x300?access_token=pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmI1enMwZmkwM2dsaWg3emJnODg1In0.kD8yI6unRQOrVzNY-07-tg`
+      }
+      
+  }
+
 
   let propertyDefaults = {
       "type" : '',
@@ -162,7 +178,10 @@ function commaGetFeatures(params=false,localFilters = false) {
 
 
 function commaGetGlobals() {
-    return commaGeo.properties;
+    let defaults = {
+      type:'Community atlas',
+    };    
+    return {...defaults, ...commaGeo.properties}
 }
 
 /**
@@ -228,7 +247,7 @@ function commaUrlPush() {
  */
 function commaUrlPop() {
   const hash = window.location.hash.substr(1);
-  console.log(hash);
+  let filterChange = false; 
   if (hash) {
     const components = hash.split('/');        
     if (components[0].length) {
@@ -236,11 +255,14 @@ function commaUrlPop() {
     } 
     if (components[1].length) {
         filters = filterDecode(components[1]);
+        filterChange = true; 
+
     }
     if (components[2]) {
         selectedFeature = commaFeatureFind(decodeURIComponent(components[1]))
     } 
   }
+  return filterChange;
 }
 
 function commaRender(){
@@ -842,16 +864,18 @@ $(document).ready(function () {
       //  initDrawers();
         
         renderFilters(commaFeatures); 
-        renderCards(commaFeatures);
-        renderTimeline(commaFeatures);        
+        //renderCards(commaFeatures);
+        //renderTimeline(commaFeatures);        
         renderLeaflet();
-        renderLeafletFeatures(commaGetFeatures({ class: 'geo' }));
+        initMaterialize();
+        //renderLeafletFeatures(commaGetFeatures({ class: 'geo' }));
         
         // Now, if there are any updates pushed from the url or config update the display
-        commaUrlPop(); 
-        filterDisplayUpdate();
+        if (commaUrlPop()) {
+            filterDisplayUpdate();           
+        }
         commaRender();
-        initMaterialize();
+        
         
 
       // renderViewControls();
