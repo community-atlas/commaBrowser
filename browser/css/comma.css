@@ -30,9 +30,10 @@ body {
 Layout
 -------------------------------------------------------------------*/
 
+header, #content-wrapper, footer {  
+}
 
-
-.showDetail header, .showDetail #content-wrapper, .showDetail footer {  
+.showDetail header, .showDetail .cards, .showDetail footer {  
 margin-right:400px;
 }
 
