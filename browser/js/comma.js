@@ -758,45 +758,55 @@ function commaHighlighter(feature) {
         }
     }     
     let image = feature.properties.image?feature.properties.image:'../images/marker.png';
-    let event = feature.properties.start_date ? 'event' : '';
+    let event = feature.properties.end_date?'event':'';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
 
+   
+
     $("#highlight-summary").html(
-        `<div class="card-image"><i class="material-icons left zoomClose">arrow_back</i><img src="${image}" /></div>
-        <h2><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
+        `<div class="card-image"><img src="${image}" /></div>
+        <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
     )
     let fields = {
         type: 'Type',
-        'start': 'Start',
+        'start': 'Start: ',
         'end': 'End',
         'category': 'Category',
         'subcategory': 'Sub category',
 
     }
     let properties = feature.properties;
+    let content = [];
+    content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">folder</i>
+    <span class="type">${properties.type}</span></div>`);
+    if (properties.category) {
+        let subcategory = '';
+        if (properties['sub-category']) {
+            subcategory = `\\<span class="subcategory">${properties['sub-category']}</span>`
+        }
+        content.push(`<div id="highlight-detail-layers" class="detail"><i class="material-icons tiny ">layers</i>
+        <span class="category">${properties.category}</span>${subcategory}</div>`);
+    }
+    if (properties.start_date) {        
+        
+        let start_date = new Date(properties.start_date).toLocaleDateString();
+        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;        
+        if (properties.end_date) {
+            let end_date =  new Date(properties.end_date).toLocaleDateString(); 
+            dateContent +=`<span class="end">${fields.end} ${end_date}</span>`;        
+        }
+        content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
+    }
+
+
+
+    content=content.join('');
     $("#highlight-detail").html(`
         <div id="highlight-detail-properties" class="${geo} ${event}">
-        <ul class="collection">
-            <li class="collection-item avatar">
-                <i class="material-icons circle small">folder</i>
-                <span class="type">${properties.type}</span>
-            </li>
-            <li class="collection-item avatar">
-                <i class="material-icons circle small">layers</i>
-                <span class="title">${properties.category}</span>
-                <p>${properties['sub-category']}</p>
-            </li>
-            <li class="collection-item avatar event small">
-                <i class="material-icons circle">date_range</i>
-                <p>
-                    ${fields.start} : ${properties.start_date}<br\>
-                    ${fields.end} : ${properties.end_date}<br\>
-                </p>
-            </li>
-        </ul>
+           ${content}
         </div>
-        <div id="highlight=detail-description">        
+        <div id="highlight-detail-description">        
             <p class="description">${properties.description}<p>
         </div>
         
