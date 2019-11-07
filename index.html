@@ -40,36 +40,36 @@
     <!-- tools -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="browser/js/mixitup.min.js"></script>
-    
-    <link type="text/css" rel="stylesheet" href="browser/css/comma.css" />    
+
+    <link type="text/css" rel="stylesheet" href="browser/css/comma.css" />
 </head>
 
-<body class="viewMap showDetail">
+<body class="viewMap">
 
     <div id="sidedrawer" class="sidenav">
         <!-- Side drawer content goes here -->
-    <div id="sidedrawer-intro">
-        <img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
-    </div>
-    <div class="collection with-header">
-        <h4 class="collection-header">Display</h4>
-        <a class="collection-item" data-ref="view" data-view="map">Map</a>
-        <a class="collection-item" data-ref="view" data-view="timeline">Timeline</a>
-        <a class="collection-item" data-ref="view" data-view="cards">Cards</a>
-    </div>
+        <div id="sidedrawer-intro">
+            <img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
+        </div>
+        <div class="collection with-header">
+            <h4 class="collection-header"><i class="material-icons">panorama</i>Display</h4>
+            <a class="collection-item" data-ref="view" data-view="map"><i class="material-icons right">map</i> Map</a>
+            <a class="collection-item" data-ref="view" data-view="timeline"><i class="material-icons right">event</i> Timeline</a>
+            <a class="collection-item" data-ref="view" data-view="cards"><i class="material-icons right">collections</i> Cards</a>
+        </div>
 
 
-    <h4><i class="material-icons small">filter_list</i>Filter</h4>
-    <ul id="control-wrapper" class="collapsible expandable">
-        <li class="active">
-            <div class="collapsible-header"><i class="material-icons">layers</i>Categories</div>
-            <div id="controls-category" class="collapsible-body controls" data-ref="controls"></div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">category</i>Types</div>
-            <div id="controls-type" class="collapsible-body controls" data-ref="controls"></div>
-        </li>
-    </ul>
+        <h4><i class="material-icons small">filter_list</i>Filter</h4>
+        <ul id="control-wrapper" class="collapsible expandable">
+            <li class="active">
+                <div class="collapsible-header"><i class="material-icons">layers</i>Categories</div>
+                <div id="controls-category" class="collapsible-body controls" data-ref="controls"></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">category</i>Types</div>
+                <div id="controls-type" class="collapsible-body controls" data-ref="controls"></div>
+            </li>
+        </ul>
     </div>
     <header id="header" class="navbar-fixed">
         <nav class="light-blue lighten-1">
@@ -81,28 +81,27 @@
         </nav>
     </header>
     <div id="content-wrapper">
-        <div id="map-wrapper" class="viewer">
-            <!-- <div id="map"></div> -->
+        <div id="map-wrapper" class="viewer">            
             <div id="leafletMap"></div>
         </div>
         <div id="timeline-wrapper" class="viewer">
             <div id='timeline-embed'></div>
         </div>
-         <div id="cards-wrapper" class="viewer">
-        <div id="cards" class="cards" data-ref="container">
-            <div class="gap" data-ref="first-gap"></div>
-            <div class="gap"></div>
-            <div class="gap"></div>
+        <div id="cards-wrapper" class="viewer">
+            <div id="cards" class="cards" data-ref="container">
+                <div class="gap" data-ref="first-gap"></div>
+                <div class="gap"></div>
+                <div class="gap"></div>
+            </div>
         </div>
     </div>
-        <div id="highlighter-wrapper" class="z-depth-2">
-                <div id="highlight-summary">
-                </div>
-                <div id="highlight-detail">
-                </div>
-            </div>
+    <div id="highlighter-wrapper">
+        <div id="highlight-summary">
+        </div>
+        <div id="highlight-detail">
+        </div>
     </div>
-  <!--
+    <!--
     <footer id="footer" class="page-footer">
         <div class="container">
             <br>
@@ -112,6 +111,6 @@
 -->
     <script src="browser/js/comma.js"></script>
     <script type="text/javascript" src="browser/js/materialize.min.js"></script>
-    </body>
+</body>
 
 </html>

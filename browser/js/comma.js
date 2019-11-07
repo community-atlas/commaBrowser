@@ -434,7 +434,8 @@ function renderLeaflet() {
         maxZoom: 18,
         id: commaGetConfig('mapId'),
         accessToken: commaGetConfig('mapBoxToken')
-    }).addTo(leafletMap);     
+    }).addTo(leafletMap);   
+    leafletMap.on('move', mapOnMove);  
 }
 
 function renderLeafletFeatures(features) {   
@@ -499,6 +500,16 @@ var greenIcon = new L.Icon({
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
   });
+
+
+  /**
+   * Event handler for map move event
+   * @param {*} event 
+   */
+
+  function mapOnMove(event){
+      commaHighlighterDetailSet(false);
+  }
 
 /**
  * Process every point feature
@@ -792,14 +803,29 @@ function commaHighlighter(feature) {
     `)        
 }
 
+
+
+
+
+function commaHighlighterDetailSet(show) {
+    if (show) bodyElement.classList.add('showDetail','showFeatured');  
+    else {
+        // remove the detail, but put the small card back
+        bodyElement.classList.remove('showDetail');  
+        bodyElement.classList.add('showFeatured');
+    }  
+
+}
+
 /**
  * Zooms into the emlement detail
  * @param {*} element 
  */
-function commaHighlighterZoom(element){
-
+function commaHighlighterDetailToggle(element){
     bodyElement.classList.toggle('showDetail');  
+    bodyElement.classList.add('showFeatured');  
 }
+
 
 /**
  * Onclick handler for view change
@@ -840,6 +866,7 @@ function commaSetView(view) {
           leafletMap._onResize();  
         }
         currentView = view; 
+        commaUrlPush();
     }
     
 }
@@ -874,17 +901,19 @@ $(document).ready(function () {
         if (commaUrlPop()) {
             filterDisplayUpdate();           
         }
-        commaRender();
-        
-        
-
-      // renderViewControls();
-        $(".card-image").click(cardClick);
-        $("#highlight-summary").click(commaHighlighterZoom);        
-        $("[data-ref='view']").click(commaViewer);        
-      //  $('#backButton').click(commaBrowser);       
+        commaRender();        
         //lets see if we have a valid feature selected                      
         commaHighlighter(commaFeatureFind());
         commaSetView(currentView);
+        commaHighlighterDetailSet(commaGetConfig('showDetail'));
+
+
+    
+      // renderViewControls();
+      $(".card-image").click(cardClick);
+      $("#highlight-summary").click(commaHighlighterDetailToggle);        
+      $("[data-ref='view']").click(commaViewer);   
+
+
     });
 });
