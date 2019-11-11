@@ -289,7 +289,8 @@ function commaExtractFeatureCategories(features) {
  * @param {*} features 
  */
 function commaExtractFeatureTags(features) {
-    let tags = features.map(feature =>{if(feature.properties.tags) return feature.properties.tags })
+    let tags = [];
+    features.forEach(feature =>{if(feature.properties.tags) tags= tags.concat(feature.properties.tags) })
     tags = [...new Set(tags)]
     return tags; 
 }
@@ -306,8 +307,16 @@ function commaGetFeatures(params=false,localFilters = false) {
     features = features.filter(function (feature) {
         let keep = true;
         Object.keys(localFilters).forEach(property => {
-            if (                
-                localFilters[property].indexOf(feature.properties[property]) == -1) keep=false;              
+            if (feature.properties[property] && Array.isArray(feature.properties[property])) {
+                feature.properties[property].forEach(value => {
+                    // loop through each value in the target property
+                    let found=false;
+                    if (localFilters[property].indexOf(value)  != -1) found=true;
+                    keep=found;
+                } )
+            } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
+                keep=false;
+            }              
         });          
         return keep;
     });
@@ -833,12 +842,12 @@ function renderCategoryFilters(values) {
 
 
 function renderTagFilter(value) {
-    return `<div class="chip control-filter control-filter-tag" 
-    data-ref="filter" data-tag="${value}" >${value}</div>`
+    return `<div class="chip control-filter control-filter-tags" 
+    data-ref="filter" data-tags="${value}" >${value}</div>`
 }
 
-function renderTagFilters(tags, elementLocator = "controls-tags"){    
-    const filters = Object.keys(tags).map(renderTagFilter).join('');                
+function renderTagFilters(tags, elementLocator = "#controls-tags"){    
+    let filters = tags.map(renderTagFilter).join('');                
     $(elementLocator).html(filters);  
 }
 
@@ -850,7 +859,7 @@ function renderFilters(features) {
 
   renderPropertyFilters(types);
   renderCategoryFilters(categories);
-  renderTagFilters(categories);
+  renderTagFilters(tags);
 
   const filterControls = document.querySelectorAll('[data-ref="filter"]');
     // We can now set up a handler to listen for "click" events on our UI buttons
