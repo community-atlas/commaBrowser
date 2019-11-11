@@ -32,6 +32,143 @@ var bodyElement = {};
 // Global Config 
 var localConfig;
 
+
+/**
+ * ----------------------------------------------------------------------------------------------
+ * Primary Renderers
+ */
+
+
+
+ 
+/**
+ * Renders an individual feature on a card
+ * @param {object} feature 
+ */
+function renderCard(feature) {    
+    let event = feature.properties.start_date ? 'event' : '';
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
+    return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
+    <div class="card-image blue-grey darken-1 waves-effect waves-block waves-light">
+    <img src="${feature.properties.image}">
+    </div>
+    
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>${feature.properties.title}</span>
+        </div>
+        <div class="card-action">
+          <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
+          <i class="small material-icons map" alt="Feature appears on map">map</i>
+
+        </div>
+        <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>
+            <p >${feature.properties.description}</p>
+        </div>    
+    </div>`;
+}
+
+/**
+ * Renders the detailed display of a feature
+ * @param {object} feature 
+ */
+function renderHighlighter(feature) {    
+    /*
+     If we don't have a feature, populate from globals
+    */
+    if (!feature) {
+        feature = {
+            'properties': commaGetGlobals(),
+            'id':'all'
+        }
+    }     
+    let image = feature.properties.image?feature.properties.image:'../images/marker.png';
+    let event = feature.properties.end_date?'event':'';
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : ''; 
+
+    $("#highlight-summary").html(
+        `<div class="card-image"><img src="${image}" /></div>
+        <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
+        `
+    )
+
+
+    let fields = {
+        type: 'Type',
+        'start': 'Start: ',
+        'end': 'End',
+        'category': 'Category',
+        'subcategory': 'Sub category',
+
+    }
+    let properties = feature.properties;
+    let content = [];
+
+    
+    content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">folder</i>
+    <span class="type">${properties.type}</span></div>`);
+
+    //category
+    if (properties.category) {
+        let subcategory = '';
+        if (properties['sub-category']) {
+            subcategory = `\\<span class="subcategory">${properties['sub-category']}</span>`
+        }
+        content.push(`<div id="highlight-detail-layers" class="detail"><i class="material-icons tiny ">layers</i>
+        <span class="category">${properties.category}</span>${subcategory}</div>`);
+    }
+    // Event
+    if (properties.start_date) {        
+        
+        let start_date = new Date(properties.start_date).toLocaleDateString();
+        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;        
+        if (properties.end_date) {
+            let end_date =  new Date(properties.end_date).toLocaleDateString(); 
+            dateContent +=`<span class="end">${fields.end} ${end_date}</span>`;        
+        }
+        content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
+    }
+    //lines
+    if (properties.links) {
+        let links = properties.links.map(link => {
+            // we have to have a url
+            if (link.url && link.url.length > 0 ) {
+                let url = link.url.toLowerCase().substr(0,4)=="http"?link.url:"http://"+link.url;
+                let title = (link.title && link.title.length>0)?link.title:link.url; 
+                let type = link.type || "website";
+                let description = link.description || "";
+                let icon = "language";
+                return `<a href="${url}" alt="${description}" class="collection-item"><i class="material-icons tiny">${icon}</i> ${title}</a>`
+        
+            }
+        });
+        if (links.length>0) {
+            links = links.join("");
+            content.push(`<div id="highlight-detail-links" class="collection">${links}</div>`);
+        }
+    }
+   
+
+
+
+
+
+    //wrapper
+    content=content.join('');
+    $("#highlight-detail").html(`
+        <div id="highlight-detail-properties" class="${geo} ${event}">
+           ${content}
+        </div>
+        <div id="highlight-detail-description">        
+            <p class="description">${properties.description}<p>
+        </div>
+        
+    `)        
+}
+
+
+
+
 //---------------------------Utils
 
 /**
@@ -147,6 +284,16 @@ function commaExtractFeatureCategories(features) {
     return categories;
 }
 
+/**
+ * Returns an array of all tags
+ * @param {*} features 
+ */
+function commaExtractFeatureTags(features) {
+    let tags = features.map(feature =>{if(feature.properties.tags) return feature.properties.tags })
+    tags = [...new Set(tags)]
+    return tags; 
+}
+
 
 /**
  * Returns a filtered and sorted version of the unified dataset 
@@ -197,7 +344,7 @@ function commaFeatureSelect(selector){
   let id = null;
   if (selectedFeature) id = selectedFeature.id;  
   // update highligher
-  commaHighlighter(selectedFeature);
+  renderHighlighter(selectedFeature);
   // update map
   leafletHighightMarker(id);    
   // update cards
@@ -378,30 +525,6 @@ const mixer = mixitup(container, {
 });
 
 
-
-
-function renderCard(feature) {    
-    let event = feature.properties.start_date ? 'event' : '';
-    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
-    <div class="card-image blue-grey darken-1 waves-effect waves-block waves-light">
-    <img src="${feature.properties.image}">
-    </div>
-    
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>${feature.properties.title}</span>
-        </div>
-        <div class="card-action">
-          <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
-          <i class="small material-icons map" alt="Feature appears on map">map</i>
-
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>
-            <p >${feature.properties.description}</p>
-        </div>    
-    </div>`;
-}
 
 function cardHighlight(selector) {
     let selected = document.querySelector('.card.active');
@@ -708,11 +831,27 @@ function renderCategoryFilters(values) {
 }
 
 
+
+function renderTagFilter(value) {
+    return `<div class="chip control-filter control-filter-tag" 
+    data-ref="filter" data-tag="${value}" >${value}</div>`
+}
+
+function renderTagFilters(tags, elementLocator = "controls-tags"){    
+    const filters = Object.keys(tags).map(renderTagFilter).join('');                
+    $(elementLocator).html(filters);  
+}
+
+
 function renderFilters(features) {
   const categories = commaExtractFeatureCategories(features);
   const types = commaExtractFeatureProperty(features,'type');
+  const tags = commaExtractFeatureTags(features);
+
   renderPropertyFilters(types);
   renderCategoryFilters(categories);
+  renderTagFilters(categories);
+
   const filterControls = document.querySelectorAll('[data-ref="filter"]');
     // We can now set up a handler to listen for "click" events on our UI buttons
 
@@ -746,72 +885,6 @@ function initMaterialize(){
 }
 // =======================================================
 
-
-function commaHighlighter(feature) {    
-    /*
-     If we don't have a feature, populate from globals
-    */
-    if (!feature) {
-        feature = {
-            'properties': commaGetGlobals(),
-            'id':'all'
-        }
-    }     
-    let image = feature.properties.image?feature.properties.image:'../images/marker.png';
-    let event = feature.properties.end_date?'event':'';
-    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-
-   
-
-    $("#highlight-summary").html(
-        `<div class="card-image"><img src="${image}" /></div>
-        <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
-        `
-    )
-    let fields = {
-        type: 'Type',
-        'start': 'Start: ',
-        'end': 'End',
-        'category': 'Category',
-        'subcategory': 'Sub category',
-
-    }
-    let properties = feature.properties;
-    let content = [];
-    content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">folder</i>
-    <span class="type">${properties.type}</span></div>`);
-    if (properties.category) {
-        let subcategory = '';
-        if (properties['sub-category']) {
-            subcategory = `\\<span class="subcategory">${properties['sub-category']}</span>`
-        }
-        content.push(`<div id="highlight-detail-layers" class="detail"><i class="material-icons tiny ">layers</i>
-        <span class="category">${properties.category}</span>${subcategory}</div>`);
-    }
-    if (properties.start_date) {        
-        
-        let start_date = new Date(properties.start_date).toLocaleDateString();
-        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;        
-        if (properties.end_date) {
-            let end_date =  new Date(properties.end_date).toLocaleDateString(); 
-            dateContent +=`<span class="end">${fields.end} ${end_date}</span>`;        
-        }
-        content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
-    }
-
-
-
-    content=content.join('');
-    $("#highlight-detail").html(`
-        <div id="highlight-detail-properties" class="${geo} ${event}">
-           ${content}
-        </div>
-        <div id="highlight-detail-description">        
-            <p class="description">${properties.description}<p>
-        </div>
-        
-    `)        
-}
 
 
 
@@ -913,7 +986,7 @@ $(document).ready(function () {
         }
         commaRender();        
         //lets see if we have a valid feature selected                      
-        commaHighlighter(commaFeatureFind());
+        renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
         commaHighlighterDetailSet(commaGetConfig('showDetail'));
 
