@@ -410,6 +410,13 @@ function commaUrlPop() {
     if (components[0].length) {
         commaSetView(components[0]);
     } 
+  } else {
+      // if there is no URL override, check the config for a default      
+      if (commaGetConfig('filters')) {
+          filters = commaGetConfig('filters');
+          filterChange = true;
+      }
+
   }
   return filterChange;
 }
@@ -978,7 +985,9 @@ $(document).ready(function () {
        $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
         commaInitialiseGeoData(data);
 
-        let globals = commaGetGlobals();                    
+        let globals = commaGetGlobals();              
+        
+        //@todo...... Move these
         document.title = "Community Atlas >> "+globals.title; 
         $("nav #title").html(globals.title);
         $("#cards-header-content").html(globals.title);

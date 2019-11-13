@@ -10,7 +10,10 @@ var CONFIG = {
         "mapBoxToken" : "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView" : "map",
-        "showDetail": true
+        "showDetail": true,
+        "filters": {
+            "category":["Delimitations"],
+        }
     },
  
     "palermo":{
