@@ -54,17 +54,13 @@ function renderCard(feature) {
     </div>
     
         <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i>${feature.properties.title}</span>
+            <span class="card-title grey-text text-darken-4"><i class="material-icons right forward">arrow_forward</i><i class="material-icons right back">arrow_back</i>${feature.properties.title}</span>
         </div>
         <div class="card-action">
           <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
           <i class="small material-icons map" alt="Feature appears on map">map</i>
 
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i>${feature.properties.title}</span>
-            <p >${feature.properties.description}</p>
-        </div>    
+        </div>       
     </div>`;
 }
 
@@ -404,16 +400,15 @@ function commaUrlPop() {
   let filterChange = false; 
   if (hash) {
     const components = hash.split('/');        
-    if (components[0].length) {
-        commaSetView(components[0]);
+    if (components[2]) {
+        selectedFeature = commaFeatureFind(decodeURIComponent(components[2]))
     } 
     if (components[1].length) {
         filters = filterDecode(components[1]);
         filterChange = true; 
-
     }
-    if (components[2]) {
-        selectedFeature = commaFeatureFind(decodeURIComponent(components[1]))
+    if (components[0].length) {
+        commaSetView(components[0]);
     } 
   }
   return filterChange;
@@ -1013,7 +1008,7 @@ $(document).ready(function () {
 
     
       // renderViewControls();
-      $(".card-image").click(cardClick);
+      $(".card-image, .card-content").click(cardClick);
       $("#highlight-summary").click(commaHighlighterDetailToggle);        
       $("[data-ref='view']").click(commaViewer);   
 
