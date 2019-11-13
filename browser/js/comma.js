@@ -142,22 +142,44 @@ function renderHighlighter(feature) {
         if (links.length>0) {
             links = links.join("");
             content.push(`<div id="highlight-detail-links" class="collection">${links}</div>`);
+        }        
+    }
+
+    content.push(`
+    <div id="highlight-detail-description">        
+        <p class="description">${properties.description}<p>
+    </div>`);        
+
+
+    if (properties.relationships && properties.relationships.length>0) {
+        console.log('relations');
+        console.log(properties.relationships);
+        let related = properties.relationships.map(id => {
+            let feature
+            if (feature = commaFeatureFind(id)) {
+              return renderCard(feature);
+            }
+        });
+        if (related.length>0) {
+            related = related.join('');
+            content.push(`<div id="highlight-detail-related" >
+            <h4>Related</h4>
+            ${related}
+            </div>`);
         }
     }
+    
    
     //wrapper
     content=content.join('');
     $("#highlight-detail").html(`
         <div id="highlight-detail-properties" class="${geo} ${event}">
            ${content}
-        </div>
-        <div id="highlight-detail-description">        
-            <p class="description">${properties.description}<p>
-        </div>
-        
+        </div>                
     `)  
-    // enable any new tooltips
+    // Attach events
     $('.tooltipped').tooltip();
+    $("#highlight-detail .card-image,  #highlight-detail .card-content").click(cardClick);
 }
 
 
