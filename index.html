@@ -46,7 +46,7 @@
 
 <body class="viewMap">
 
-    <div id="sidedrawer" class="sidenav">
+    <div id="sidedrawer" class="sidenav sidenav-fixed noautoinit">
         <!-- Side drawer content goes here -->
         <div id="sidedrawer-intro">
             <img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
@@ -74,11 +74,12 @@
                 <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
             </li>
         </ul>
+        
     </div>
     <header id="header" class="navbar-fixed">
         <nav class="light-blue lighten-1">
             <div class="nav-wrapper">
-                <a href="#" data-target="sidedrawer" class="sidenav-trigger show-on-large"><i
+                <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i
                         class="material-icons">menu</i></a>
                 <span id="title" class="brand-logo">Community Atlas</span>
             </div>
@@ -97,14 +98,17 @@
                 <div class="gap"></div>
                 <div class="gap"></div>
             </div>
+            
+        
         </div>
     </div>
-    <div id="highlighter-wrapper">
+    <div id="highlighter-wrapper">           
         <div id="highlight-summary">
         </div>
-        <div id="highlight-detail">
+        <div id="highlight-detail">              
         </div>
     </div>
+    
     <!--
     <footer id="footer" class="page-footer">
         <div class="container">
@@ -115,6 +119,7 @@
 -->
     <script src="browser/js/comma.js"></script>
     <script type="text/javascript" src="browser/js/materialize.min.js"></script>
+    
 </body>
 
 </html>

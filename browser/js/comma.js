@@ -138,7 +138,8 @@ function renderHighlighter(feature) {
                 let type = link.type || "website";
                 let description = link.description || "";
                 let icon = "language";
-                return `<a href="${url}" alt="${description}" class="collection-item"><i class="material-icons tiny">${icon}</i> ${title}</a>`
+                let tooltip = link.description?"tooltipped":"";
+                return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}"><i class="material-icons tiny">${icon}</i> ${title}</a>`
         
             }
         });
@@ -148,11 +149,6 @@ function renderHighlighter(feature) {
         }
     }
    
-
-
-
-
-
     //wrapper
     content=content.join('');
     $("#highlight-detail").html(`
@@ -163,7 +159,9 @@ function renderHighlighter(feature) {
             <p class="description">${properties.description}<p>
         </div>
         
-    `)        
+    `)  
+    // enable any new tooltips
+    $('.tooltipped').tooltip();
 }
 
 
@@ -421,16 +419,6 @@ function commaUrlPop() {
   return filterChange;
 }
 
-function commaRender(){
-    let features = commaGetFeatures();
-    mixer.dataset(features);    
-    renderTimeline(features);
-    let geoFeatures = commaGetFeatures({        
-        "class": "geo"
-    })
-    // renderMapFeatures(map, geoFeatures);
-    renderLeafletFeatures(geoFeatures);
-}
 //---------------------------Timeline
 
 /**
@@ -871,27 +859,7 @@ function renderFilters(features) {
     }); 
 }
 
-//==========================================================
 
-/**
- * handle the re-rednering of map and timeline when the tab changes with new filters
- */
-function materializeTabs(e){
-   //@todo: check active tab
-    // timeline does not like to be rendered hidden.??
-    let features = commaGetFeatures();
-    renderTimeline(features);
-    leafletMap._onResize();  
-}
-
-/**
- * Initialise the matarialize interface features
- */
-function initMaterialize(){
-    M.AutoInit();
-    let tabElement = document.querySelector('.tabs')
-    var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});
-}
 // =======================================================
 
 
@@ -916,6 +884,24 @@ function commaHighlighterDetailSet(show) {
 function commaHighlighterDetailToggle(element){
     bodyElement.classList.toggle('showDetail');  
     bodyElement.classList.add('showFeatured');  
+}
+
+
+/**
+ * Render all standard elements. 
+ */
+function commaRender(){
+    let features = commaGetFeatures();
+    mixer.dataset(features);    
+    if (currentView == 'timeline') {
+        // the timeline can only be rendered if it is visible
+        renderTimeline(features);
+    }
+    let geoFeatures = commaGetFeatures({        
+        "class": "geo"
+    })
+    // renderMapFeatures(map, geoFeatures);
+    renderLeafletFeatures(geoFeatures);
 }
 
 
@@ -950,19 +936,44 @@ function commaSetView(view) {
     if (!bodyElement.classList.contains(cssClass)) {
         if (bodyElement.classList.length>0) bodyElement.classList.remove('viewMap','viewTimeline','viewCards');                
         bodyElement.classList.add(cssClass);
-
-        if (view == 'timeline' )  { 
-            renderTimeline(commaFeatures);
-        }
-        else if (view == 'map') {
-          leafletMap._onResize();  
-        }
-        currentView = view; 
+        currentView = view;         
         commaUrlPush();
+        commaRefresh();
     }
-    
+
 }
 
+/**
+ * refresh elements of the page depending on the current view
+ */
+function commaRefresh(){
+
+    if (currentView == 'timeline' )  { 
+        renderTimeline(commaFeatures);
+    }
+    else if (currentView == 'map') {
+      leafletMap._onResize();  
+    }
+}
+
+//==========================================================
+
+
+/**
+ * Initialise the matarialize interface features
+ */
+function initMaterialize(){
+    M.AutoInit();
+  /*  let tabElement = document.querySelector('.tabs')
+    var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});*/
+    
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {
+        onOpenEnd: commaRefresh,
+        onCloseEnd: commaRefresh
+    });
+
+}
 
 //==========================================================
 

@@ -30,6 +30,18 @@ body {
 Layout
 -------------------------------------------------------------------*/
 
+
+header, #content-wrapper, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+  header, #content-wrapper, footer {
+    padding-left: 0;
+  }
+}
+      
+
 #content-wrapper {
   z-index:1;
   width:auto;
