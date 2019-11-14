@@ -22,10 +22,18 @@ body {
     box-sizing: border-box;
 }
 
+
+
+/*
+Text
+--------------------------------------------------------------*/
 body {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial;
 }
 
+h4 {
+  font-size: 1.5rem;
+}
 /*
 Layout
 -------------------------------------------------------------------*/
@@ -217,10 +225,24 @@ Highlighter
 #highlight-detail-related {
 }
 
-#highlight-detail-related .card{
-  transform: scale(0.8);
-  
+#highlight-detail-related .card{  
+  height: 200px;
 }
+
+#highlight-detail-related .card .card-title{
+  font-size:16px;
+}
+
+#highlight-detail-related .card .card-content{
+  padding:12px;
+}
+
+
+#highlight-detail-related .card .card-action{
+  display: none;
+}
+
+
 
 /* Controls
 ---------------------------------------------------------------------- */

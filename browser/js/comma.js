@@ -149,8 +149,12 @@ function renderHighlighter(feature) {
     <div id="highlight-detail-description">        
         <p class="description">${properties.description}<p>
     </div>`);        
+/*
+    if (properties.tags) {
+        content.push(renderTagFilters(properties.tags,null));
+    }
 
-
+*/
     if (properties.relationships && properties.relationships.length>0) {
         console.log('relations');
         console.log(properties.relationships);
@@ -180,6 +184,7 @@ function renderHighlighter(feature) {
     // Attach events
     $('.tooltipped').tooltip();
     $("#highlight-detail .card-image,  #highlight-detail .card-content").click(cardClick);
+  //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
 }
 
 
@@ -324,12 +329,18 @@ function commaGetFeatures(params=false,localFilters = false) {
         let keep = true;
         Object.keys(localFilters).forEach(property => {
             if (feature.properties[property] && Array.isArray(feature.properties[property])) {
-                feature.properties[property].forEach(value => {
-                    // loop through each value in the target property
-                    let found=false;
-                    if (localFilters[property].indexOf(value)  != -1) found=true;
-                    keep=found;
-                } )
+                if (feature.properties[property].length == 0) {
+                    // there is nothing here
+                    keep=false;
+                }
+                else {  
+                    let found=false;                  
+                    feature.properties[property].forEach(value => {
+                        // loop through each value in the target property                        
+                        if (localFilters[property].indexOf(value)  != -1) found=true;
+                        keep=found;
+                    } )
+                }
             } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
                 keep=false;
             }              
@@ -759,7 +770,8 @@ function filterSet(attribute, value, state) {
  }
 
 // handle a click on a filter
-function filterClick(element){
+function filterClick(event){
+  let element = event.target;  
   let state = !element.classList.contains('active');
   Object.keys(element.dataset).forEach(attribute => {
       if (attribute != "ref") filterSet(attribute, element.dataset[attribute],state);
@@ -860,7 +872,8 @@ function renderTagFilter(value) {
 
 function renderTagFilters(tags, elementLocator = "#controls-tags"){    
     let filters = tags.map(renderTagFilter).join('');                
-    $(elementLocator).html(filters);  
+    if (elementLocator) $(elementLocator).html(filters);  
+    return filters;
 }
 
 
@@ -871,19 +884,12 @@ function renderFilters(features) {
 
   renderPropertyFilters(types);
   renderCategoryFilters(categories);
-  renderTagFilters(tags);
-
-  const filterControls = document.querySelectorAll('[data-ref="filter"]');
-    // We can now set up a handler to listen for "click" events on our UI buttons
-
-    filterControls.forEach(control => {
-        control.addEventListener('click', function (e) {
-            filterClick(e.target);
-        });
-    }); 
+  renderTagFilters(tags);  
+  $('[data-ref="filter"]').click(filterClick);   
+  
 }
 
-
+ 
 // =======================================================
 
 
@@ -916,7 +922,7 @@ function commaHighlighterDetailToggle(element){
  */
 function commaRender(){
     let features = commaGetFeatures();
-    mixer.dataset(features);    
+    mixer.dataset(features);        
     if (currentView == 'timeline') {
         // the timeline can only be rendered if it is visible
         renderTimeline(features);
@@ -926,6 +932,7 @@ function commaRender(){
     })
     // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
+   // $(".card-image, .card-content").click(cardClick);
 }
 
 
