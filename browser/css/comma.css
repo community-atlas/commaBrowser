@@ -330,6 +330,7 @@ Highlighter
   Tests 
   **/
   #tests {
+    display:none;
     position:absolute;
     height:100px;
     width:300px;
