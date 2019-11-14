@@ -326,4 +326,16 @@ Highlighter
 
  
   
-  
+  /**
+  Tests 
+  **/
+  #tests {
+    position:absolute;
+    height:100px;
+    width:300px;
+    bottom:0;
+    top:100px;
+    background:#fff;
+    z-index:99;
+    overflow:auto;
+  }

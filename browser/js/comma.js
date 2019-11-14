@@ -149,12 +149,12 @@ function renderHighlighter(feature) {
     <div id="highlight-detail-description">        
         <p class="description">${properties.description}<p>
     </div>`);        
-/*
+
     if (properties.tags) {
         content.push(renderTagFilters(properties.tags,null));
     }
 
-*/
+
     if (properties.relationships && properties.relationships.length>0) {
         console.log('relations');
         console.log(properties.relationships);
@@ -183,7 +183,7 @@ function renderHighlighter(feature) {
     `)  
     // Attach events
     $('.tooltipped').tooltip();
-    $("#highlight-detail .card-image,  #highlight-detail .card-content").click(cardClick);
+   $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
   //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
 }
 
@@ -226,9 +226,11 @@ function commaGetConfig(key){
  * @param {object} geoData 
  */
 function commaInitialiseGeoData(geoData) {
-    commaGeo = geoData;  
+    
     features = commaUnifyFeatures(geoData);
-    features = geoData.features.map(commaFeatureFill);
+    features = features.map(commaFeatureFill);
+    //set global variables
+    commaGeo = geoData;  
     commaFeatures = features; 
     return features;
 }
@@ -239,12 +241,12 @@ function commaInitialiseGeoData(geoData) {
  */
 var featureIdCounter = 1; // Used to assign ids to features
 function commaFeatureFill(feature) {
-    let geometry;
+  let geometry;
   if (!feature.id) {
       feature.id = featureIdCounter++; 
   }
   if (!feature.properties.image) {
-      if (geometry = feature.geometry.coordinates) {
+      if (feature.geometry && (geometry = feature.geometry.coordinates)) {
          if (Array.isArray(geometry[0])) {
              geometry = geometry[0][0];
          }
@@ -387,12 +389,12 @@ function commaFeatureSelect(selector){
   cardHighlight(id);
   commaUrlPush();
   if (id) {
-    bodyElement.classList.add('showFeatured');
-    if (currentView!=='map') bodyElement.classList.add('showDetail');  // force detail if we are not on the map
+    bodyElement.classList.add('showFeatured','showDetail');
+   // if (currentView!=='map') bodyElement.classList.add('showDetail');  // force detail if we are not on the map
   }
   else {
-      bodyElement.classList.remove('showFeatured');
-      if (currentView!=='map') bodyElement.classList.remove('showDetail');  // force detail if we are not on the map
+      bodyElement.classList.remove('showFeatured','showDetail');
+    //  if (currentView!=='map') bodyElement.classList.remove('showDetail');  // force detail if we are not on the map
   }
 }
 
@@ -496,7 +498,6 @@ function createTimelineEvent(feature) {
  */
 
 function convertFeaturesToTimeline(features) {
-    console.log(features);
     let events = features.map(createTimelineEvent);
     // remove nulls
     events = events.filter(x => x);
@@ -512,9 +513,6 @@ function convertFeaturesToTimeline(features) {
         },
     }
 
-    if (activeType !== 'All') {
-        timeline.title.text.headline += "(" + activeType + ")"
-    }
     return timeline;
 }
 
@@ -535,11 +533,6 @@ function renderTimeline(features) {
 
 const container = document.querySelector('[data-ref="container"]');
 var firstGap = document.querySelector('[data-ref="first-gap"]');
-
-var controls = document.querySelector('[data-ref="controls"]');
-var sorts = document.querySelectorAll('[data-ref="sort"]');
-
-var activeType = 'All';
 
 const mixer = mixitup(container, {
     data: {
@@ -571,6 +564,7 @@ function renderCards(features) {
 
 
 function cardClick(event) {
+    console.log(event.currentTarget);
     let featureId = event.currentTarget.parentElement.dataset.id;
     commaFeatureSelect(featureId);
 }
@@ -597,8 +591,7 @@ function renderLeafletFeatures(features) {
     const geojson = {
         "type": "FeatureCollection",
         "features": features
-    };
-    console.log(leafletNodeLayer);
+    }
    if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
     leafletNodeLayer = L.geoJSON(null,{
         onEachFeature: mapOnEachFeaturePoints,
@@ -932,7 +925,7 @@ function commaRender(){
     })
     // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
-   // $(".card-image, .card-content").click(cardClick);
+    $(".card-image, .card-content").unbind().click(cardClick);
 }
 
 
@@ -1046,9 +1039,13 @@ $(document).ready(function () {
 
     
       // renderViewControls();
-      $(".card-image, .card-content").click(cardClick);
+     
       $("#highlight-summary").click(commaHighlighterDetailToggle);        
       $("[data-ref='view']").click(commaViewer);   
+
+      if (typeof test === "function") {
+        $('#tests').html(test());
+      }
 
 
     });
