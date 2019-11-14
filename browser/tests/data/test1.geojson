@@ -1,0 +1,1346 @@
+{
+    "type": "FeatureCollection",
+    "nonGeoFeatures": [
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Urban Sketches: Alienation",
+                "type": "Video",
+                "start_date": "2017-09-08T16:00:00.000-07:00",
+                "description": "Urban Sketches is a series of short video postcards from Mehringplatz. These audiovisual fragments are realised by the participants to the EULER - Mehringplatz Anknipsen laboratory in 2017. They experiment a simple and accessible format to capture an impression, report an observation or tell a story about the local identity. Complementing the collection of historical and analytical materials, they provide a layer of personal interpretation to the representation of the socio-spatial milieu.\n",
+                "end_date": "",
+                "image": "https://i.vimeocdn.com/video/651039369.jpg",
+                "category": "Narratives",
+                "sub-category": "Place narratives ",
+                "tags": [
+                    "Public space",
+                    "Psychogeography"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "https://vimeo.com/230464313",
+                        "title": "Urban Sketches",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": []
+            },
+            "id": "mehringplatz-community-atlas/urban_sketches_alienation#36"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Urban Sketches: Places for all times",
+                "type": "Video",
+                "start_date": "",
+                "description": "Things worth noticing in the ordinary city.\n\nby Rasha Kanjarawi \nرشا قنجراوي\n\nUrban Sketches is a series of short video postcards from Mehringplatz.\nThese audiovisual fragments are realised by the participants to the EULER - Mehringplatz Anknipsen laboratory in 2017. They experiment a simple and accessible format to capture an impression, report an observation or tell a story about the local identity. Complementing the collection of historical and analytical materials, they provide a layer of personal interpretation to the representation of the socio-spatial milieu.\n",
+                "end_date": "",
+                "image": "https://i.vimeocdn.com/video/651562520.jpg",
+                "category": "Narratives",
+                "sub-category": "Place narratives ",
+                "tags": [
+                    "Public space",
+                    "culture",
+                    "Social inclusion",
+                    "oral history"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "https://vimeo.com/230890049",
+                        "title": "Urban Sketches",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": []
+            },
+            "id": "mehringplatz-community-atlas/urban_sketches_places_for_all_times#34"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Urban Sketches: Development, Who Is It For",
+                "type": "Video",
+                "start_date": "2017-07-06T16:00:00.000-07:00",
+                "description": "\nThe narrative looks into the vulnerability and protection schemes affecting existing tenants and shop owners in Mehringplatz through a personal point of view account, contextualising the interest in the subject and also draws on a third party's knowledge and opinion on this question. \n\nScript Nathalie Bekdache\nEdited by oginoknauss\nImages from the Mehringplatz Memory Card set\n\nUrban Sketches is a series of short video postcards from Mehringplatz.\nThese audiovisual fragments are realised by the participants to the EULER - Mehringplatz Anknipsen laboratory in 2017. They experiment a simple and accessible format to capture an impression, report an observation or tell a story about the local identity. Complementing the collection of historical and analytical materials, they provide a layer of personal interpretation to the representation of the socio-spatial milieu.",
+                "end_date": "",
+                "image": "https://i.vimeocdn.com/video/646399950.jpg",
+                "category": "Narratives",
+                "sub-category": "Place narratives ",
+                "tags": [
+                    "Urban regeneration",
+                    "oral history",
+                    "Social inclusion"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "https://vimeo.com/manage/226707117/general",
+                        "title": "Urban Sketches",
+                        "description": "Urban Sketches is a series of short video postcards from Mehringplatz",
+                        "type": "video"
+                    }
+                ],
+                "relationships": []
+            },
+            "id": "mehringplatz-community-atlas/urban_sketches_development_who_is_it_for#33"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Candy Hartmann - Quartiersmanagement ",
+                "type": "Interview",
+                "start_date": "2017-08-13T16:00:00.000-07:00",
+                "description": "interview with Candy Hartmann\nQM Mehringplatz // Kunstwelt e.V.\n\nRecorded 14.08.2017 at Quartiermanagement \nby Daniele Tognozzi, Paula Mangold\nCamera and editing Manuela Conti - ogino:knauss\n\n\nThis video is part of a set of interviews to local social, economic and institutional stakeholders realised  for the Mehringplatz Solidarity Curriculum, a neighbourhood atlas aimed at survey existing resources and potentialities of the Südliche Friedrichstadt in the framework of the EULER Erasmus+ project.",
+                "end_date": "",
+                "image": "",
+                "category": "Narratives",
+                "sub-category": "Stakeholder interviews",
+                "tags": [
+                    "quartiersmanagement",
+                    "Urban regeneration",
+                    "Social inclusion"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "://vimeo.com/230981438",
+                        "title": "",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/quartiersmanagement_am_mehringplatz_#14",
+                    "mehringplatz-community-atlas/_kunstwelt_v_quartiermanagement_am_mehringplaz_#15"
+                ]
+            },
+            "id": "mehringplatz-community-atlas/candy_hartmann_quartiersmanagement_#32"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Kiezstube Mehringpltz",
+                "type": "Place",
+                "start_date": "",
+                "description": "",
+                "end_date": "",
+                "image": "http://qm-mehringplatz.info/fileadmin/_processed_/csm_2018_eroeffn_kiezstube06_b9c3ae922e.jpg",
+                "category": "Places",
+                "sub-category": "Community hub",
+                "tags": [
+                    "Social inclusion",
+                    "quartiersmanagement"
+                ],
+                "category-description": "",
+                "links": [],
+                "relationships": []
+            },
+            "id": "mehringplatz-community-atlas/kiezstube_mehringpltz#25"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "GEWOBAG",
+                "type": "Organization",
+                "start_date": "1919-05-01T13:00:00.000-07:00",
+                "description": "One of the six municipal housing companies in Berlin. On behalf of the State of Berlin, Gewobag pursues the goal of providing affordable housing for large population and increasing municipal housing stock. With over 62,000 apartments and more than 100,000 tenants, the Gewobag portfolio is the size of a medium-sized city - and it continues to grow. Gewobag is the main real estate owner of Mehringplatz",
+                "end_date": "",
+                "image": "https://www.gewobag.de/wp-content/themes/gewobag/assets/svg/gewobag-logo.svg",
+                "category": "Stakeholders",
+                "sub-category": "Developers and enterprises",
+                "tags": [
+                    "housing"
+                ],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "https://www.gewobag.de",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": []
+            },
+            "id": "mehringplatz-community-atlas/gewobag#23"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Sanierungsbeirates Südliche Friedrichstadt, Friedrichstadt Süd\n",
+                "type": "Organization",
+                "start_date": "",
+                "description": "\nAdvisory and exchange committee between the local authority and other stakeholders.\nInfluencing important decision-making processes and goals of redevelopment. In particular:\n- information and advice on construction measures to be developed and implemented with funding for urban regeneration to improve public infrastructure and public space;\n- participation in the design of concepts and formulation and modification of reconstruction targets structure.\nIt consists of: Territorial Representation and the employees of the District and Senate Administration responsible for the redevelopment area and their representatives. Aditionally, the Quartiersmanagement of Mehringplatz and Gewobag take part of the advisory council.",
+                "end_date": "",
+                "image": "http://www.sanierung-suedliche-friedrichstadt.de/wp-content/uploads/2017/01/logo_SanSF_mHintergrundklein.png",
+                "category": "",
+                "sub-category": "",
+                "tags": [],
+                "category-description": "",
+                "links": [
+                    {
+                        "url": "http://www.sanierung-suedliche-friedrichstadt.de/der-sanierungsbeirat/",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/quartiersmanagement_am_mehringplatz_#14"
+                ]
+            },
+            "id": "mehringplatz-community-atlas/sanierungsbeirates_s_dliche_friedrichstadt_friedrichstadt_s_d_#21"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Erzählcafè",
+                "type": "Event",
+                "start_date": "2016-09-25T16:00:00.000-07:00",
+                "description": "A series of meetings with informed citizens and long time residents telling their stories and experience of the area of the Südliche Friedrichstadt. Part of the activities to facilitate the integration  of the new developments of the PXB plan realised at the Bauhütte in 2017",
+                "end_date": "2017-09-25T16:00:00.000-07:00",
+                "image": "https://irp-cdn.multiscreensite.com/5c373733/dms3rep/multi/desktop/ada347df5f334c2a9696b92b4f7851b6-420x595.dm.edit_KyaLZO.jpg",
+                "category": "Narratives",
+                "sub-category": "Place narratives ",
+                "tags": [
+                    "oral history",
+                    "Events",
+                    "culture",
+                    "Social inclusion"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "http://www.bauhuette-berlin.de/blog",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/projektgruppe_x_blumenmarkt#17",
+                    "mehringplatz-community-atlas/bauhutte#16"
+                ]
+            },
+            "id": "mehringplatz-community-atlas/erz_hlcaf_#18"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Projektgruppe X Blumenmarkt",
+                "type": "Program",
+                "start_date": "2012-09-26T03:00:00.000-07:00",
+                "description": "The ex-Blumengroßmarkt project group (PxB) emerged from Berlin's first concept-based real estate allocation process. It is an amalgamation of the three assembly groups and planning teams who initiated the projects on the construction sites II, IV and V at the former flower wholesale market and will realise these in three different development models.\n\nSince the award decision in December 2012, all three project teams have been working together to implement their respective building projects in a model-like way in dialogue with the neighbourhood, the district and the Senate and the users.",
+                "end_date": "2019-09-26T03:00:00.000-07:00",
+                "image": "https://pxb.ag/images/intro.jpg",
+                "category": "Transformations",
+                "sub-category": "",
+                "tags": [],
+                "category-description": "To highlight current projects, conflicts and initiatives - transformations taking place in the area",
+                "links": [
+                    {
+                        "url": "https://pxb.ag",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/bauhutte#16",
+                    "mehringplatz-community-atlas/taz_neubau#10",
+                    "mehringplatz-community-atlas/erz_hlcaf_#18"
+                ]
+            },
+            "id": "mehringplatz-community-atlas/projektgruppe_x_blumenmarkt#17"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Bauhutte",
+                "type": "Building",
+                "start_date": "2015-04-30T16:00:00.000-07:00",
+                "description": "Bauhütte\na civil society platform. A temporary structure built to facilitate the social integration of the new development projects of the Baufeld program. The construction field development on the former flower wholesale market relies on participation. In the center of the site was placed the Bauhütte, a 60-square-meter project space, where the threads of the discussion about public participation, urban politics and architecture, youth and education converge. Here, residents, construction workers and architects, future users and builders meet at eye level to discuss on temporary use and trade development. So a small house makes a big contribution to the social cohesion of the people in the neighborhood. They get to know each other and can benefit from each other. For two years, it it has worked as a civil society platform in the middle of the construction site between Friedrichstrasse and the Jewish Museum. In summer 2019 the structure has been relocated to a new location next to the TAZ new building, surrounded by a new community garden. ",
+                "end_date": "",
+                "image": "https://i.ibb.co/pJ4HtCY/SWITCH-ON-MEHRINGPLATZ-45-copia.jpg",
+                "category": "Transformations",
+                "sub-category": "Private spaces common oriented",
+                "tags": [
+                    "culture",
+                    "commons",
+                    "Social inclusion",
+                    "temporary structure",
+                    "gardening"
+                ],
+                "category-description": "To highlight current projects, conflicts and initiatives - transformations taking place in the area",
+                "links": [
+                    {
+                        "url": "http://www.bauhuette-berlin.de",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/projektgruppe_x_blumenmarkt#17"
+                ]
+            },
+            "id": "mehringplatz-community-atlas/bauhutte#16"
+        }
+    ],
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Urban Sketches: Victoria Versicherung",
+                "type": "Video",
+                "start_date": "2017-07-08T16:00:00.000-07:00",
+                "description": "A short video about one of the few historicl buildngs surviving destruction in this area.\nScript / Editing: Paula Mangold, Vicky Kiefer\nImages by Paula Mangold, Vicky Kiefer\nRealised  in July 2017 with the support of the Erasmus+ EULER program\n\nA series of short video postcards from Mehringplatz. \nThese audiovisual fragments are realised by the participants to the EULER - Mehringplatz Anknipsen laboratory. They experiment a simple and accessible format to capture an impression, report an observation or tell a story about the local identity. Complementing the collection of historical and analytical materials, they provide a layer of personal interpretation to the representation of the socio-spatial milieu.",
+                "end_date": "",
+                "image": "https://i.vimeocdn.com/video/646400350.jpg\n",
+                "category": "Narratives",
+                "sub-category": "Place narratives ",
+                "tags": [
+                    "architecture",
+                    "culture",
+                    "Urban regeneration"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "https://vimeo.com/225375320",
+                        "title": "Urban Sketches",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39625,
+                    52.50373
+                ]
+            },
+            "id": "mehringplatz-community-atlas/urban_sketches_victoria_versicherung#35"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Karin Lücker - Café MaDaMe ",
+                "type": "Interview",
+                "start_date": "2017-03-16T17:00:00.000-07:00",
+                "description": "Interview with Karin Lücker - Café MaDaMe. Recorded 17.03.2017  by Vicky Kiefer and Laura Colini\nCamera and editing Manuela Conti - ogino:knauss\nRealised in the frame of EULER - Switch On Mehringplatz Erasmus plus program.",
+                "end_date": "",
+                "image": "",
+                "category": "Narratives",
+                "sub-category": "Stakeholder interviews",
+                "tags": [
+                    "Social inclusion",
+                    "feminism",
+                    "culture",
+                    "cooking"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "https://vimeo.com/232820289",
+                        "title": "",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/caf_madame#26",
+                    "mehringplatz-community-atlas/die_globale_e_v_#27"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39248,
+                    52.49974
+                ]
+            },
+            "id": "mehringplatz-community-atlas/karin_l_cker_caf_madame_#31"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "ZLB - Amerika-Gedenkbibliothek",
+                "type": "Organization",
+                "start_date": "",
+                "description": "One of the two seats of the Zentral- und Landesbibliothek Berlin (ZLB). It is composed by the sections for humanities and fine arts, the Artothek, the Cinemathek, the children's and youth Library with its learning center, the music library. \n\n",
+                "end_date": "",
+                "image": "https://www.zlb.de/fileadmin/zlb/img/logo_leiste2_ohne_schrift.png",
+                "category": "Stakeholders",
+                "sub-category": "Public cultural institutions",
+                "tags": [
+                    "culture",
+                    "architecture",
+                    "media",
+                    "workspace",
+                    "commons",
+                    "oral history",
+                    "Events"
+                ],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "https://www.zlb.de",
+                        "title": "",
+                        "description": "",
+                        "type": ""
+                    }
+                ],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39249,
+                    52.49656
+                ]
+            },
+            "id": "mehringplatz-community-atlas/zlb_amerika_gedenkbibliothek#30"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "The city of Berlin",
+                "type": "Place",
+                "start_date": "",
+                "description": "The city of Berlin",
+                "end_date": "",
+                "image": "",
+                "category": "Delimitations",
+                "sub-category": "Administrative borders",
+                "tags": [
+                    "a test, with comma"
+                ],
+                "category-description": "To define the limitation of the area of interest\r\n- To identify areas defined by administrative or policy definitions",
+                "links": [],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        13.306961,
+                        52.65806
+                    ],
+                    [
+                        13.275393,
+                        52.661392
+                    ],
+                    [
+                        13.258923,
+                        52.626395
+                    ],
+                    [
+                        13.215003,
+                        52.629729
+                    ],
+                    [
+                        13.129906,
+                        52.583026
+                    ],
+                    [
+                        13.128534,
+                        52.547131
+                    ],
+                    [
+                        13.117554,
+                        52.523742
+                    ],
+                    [
+                        13.158729,
+                        52.502848
+                    ],
+                    [
+                        13.113436,
+                        52.457683
+                    ],
+                    [
+                        13.120299,
+                        52.410797
+                    ],
+                    [
+                        13.146377,
+                        52.399067
+                    ],
+                    [
+                        13.24108,
+                        52.419173
+                    ],
+                    [
+                        13.282256,
+                        52.401581
+                    ],
+                    [
+                        13.429115,
+                        52.374761
+                    ],
+                    [
+                        13.444213,
+                        52.415823
+                    ],
+                    [
+                        13.533427,
+                        52.394877
+                    ],
+                    [
+                        13.662444,
+                        52.374761
+                    ],
+                    [
+                        13.744795,
+                        52.404095
+                    ],
+                    [
+                        13.622641,
+                        52.48947
+                    ],
+                    [
+                        13.654208,
+                        52.528755
+                    ],
+                    [
+                        13.580092,
+                        52.56216
+                    ],
+                    [
+                        13.534799,
+                        52.593038
+                    ],
+                    [
+                        13.505976,
+                        52.608885
+                    ],
+                    [
+                        13.525192,
+                        52.636397
+                    ],
+                    [
+                        13.471664,
+                        52.673884
+                    ],
+                    [
+                        13.452448,
+                        52.651395
+                    ],
+                    [
+                        13.40441,
+                        52.653062
+                    ],
+                    [
+                        13.335784,
+                        52.625561
+                    ],
+                    [
+                        13.305589,
+                        52.660559
+                    ]
+                ]
+            },
+            "id": "mehringplatz-community-atlas/the_city_of_berlin#28"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Die Globale e.V.",
+                "type": "Organization",
+                "start_date": "2007-09-29T16:00:00.000-07:00",
+                "description": "\t\tDie Globale eV was founded in 2007 and focuses on early childhood education as well as social integration and community work. For years the association has been active at Mehringplatz and in Donaukiez. In the area of ​​educational work, the association operates two learning workshops in Kreuzberg and Neukölln as well as three day nurseries that work with the concept of discovery learning. The offer of the learning workshops is aimed at children between the ages of four and 12 years. It aims to support the learning and learning motivation of adolescents and their interest in exploring their natural and social environment as an essential prerequisite for a successful educational process. The different offers take into account the different living conditions and lifestyles of the families in order to give the children a variety of access to educational processes. The work promotes the special interests and abilities of children and strengthens families as important educational partners for their children.\n\nThe second focus of our work is the development of neighborhood structures at Mehringplatz. As part of its offers, the club has established a good contact with the neighborhood. Through various activities (festivals, flea market, book rental), the association is known in the area and has already on numerous occasions supported residents to develop and implement offers for a neighborly gathering. From January 2015, the Neighborhood Commissioner will also be a permanent contact person for the residents of the neighborhood, with whom joint projects can be developed and implemented. The Neighborhood Café on Mehringplatz 7 also offers a public space where people from the neighborhood meet, articulate their needs and interests and use the place for encounters. The association is well connected with other social and cultural institutions and other organizations (Gewobag, Mieterbeirat, education network, tradesmen, AOK, Platzgärtner etc.) in the quarter. Through the daily presence in the square we know the existing problems, but also see the potential of the neighborhood, to whose development we would like to make our contribution.\n",
+                "end_date": "",
+                "image": "http://dieglobale.org/wp-content/uploads/2015/04/globale_logo-web_header.png",
+                "category": "Stakeholders",
+                "sub-category": "NGO/Social work",
+                "tags": [],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "http://dieglobale.org/",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/caf_madame#26"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39248,
+                    52.49974
+                ]
+            },
+            "id": "mehringplatz-community-atlas/die_globale_e_v_#27"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Café MaDaMe",
+                "type": "Place",
+                "start_date": "",
+                "description": "Café that acts as a essential community hub in the neghibourhood.",
+                "end_date": "",
+                "image": "http://dieglobale.org/wp-content/uploads/2015/04/Tresen-Cafe.jpg",
+                "category": "Places",
+                "sub-category": "Community hub",
+                "tags": [
+                    "cooking",
+                    "culture",
+                    "Social inclusion"
+                ],
+                "category-description": "",
+                "links": [],
+                "relationships": [
+                    "mehringplatz-community-atlas/die_globale_e_v_#27"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39248,
+                    52.49974
+                ]
+            },
+            "id": "mehringplatz-community-atlas/caf_madame#26"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Vielfalt E.V.",
+                "type": "Organization",
+                "start_date": "",
+                "description": "Sozialpädagogische Familienverein und Träger der öffentlichen Jugendhilfe/ Social-Educational Family Association for public youth welfare\n\ndescription\n\n\"Strave to a society fully supportive of the development of its younger participants -Support for children, teenagers and young people of all cultures with open dialogue and confrontation.Protect/strengthen/implementation of childrens and teenagers rights.\n- Support of families with migration background (if necessary also in their language of origin) and promotion of coexistence in diversity. - Focus on help and advice on educational questions; assistance including: family therapy, social group work, child support, childcare assistance, family welfare counseling and intensive individual social care. \"",
+                "end_date": "",
+                "image": "https://i.ibb.co/C8f07pg/Screenshot-2019-09-27-at-10-12-00.png",
+                "category": "Stakeholders",
+                "sub-category": "NGO/Social work",
+                "tags": [],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "http://www.vielfaltev.de/",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/die_globale_e_v_#27"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39274,
+                    52.4996
+                ]
+            },
+            "id": "mehringplatz-community-atlas/vielfalt_e_v_#24"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Sanierungsgebiet Südliche Friedrichstadt",
+                "type": "Program",
+                "start_date": "2011-04-01T06:00:00.000-07:00",
+                "description": "",
+                "end_date": "",
+                "image": "http://www.sanierung-suedliche-friedrichstadt.de/wp-content/uploads/2019/09/SFS-Luftild-Geltungsbereich-753x1024.jpg",
+                "category": "Delimitations",
+                "sub-category": "Public space",
+                "tags": [
+                    "Public space",
+                    "Urban regeneration"
+                ],
+                "category-description": "To define the limitation of the area of interest\r\n- To identify areas defined by administrative or policy definitions",
+                "links": [
+                    {
+                        "url": "http://www.sanierung-suedliche-friedrichstadt.de/",
+                        "title": "Official website",
+                        "description": "",
+                        "type": "website"
+                    },
+                    {
+                        "url": "http://www.sanierung-suedliche-friedrichstadt.de/wp-content/uploads/2019/09/SFS-Luftild-Geltungsbereich-753x1024.jpg",
+                        "title": "Area",
+                        "description": "",
+                        "type": "image"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/sanierungsbeirates_s_dliche_friedrichstadt_friedrichstadt_s_d_#21",
+                    "mehringplatz-community-atlas/_kunstwelt_v_quartiermanagement_am_mehringplaz_#15",
+                    "mehringplatz-community-atlas/besselpark_regeneration_#11"
+                ]
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.388535,
+                            52.49415
+                        ],
+                        [
+                            13.395292,
+                            52.494459
+                        ],
+                        [
+                            13.395058,
+                            52.496312
+                        ],
+                        [
+                            13.396425,
+                            52.495979
+                        ],
+                        [
+                            13.396972,
+                            52.496692
+                        ],
+                        [
+                            13.395175,
+                            52.497
+                        ],
+                        [
+                            13.395917,
+                            52.49833
+                        ],
+                        [
+                            13.395761,
+                            52.498995
+                        ],
+                        [
+                            13.396503,
+                            52.49928
+                        ],
+                        [
+                            13.399511,
+                            52.504672
+                        ],
+                        [
+                            13.396855,
+                            52.505526
+                        ],
+                        [
+                            13.395214,
+                            52.503294
+                        ],
+                        [
+                            13.39498,
+                            52.503508
+                        ],
+                        [
+                            13.394589,
+                            52.504861
+                        ],
+                        [
+                            13.39166,
+                            52.504529
+                        ],
+                        [
+                            13.391777,
+                            52.504292
+                        ],
+                        [
+                            13.390957,
+                            52.504173
+                        ],
+                        [
+                            13.390996,
+                            52.503175
+                        ],
+                        [
+                            13.388769,
+                            52.503128
+                        ],
+                        [
+                            13.385176,
+                            52.502297
+                        ],
+                        [
+                            13.389004,
+                            52.499138
+                        ],
+                        [
+                            13.389551,
+                            52.495623
+                        ],
+                        [
+                            13.388926,
+                            52.494269
+                        ],
+                        [
+                            13.388535,
+                            52.49415
+                        ]
+                    ]
+                ]
+            },
+            "id": "mehringplatz-community-atlas/sanierungsgebiet_s_dliche_friedrichstadt#22"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Donut Wedge with Two Balls ",
+                "type": "Monument",
+                "start_date": "",
+                "description": "Large sculpture  donated in 2010 to the city of Berlin by the San Francisco based artist Fletcher Benton . ",
+                "end_date": "",
+                "image": "https://www.berlinischegalerie.de/fileadmin/_processed_/csm_kunst_museum-berlin_Benton_donut_ae8c0b5e68.jpg",
+                "category": "Memories",
+                "sub-category": "Statues",
+                "tags": [
+                    "art",
+                    "park",
+                    "Public space"
+                ],
+                "category-description": "to document material and immaterial heritage\r\n",
+                "links": [
+                    {
+                        "url": "https://www.berlinischegalerie.de/en/museum-berlin/art-city-space/fletcher-benton-tilted-donut-wedge/",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/besselpark_regeneration_#11",
+                    "mehringplatz-community-atlas/taz_neubau#10"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39144,
+                    52.50353
+                ]
+            },
+            "id": "mehringplatz-community-atlas/donut_wedge_with_two_balls_#20"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Metropolenhaus am Judisches Museum",
+                "type": "Building",
+                "start_date": "",
+                "description": "\nPxB baufeld V - The project is composed by residential and commercial units - including green and recreational spaces.\nThe ground floor is intended to host four separable and combinable project rooms and artist studios, two restaurants and five small-scale shops; these should integrate local initiatives and facilitate \"\"exchange, networking, and urban co-existence\"\"(quote) according to the spirit of the ‘intercultural mosaic’, with its orientation towards art, design and everyday life with a focus on exchange between oriental, Jewish and German culture. Additional support to this purpose should come from neighboring cultural institutions such as the Berlinische Galerie and the Jewish Museum.\n- The cultural and commercial concept is funded on the economic backbone of cross-financing: the sale of apartments on the upper floors finances the construction of the ground floor space, and at the same time each owner of an apartment will in the future be a shareholder in these temporarily available facilities.",
+                "end_date": "",
+                "image": "https://www.ak-berlin.de/fileadmin/user_upload/Tag_der_Architektur/TdA_2017/17.jpg",
+                "category": "Transformations",
+                "sub-category": "Private spaces",
+                "tags": [
+                    "culture",
+                    "workspace",
+                    "housing"
+                ],
+                "category-description": "To highlight current projects, conflicts and initiatives - transformations taking place in the area",
+                "links": [
+                    {
+                        "url": "http://www.metropolenhaus.de",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/projektgruppe_x_blumenmarkt#17"
+                ]
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.389109026495703,
+                            52.49811904906019
+                        ],
+                        [
+                            13.390868555609472,
+                            52.497936164411875
+                        ],
+                        [
+                            13.395739447180517,
+                            52.49840643768485
+                        ],
+                        [
+                            13.39543903977085,
+                            52.49902039799883
+                        ],
+                        [
+                            13.39419449478794,
+                            52.50113653593054
+                        ],
+                        [
+                            13.394087206427344,
+                            52.50175045812035
+                        ],
+                        [
+                            13.39440907150913,
+                            52.502338247927895
+                        ],
+                        [
+                            13.391211878363379,
+                            52.502116194924305
+                        ],
+                        [
+                            13.391018759314306,
+                            52.503278695273096
+                        ],
+                        [
+                            13.388851534430273,
+                            52.503148078789366
+                        ],
+                        [
+                            13.38520373017002,
+                            52.502364371736924
+                        ],
+                        [
+                            13.387757193152197,
+                            52.500300542992875
+                        ],
+                        [
+                            13.388830076758154,
+                            52.500587917358274
+                        ],
+                        [
+                            13.389109026495703,
+                            52.49811904906019
+                        ]
+                    ]
+                ]
+            },
+            "id": "mehringplatz-community-atlas/metropolenhaus_am_judisches_museum#19"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": " Kunstwelt .v. - Quartiermanagement am Mehringplaz ",
+                "type": "Organization",
+                "start_date": "1998-09-25T16:00:00.000-07:00",
+                "description": "Im Juli 2005 beauftragte die Senatsverwaltung für Stadtentwicklung in Zusammenarbeit mit dem Bezirksamt Friedrichshain-Kreuzberg den gemeinnützigen Verein Kunstwelt e.V., der seit 1998 seinen Sitz am Mehringplatz hat, mit der Umsetzung des Quartiersmanagements am Mehringplatz. Zusammen mit BewohnerInnen und \"starken Partnern der Quartiersentwicklung\" ermittelt und diskutiert das Vor-Ort-Team seither die wichtigsten Bedarfe, entwickelt Projektideen und bringt diese auf den Weg.",
+                "end_date": "",
+                "image": "https://i.ibb.co/SJXTHcq/Screenshot-2019-09-27-at-11-43-03.png",
+                "category": "Stakeholders",
+                "sub-category": "NGO/Social work",
+                "tags": [
+                    "quartiersmanagement",
+                    "Social inclusion",
+                    "culture"
+                ],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "Kunstwelt e.V.",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/quartiersmanagement_am_mehringplatz_#14",
+                    "mehringplatz-community-atlas/candy_hartmann_quartiersmanagement_#32"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.3918,
+                    52.50006
+                ]
+            },
+            "id": "mehringplatz-community-atlas/_kunstwelt_v_quartiermanagement_am_mehringplaz_#15"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Quartiersmanagement am Mehringplatz  ",
+                "type": "Program",
+                "start_date": "2005-09-26T00:00:00.000-07:00",
+                "description": "In 2005 the area around Mehringplatz has been targeted by the national Soziale Stadt program (Socially Integrative City), identifying this territory as a deprived neighbourhood in need for specific social support measures according to standards defined at Federal level. Soziale Stadt is a complex and comprehensive community-led local development scheme that combines a tight spatial focus, local participation, and the integration of policies and human and financial resources. This federal programme, jointly financed by European Regional Development Funds and national funds, decentralises decision-making, by delegating responsibility for small-scale projects to residents living in deprived areas selected by the Berlin Senate. The program establishes a local Quartiermanagement that manages different types of Neighbourhood Funds, each covering a different type of project and working with the direct involvement of residents. The Quartiersmanagement teams provide a platform for networking and interaction, enabling groups and actors to debate and identify local needs, values and responses.",
+                "end_date": "",
+                "image": "https://i.pinimg.com/564x/59/3b/74/593b74d8236d1bb4217780c3c405b396.jpg",
+                "category": "Delimitations",
+                "sub-category": "Area of interest",
+                "tags": [
+                    "Social inclusion",
+                    "quartiersmanagement"
+                ],
+                "category-description": "To define the limitation of the area of interest\r\n- To identify areas defined by administrative or policy definitions",
+                "links": [
+                    {
+                        "url": "http://www.qm-mehringplatz.de/index.php?id=4",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/_kunstwelt_v_quartiermanagement_am_mehringplaz_#15",
+                    "mehringplatz-community-atlas/candy_hartmann_quartiersmanagement_#32"
+                ]
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.389109026495703,
+                            52.49811904906019
+                        ],
+                        [
+                            13.390868555609472,
+                            52.497936164411875
+                        ],
+                        [
+                            13.395739447180517,
+                            52.49840643768485
+                        ],
+                        [
+                            13.39543903977085,
+                            52.49902039799883
+                        ],
+                        [
+                            13.39419449478794,
+                            52.50113653593054
+                        ],
+                        [
+                            13.394087206427344,
+                            52.50175045812035
+                        ],
+                        [
+                            13.39440907150913,
+                            52.502338247927895
+                        ],
+                        [
+                            13.391211878363379,
+                            52.502116194924305
+                        ],
+                        [
+                            13.391018759314306,
+                            52.503278695273096
+                        ],
+                        [
+                            13.388851534430273,
+                            52.503148078789366
+                        ],
+                        [
+                            13.38520373017002,
+                            52.502364371736924
+                        ],
+                        [
+                            13.387757193152197,
+                            52.500300542992875
+                        ],
+                        [
+                            13.388830076758154,
+                            52.500587917358274
+                        ],
+                        [
+                            13.389109026495703,
+                            52.49811904906019
+                        ]
+                    ]
+                ]
+            },
+            "id": "mehringplatz-community-atlas/quartiersmanagement_am_mehringplatz_#14"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Ela Kagel - Supermarkt",
+                "type": "Interview",
+                "start_date": "",
+                "description": "Interview with Ela Kagel, cofounder of Supermarkt.\nRealised in the frame of EULER - Switch On Mehringplatz Erasmus plus program.\nThis video is part of a set of interview to local social, economic and institutional stakeholders realised as part of Mehringplatz Solidarity Curriculum, a neighbourhood atlas aimed at survey existing resources and potentialities of the Südliche Friedrichstadt. Recorded 13.03.2017 at Supermarkt by Vicky Kiefer and Lorenzo Tripodi\nCamera and editing Manuela Conti - OginoKnauss\n",
+                "end_date": "",
+                "image": "",
+                "category": "Narratives",
+                "sub-category": "Stakeholder interviews",
+                "tags": [
+                    "culture",
+                    "media",
+                    "workspace",
+                    "digital ",
+                    "commons",
+                    "platform",
+                    "coop"
+                ],
+                "category-description": "To collect personal perspective and voices, oral histories, interviews and documentations.",
+                "links": [
+                    {
+                        "url": "Video Interview to Ela Kagel",
+                        "title": "",
+                        "description": "",
+                        "type": "video"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/supermarkt#12"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39265,
+                    52.4996
+                ]
+            },
+            "id": "mehringplatz-community-atlas/ela_kagel_supermarkt#13"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Supermarkt",
+                "type": "Organization",
+                "start_date": "2010-09-29T16:00:00.000-07:00",
+                "description": "Platform for digital culture, alternative economies and new forms of work. Organizes and hosts workshops and conferences, both in its space and in cooperation with other spaces. Own programme with an emphasis on Open Source Technologies, Freelance Work and Social Innovation. / eine Plattform für digitale Kultur, kollaborative Ökonomie & neue Arbeitsformen. Veranstaltet Workshops und Konferenzen, sowohl in seinem Raum als auch in Kooperation mit anderen Spaces. Eigenes Programm rund um Open Source, aktuelle Arbeitsmodelle und soziale Innovation.",
+                "end_date": "",
+                "image": "https://i.pinimg.com/564x/eb/6b/ed/eb6bed64b94b8ef1325d8273823d4287.jpg",
+                "category": "Stakeholders",
+                "sub-category": "NGO/Social work",
+                "tags": [
+                    "media",
+                    "workspace",
+                    "culture"
+                ],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "http://www.supermarkt-berlin.net/en",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": [
+                    "mehringplatz-community-atlas/ela_kagel_supermarkt#13"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39265,
+                    52.4996
+                ]
+            },
+            "id": "mehringplatz-community-atlas/supermarkt#12"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Besselpark Regeneration ",
+                "type": "Program",
+                "start_date": "2019-08-14T16:00:00.000-07:00",
+                "description": "Redesign of the park in progress as part of the Regeneration plan (Sanierungsgebiet). The project has been selected through a competition including a public consultation",
+                "end_date": "",
+                "image": "http://www.sanierung-suedliche-friedrichstadt.de/wp-content/uploads/2019/03/Besselpark-Perspektive-komp-768x402.jpg",
+                "category": "Transformations",
+                "sub-category": "Public space",
+                "tags": [
+                    "Urban regeneration",
+                    "Public space",
+                    "park"
+                ],
+                "category-description": "To highlight current projects, conflicts and initiatives - transformations taking place in the area",
+                "links": [
+                    {
+                        "url": "http://www.sanierung-suedliche-friedrichstadt.de/wp-content/uploads/2017/05/BES_LP3_Pr%C3%A4sentation_170523.pdf",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.390974480686964,
+                            52.504162809150216
+                        ],
+                        [
+                            13.39284129816133,
+                            52.50433913724122
+                        ],
+                        [
+                            13.392894942341627,
+                            52.50400607247558
+                        ],
+                        [
+                            13.39233704286653,
+                            52.50397994964212
+                        ],
+                        [
+                            13.392412144718946,
+                            52.50347708207264
+                        ],
+                        [
+                            13.391682583866896,
+                            52.50342483576153
+                        ],
+                        [
+                            13.391693312702955,
+                            52.50334646617839
+                        ],
+                        [
+                            13.391135413227857,
+                            52.503294219712025
+                        ],
+                        [
+                            13.390974480686964,
+                            52.504162809150216
+                        ]
+                    ]
+                ]
+            },
+            "id": "mehringplatz-community-atlas/besselpark_regeneration_#11"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "TAZ Neubau",
+                "type": "Building",
+                "start_date": "2018-09-29T16:00:00.000-07:00",
+                "description": "Building site for the new building of the TAZ Newspaper. \n\nNew house for the Taz, die Tageszeitung, created through a common investment of its cooperative members to respond better to the changes of the new digital structure and organization of work, in order to improve the working conditions and at the same time secure the Taz’s company through a capital investment.\nThe design concept follows the idea of (quote) “a system without hierarchies”, where the network is the structural guiding principle.\nIt claims to be a (quote) “ living organism”: besides allowing all employees currently working in three different buildings to work together under one roof, it looks to its new role as part of the creative quarter’s project and wants to achieve openness to outside, addressing not only the past supporters of taz, cooperative members, founders, limited partners, subscribers and readers, but in general to all those who want to support the house project and participate in the cooperative.\nRecently completed, is becoming operational",
+                "end_date": "",
+                "image": "https://i.pinimg.com/564x/9b/fe/fe/9bfefe50ca7507a3c783edb501f9d376.jpg",
+                "category": "Transformations",
+                "sub-category": "Private spaces",
+                "tags": [
+                    "media",
+                    "workspace",
+                    "culture"
+                ],
+                "category-description": "To highlight current projects, conflicts and initiatives - transformations taking place in the area",
+                "links": [
+                    {
+                        "url": "http://www.taz.de/!p4820/",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39135,
+                    52.50315
+                ]
+            },
+            "id": "mehringplatz-community-atlas/taz_neubau#10"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Hedwig Dohm Gedenktafel",
+                "type": "Monument",
+                "start_date": "",
+                "description": "Marianne Adelaide Hedwig Dohm  (20 September 1831 – 1 June 1919) was a German feminist, and author. She was one of the first feminist thinkers. She lived in this house until 1851.",
+                "end_date": "",
+                "image": "https://www.gedenktafeln-in-berlin.de/typo3temp/pics/Gedenktafel_Friedrichstr_235__Kreuz__Hed_ed79a9fe12.jpg",
+                "category": "Memories",
+                "sub-category": "Plaques/Information displays",
+                "tags": [
+                    "feminism",
+                    "culture"
+                ],
+                "category-description": "to document material and immaterial heritage\r\n",
+                "links": [],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39107,
+                    52.50225
+                ]
+            },
+            "id": "mehringplatz-community-atlas/hedwig_dohm_gedenktafel#9"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "Victoria Versicherung Kreuzberg",
+                "type": "Building",
+                "start_date": "1913-09-29T16:00:00.000-08:00",
+                "description": "Neo- baroque building.\n\n",
+                "end_date": "",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Berlin-Kreuzberg_Postkarte_004.jpg/220px-Berlin-Kreuzberg_Postkarte_004.jpg",
+                "category": "Memories",
+                "sub-category": "Architecture ",
+                "tags": [
+                    "architecture"
+                ],
+                "category-description": "to document material and immaterial heritage\r\n",
+                "links": [],
+                "relationships": [
+                    "mehringplatz-community-atlas/urban_sketches_victoria_versicherung#35"
+                ]
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39625,
+                    52.50373
+                ]
+            },
+            "id": "mehringplatz-community-atlas/victoria_versicherung_kreuzberg#8"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "title": "KMA Antenne",
+                "type": "Organization",
+                "start_date": "",
+                "description": "Youth centre",
+                "end_date": "",
+                "image": "",
+                "category": "Stakeholders",
+                "sub-category": "NGO/Social work",
+                "tags": [
+                    "youths",
+                    "culture",
+                    "Social inclusion"
+                ],
+                "category-description": "identifying formal and informal actors in the area",
+                "links": [
+                    {
+                        "url": "http://kma-ev.de/index.php?id=5",
+                        "title": "",
+                        "description": "",
+                        "type": "website"
+                    }
+                ],
+                "relationships": []
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.39179,
+                    52.50062
+                ]
+            },
+            "id": "mehringplatz-community-atlas/kma_antenne#7"
+        }
+    ],
+    "properties": {
+        "title": "Mehringplatz Anknipsen",
+        "uri": "mehringplatz-community-atlas",
+        "description": "A community-led atlas of the Südliche Friedrichstadt - Berlin",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Berlin_Belle_Alliance_Platz_um_1900.jpg/1280px-Berlin_Belle_Alliance_Platz_um_1900.jpg"
+    }
+}
