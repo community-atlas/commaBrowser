@@ -321,6 +321,9 @@ Highlighter
   object-fit: cover;
 }
 
+.card .card-action {
+  padding: 3px 24px;
+}
 
 .gap {
     display: inline-block;
