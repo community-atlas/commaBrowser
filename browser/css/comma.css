@@ -34,6 +34,8 @@ body {
 h4 {
   font-size: 1.5rem;
 }
+
+
 /*
 Layout
 -------------------------------------------------------------------*/
@@ -99,8 +101,14 @@ nav .brand-logo {
 
 nav {
   z-index:3;
+  overflow: hidden;
 }
 
+@media only screen and (max-width : 992px) {
+  nav .brand-logo {
+    font-size: 1.4rem;
+  }
+}
 
 /*
 Map 
