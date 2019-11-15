@@ -2,6 +2,9 @@
 // create our global variable for storing our data
 let commaGeo = {}; // the raw data
 let commaFeatures = []; // processed Features
+let commaCategories = {};
+
+
 // store our global filterset
 let filters = {};
 // The currently selected feature
@@ -47,9 +50,10 @@ var localConfig;
  */
 function renderCard(feature) {    
     let event = feature.properties.start_date ? 'event' : '';
-    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo}" data-ref="card"  data-id="${feature.id}">
-    <div class="card-image blue-grey darken-1 waves-effect waves-block waves-light">
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';    
+    let key=commaCategories[feature.properties.category]?commaCategories[feature.properties.category].key:0;
+    return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
+    <div class="card-image darken-1 waves-effect waves-block waves-light">
     <img src="${feature.properties.image}">
     </div>
     
@@ -101,7 +105,7 @@ function renderHighlighter(feature) {
     let content = [];
 
     
-    content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">folder</i>
+    content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">category</i>
     <span class="type">${properties.type}</span></div>`);
 
     //category
@@ -225,14 +229,11 @@ function commaGetConfig(key){
  * Process the incoming geodata
  * @param {object} geoData 
  */
-function commaInitialiseGeoData(geoData) {
-    
-    features = commaUnifyFeatures(geoData);
-    features = features.map(commaFeatureFill);
-    //set global variables
-    commaGeo = geoData;  
-    commaFeatures = features; 
-    return features;
+function commaInitialiseFeatureData(geoData) {
+    commaGeo = geoData;      
+    commaFeatures = commaUnifyFeatures(geoData).map(commaFeatureFill);
+    commaCategories = commaExtractFeatureCategories(commaFeatures);    
+    return commaFeatures;
 }
 
 /**
@@ -596,7 +597,7 @@ function renderLeafletFeatures(features) {
     leafletNodeLayer = L.geoJSON(null,{
         onEachFeature: mapOnEachFeaturePoints,
       //  style: L.mapbox.simplestyle.style
-        //pointToLayer: L.mapbox.marker.style
+        pointToLayer: mapMarker,
         filter: function(feature){return feature.geometry.type.toLowerCase() == 'point'}
     }); // .addTo(leafletMap);
 
@@ -609,8 +610,7 @@ function renderLeafletFeatures(features) {
     }).addTo(leafletMap);
 
     
-    console.log('rendering map')
-    //console.log(features);
+   
     leafletNodeLayer.addData(geojson);
     leafletPolygonLayer.addData(geojson);
     
@@ -629,26 +629,29 @@ function renderLeafletFeatures(features) {
     leafletMap.fitBounds(bounds, { padding: [20, 20] });
 }
 
+  /**
+   * Returns an icon object, tailored for the current selector (category/type etc)
+   * @param {string} category 
+   * @param {boolean} active 
+   */
+  function mapIcon(category=null,active=false) {       
+    let key=commaCategories[category]?commaCategories[category].key:0;
+    active = active?'active':'';
+    const icon = L.divIcon({
+        className: "mapMarker",
+        iconAnchor: [0, 24],
+        labelAnchor: [-6, 0],
+        popupAnchor: [0, -36],
+        html: `<span class="category-${key} ${active}" />`
+    })
+    return icon;
 
+  }
 
-
-var greenIcon = new L.Icon({
-    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-  var blueIcon = new L.Icon({
-    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-
+  function mapMarker(feature, latlng) {
+    let icon = mapIcon(feature.properties.category);
+    return L.marker(latlng, {"icon": icon});
+  }
 
   /**
    * Event handler for map move event
@@ -667,15 +670,8 @@ var greenIcon = new L.Icon({
 function mapOnEachFeaturePoints(feature, layer) { 
   
     leafletFeatureLookup[feature.id] = L.stamp(layer); 
-    layer.on('click', function (e) {
-      mapResetMarkers();
-      clickedIcon = e.target.icon;
-      clickedMarker = e.target;
-      e.target.setIcon(greenIcon);
-	  // does this feature have a property named popupContent?
-	  if (e.target.feature.id && e.target.feature.properties.title) {
+    layer.on('click', function (e) {     
         commaFeatureSelect(e.target.feature.id);          
-    }
 });
 }
 
@@ -698,9 +694,7 @@ function mapResetMarkers() {
     if (clickedPoly) { 
         clickedPoly.setStyle({'color':clickedPolyColor});
     }    
-    if (clickedMarker) {
-        clickedMarker.setIcon(blueIcon);
-    }
+   
 }
 
 /**
@@ -710,15 +704,18 @@ function mapResetMarkers() {
  */
 function leafletHighightMarker(featureId) {  
   //reset the current marker
-  mapResetMarkers();
+  //mapResetMarkers();
     if (featureId) {
         let _leaflet_id = leafletFeatureLookup[featureId];  
-        if (_leaflet_id) {
-            
+        if (_leaflet_id) {            
             leafletMap.eachLayer(function(layer) {
+                 //mapResetMarkers();                            	  
                 if(layer._leaflet_id == _leaflet_id) {                                
-                    clickedMarker = layer;
-                    layer.setIcon(greenIcon); 
+                    layer.setIcon(mapIcon(layer.feature.properties.category,true));	  
+                    
+                    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category,false));	  
+                    clickedMarker = layer;                    
+                    
                 }
             });
         } 
@@ -843,7 +840,7 @@ function renderCategoryFilters(values) {
           //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
           
                       
-           return `<div class="chip control-filter control-filter-${property}" 
+           return `<div class="chip control-filter control-filter-${property} category-${value.key}" 
            data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</div>`
 
 
@@ -1005,9 +1002,9 @@ $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
 
        $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
-        commaInitialiseGeoData(data);
-
+        let features = commaInitialiseFeatureData(data);        
         let globals = commaGetGlobals();              
+        
         
         //@todo...... Move these
         document.title = "Community Atlas >> "+globals.title; 
@@ -1019,7 +1016,7 @@ $(document).ready(function () {
         //viewTabEventsInit();
       //  initDrawers();
         
-        renderFilters(commaFeatures); 
+        renderFilters(features); 
         //renderCards(commaFeatures);
         //renderTimeline(commaFeatures);        
         renderLeaflet();

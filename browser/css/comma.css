@@ -110,6 +110,32 @@ Map
 }
 
 
+.mapMarker span{    
+    width: 3rem;
+    height: 3rem;
+    display: block;
+    left: -1.5rem;
+    top: -1.5rem;
+    position: relative;
+    border-radius: 3rem 3rem 0;
+    transform: rotate(45deg);
+    border: 1px solid #FFFFFF;
+}
+
+.mapMarker span.active{    
+  width: 4rem;
+  height: 4rem;
+  display: block;
+  left: -1.5rem;
+  top: -1.5rem;
+  position: relative;
+  border-radius: 3rem 3rem 0;
+  transform: rotate(45deg);
+  border: 3px solid #FFFFFF;
+}
+
+
+
 /*
 Highlighter
 ---------------------------------------------------------------------*/
@@ -247,8 +273,8 @@ Highlighter
 /* Controls
 ---------------------------------------------------------------------- */
 
-.control.active, .chip.active {
-  background-color: pink;
+.control.active, .chip.active {  
+  border:solid 2px darkslategray;
 }
 
 
@@ -279,6 +305,7 @@ Highlighter
 
 .card .card-image {
   height:50%;  
+  padding-top:5px;
 }
 
 .card .card-image .img {

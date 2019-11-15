@@ -1,0 +1,33 @@
+.mapMarker .category-0, .card.category-0 .card-image {
+    background-color: darkblue;
+}
+
+
+.mapMarker .category-1, .card.category-1 .card-image, .chip.category-1  {
+    background-color: darkcyan;
+}
+
+.mapMarker .category-2, .card.category-2 .card-image, .chip.category-2  {
+    background-color: darkgoldenrod;
+}
+
+.mapMarker .category-3, .card.category-3 .card-image, .chip.category-3  {
+    background-color:darkmagenta;
+}
+
+.mapMarker .category-4,.card.category-4 .card-image, .chip.category-4  {
+    background-color: darkolivegreen;
+}
+
+.mapMarker .category-5,.card.category-5 .card-image, .chip.category-5  {
+    background-color:darkred;
+}
+
+.mapMarker .category-6, .card.category-6 .card-image, .chip.category-6  {
+    background-color:darkturquoise;
+}
+
+.mapMarker .category-7, .card.category-7 .card-image, .chip.category-7  {
+    background-color:darkslateblue;
+}
+
