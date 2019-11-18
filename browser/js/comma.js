@@ -992,7 +992,7 @@ function commaRender(){
     if (features.length) {
         M.toast({html: `${features.length} feature(s) available to explore`})
     } else {
-        M.toast({html: `There are no features that match your filter. Try removing something, or start again.`})
+        M.toast({html: `There are no features that match your filter. Update or reset your filters.`})
     }
 
 
