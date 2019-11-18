@@ -489,8 +489,13 @@ function convertFeaturesToTimeline(features) {
         "title": {
             'text': {
                 'headline': globals.title,
-            },
-        },
+                'text': globals.description,
+            }           
+        }
+    }
+    if (globals.image) {
+        timeline.title.background = { "url": globals.image };
+        timeline.title.media = { "url": globals.image };
     }
 
     return timeline;
