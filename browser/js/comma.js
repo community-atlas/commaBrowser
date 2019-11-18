@@ -231,7 +231,8 @@ function commaGetConfig(key){
  */
 function commaInitialiseFeatureData(geoData) {
     commaGeo = geoData;      
-    commaFeatures = commaUnifyFeatures(geoData).map(commaFeatureFill);
+    commaFeatures = commaUnifyFeatures(geoData)
+    commaFeatures = commaFeatures.map(commaFeatureFill);
     commaCategories = commaExtractFeatureCategories(commaFeatures);    
     return commaFeatures;
 }
@@ -273,7 +274,10 @@ function commaFeatureFill(feature) {
  * @param {*} comma 
  */
 function commaUnifyFeatures(comma) {
-    const features = comma.features.concat(comma.nonGeoFeatures);
+    let features = comma.features;
+    if (comma.nonGeoFeatures) {
+        features = comma.features.concat(comma.nonGeoFeatures);
+    }
     return features;
 }
 
