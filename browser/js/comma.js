@@ -6,7 +6,7 @@ let commaCategories = {};
 
 
 // store our global filterset
-let filters = {};
+let commaFilters = {};
 // The currently selected feature
 let selectedFeature = null;
 // current view
@@ -159,9 +159,7 @@ function renderHighlighter(feature) {
     }
 
 
-    if (properties.relationships && properties.relationships.length>0) {
-        console.log('relations');
-        console.log(properties.relationships);
+    if (properties.relationships && properties.relationships.length>0) {    
         let related = properties.relationships.map(id => {
             let feature
             if (feature = commaFeatureFind(id)) {
@@ -192,6 +190,26 @@ function renderHighlighter(feature) {
 }
 
 
+
+function renderTools(){
+    let editorUrl = commaGetConfig('editorUrl');
+    let sourceUrl = commaGetConfig('commaJSONUrl');
+    let homepage = commaGetConfig('homepage');        
+    
+    if (homepage) {
+        let about = `<ul>
+            <li><a href="${homepage.url}">${homepage.title}</a></li>
+        </ul>`;    
+        $('#tools-atlas').html(about);
+    }
+
+    let source = `<ul>
+      <li><a href="${editorUrl}">Source editor</a></li>
+      <li><a href="${sourceUrl}">Raw GeoJSON source</a></li></ul>`;
+    $('#tools-source').html(source);
+
+    
+}
 
 
 //---------------------------Utils
@@ -324,49 +342,6 @@ function commaExtractFeatureTags(features) {
 }
 
 
-/**
- * Returns a filtered and sorted version of the unified dataset 
- * @param {object } params 
- */
-function commaGetFeatures(params=false,localFilters = false) {    
-    let features = commaFeatures;
-    // filter the features
-    if (!localFilters) localFilters=filters;        
-    features = features.filter(function (feature) {
-        let keep = true;
-        Object.keys(localFilters).forEach(property => {
-            if (feature.properties[property] && Array.isArray(feature.properties[property])) {
-                if (feature.properties[property].length == 0) {
-                    // there is nothing here
-                    keep=false;
-                }
-                else {  
-                    let found=false;                  
-                    feature.properties[property].forEach(value => {
-                        // loop through each value in the target property                        
-                        if (localFilters[property].indexOf(value)  != -1) found=true;
-                        keep=found;
-                    } )
-                }
-            } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
-                keep=false;
-            }              
-        });          
-        return keep;
-    });
-    // we can also filter only for geo features
-    if (params && params.class) {
-        features = features.filter(function (feature) {
-            let keep = false;
-            if (params.class == 'geo') { keep = feature.hasOwnProperty('geometry') }
-            return keep;
-        });
-    }    
-    return features;
-}
-
-
-
 function commaGetGlobals() {
     let defaults = {
       type:'Community atlas',
@@ -426,7 +401,7 @@ function commaFeatureFind(selector = null) {
 
 
 function commaUrlPush() {
-    const filterHash = filterEncode(filters);
+    const filterHash = filterEncode(commaFilters);
     const selectedHash = selectedFeature?"/"+encodeURIComponent(selectedFeature.id):'';
     const url = '#' + currentView + "/" + filterHash + selectedHash;
     window.location.assign(url);
@@ -444,7 +419,7 @@ function commaUrlPop() {
         selectedFeature = commaFeatureFind(decodeURIComponent(components[2]))
     } 
     if (components[1].length) {
-        filters = filterDecode(components[1]);
+        commaFilters = filterDecode(components[1]);
         filterChange = true; 
     }
     if (components[0].length) {
@@ -453,7 +428,7 @@ function commaUrlPop() {
   } else {
       // if there is no URL override, check the config for a default      
       if (commaGetConfig('filters')) {
-          filters = commaGetConfig('filters');
+          commaFilters = commaGetConfig('filters');
           filterChange = true;
       }
 
@@ -624,13 +599,14 @@ function renderLeafletFeatures(features) {
     leafletClusterLayer.addLayer(leafletNodeLayer);
     leafletMap.addLayer(leafletClusterLayer);
 
-
-    // make sure that we get the right bounds for our data
-    let bounds = leafletNodeLayer.getBounds();
-    let polyBounds = leafletPolygonLayer.getBounds();
-    bounds.extend(polyBounds.getNorthEast());
-    bounds.extend(polyBounds.getSouthWest());
-    leafletMap.fitBounds(bounds, { padding: [20, 20] });
+    if (features.length) {
+        // make sure that we get the right bounds for our data
+        let bounds = leafletNodeLayer.getBounds();
+        let polyBounds = leafletPolygonLayer.getBounds();
+        bounds.extend(polyBounds.getNorthEast());
+        bounds.extend(polyBounds.getSouthWest());
+        leafletMap.fitBounds(bounds, { padding: [20, 20] });
+    }
 }
 
   /**
@@ -738,28 +714,96 @@ function leafletHighightMarker(featureId) {
 
 // ======================== Filters
 
-// returns the current filters
-function filterGet(){
+/**
+ * Returns a filtered and sorted version of the unified dataset 
+ * @param {object } params 
+ */
+function filterFeatures(params=false,localFilters = false) {    
+    let features = commaFeatures;
+    // filter the features
+    if (!localFilters) localFilters=commaFilters;        
+    features = features.filter(function (feature) {
+        let keep = true;
+        Object.keys(localFilters).forEach(property => {
+            if (feature.properties[property] && Array.isArray(feature.properties[property])) {
+                if (feature.properties[property].length == 0) {
+                    // there is nothing here
+                    keep=false;
+                }
+                else {  
+                    let found=false;                  
+                    feature.properties[property].forEach(value => {
+                        // loop through each value in the target property                        
+                        if (localFilters[property].indexOf(value)  != -1) found=true;
+                        keep=found;
+                    } )
+                }
+            } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
+                keep=false;
+            }              
+        });          
+        return keep;
+    });
+    // we can also filter only for geo features
+    if (params && params.class) {
+        features = features.filter(function (feature) {
+            let keep = false;
+            if (params.class == 'geo') { keep = feature.hasOwnProperty('geometry') }
+            return keep;
+        });
+    }    
+    return features;
+}
+
+
+function filterStats(){
+    let stats = {};
+    Object.keys(commaFilters).forEach(property => {
+        stats[property] = commaFilters[property].length;
+    })
+    return stats;
+}
+
+
+
+
+/**
+ * Reset filters to default
+ */
+function filterReset(){
+    let filters = commaGetConfig('filters');
+    if (!filters) {
+        filters = {}
+    }
+    commaFilters = filters;
     return filters;
 }
 
+
+// returns the current filters
+function filterGet(){
+    return commaFilters;
+}
+
+
+
 // set the state of a filter
 function filterSet(attribute, value, state) {
-  if (filters[attribute]) {
-      let index = filters[attribute].indexOf(value);
+  if (commaFilters[attribute]) {
+      let index = commaFilters[attribute].indexOf(value);
       if (state && index == -1) {
-        filters[attribute].push(value);
+        commaFilters[attribute].push(value);
       } else if (!state && index !== -1) {
           // remove the value 
-          if (filters[attribute].length==1) {
-              delete filters[attribute];
+          if (commaFilters[attribute].length==1) {
+              delete commaFilters[attribute];
           } else {
-            filters[attribute].splice(index,1);
+            commaFilters[attribute].splice(index,1);
           }            
       }
-  } else if (!filters[attribute] && state) {
+  } else if (!commaFilters[attribute] && state) {
       // Add a new property
-      filters[attribute]=[value];
+      commaFilters[attribute]=[value];
   }
  }
 
@@ -771,14 +815,22 @@ function filterClick(event){
       if (attribute != "ref") filterSet(attribute, element.dataset[attribute],state);
       
   });
-  filterDisplayUpdate(filters);
+  filterDisplayUpdate(commaFilters);
   commaUrlPush();
   commaRender();
 }
 
+function filterResetClick(){
+    filterReset();
+    filterDisplayUpdate();
+    commaUrlPush();
+    commaRender();
+
+}
+
 // Update all filter elements with the active class
 function filterDisplayUpdate(localFilters = null){
-   if (!localFilters) localFilters= filters;
+   if (!localFilters) localFilters= commaFilters;
    let elements = document.querySelectorAll('[data-ref="filter"]');
    elements.forEach(element => {
      element.classList.remove('active');
@@ -786,6 +838,11 @@ function filterDisplayUpdate(localFilters = null){
        if (localFilters[property].includes(element.dataset[property])) element.classList.add('active')       
     });
   });
+  let stats = filterStats();    
+  $('#controls-category-badge').replaceWith(`<span id="controls-category-badge" class="new badge"  data-badge-caption="">${stats.category || 0}</span>`)
+  $('#controls-type-badge').replaceWith(`<span id="controls-type-badge" class="new badge"  data-badge-caption="">${stats.type || 0}</span>`)
+  $('#controls-tags-badge').replaceWith(`<span id="controls-tags-badge" class="new badge"  data-badge-caption="">${stats.tags || 0}</span>`)
+  
 }
 
 
@@ -915,18 +972,26 @@ function commaHighlighterDetailToggle(element){
  * Render all standard elements. 
  */
 function commaRender(){
-    let features = commaGetFeatures();
+    let features = filterFeatures();
     mixer.dataset(features);        
     if (currentView == 'timeline') {
         // the timeline can only be rendered if it is visible
         renderTimeline(features);
     }
-    let geoFeatures = commaGetFeatures({        
+    let geoFeatures = filterFeatures({        
         "class": "geo"
-    })
+    })    
     // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
     $(".card-image, .card-content").unbind().click(cardClick);
+    if (features.length) {
+        M.toast({html: `${features.length} feature(s) available to explore`})
+    } else {
+        M.toast({html: `There are no features that match your filter. Try removing something, or start again.`})
+    }
+
+
+    
 }
 
 
@@ -1031,7 +1096,8 @@ $(document).ready(function () {
         if (commaUrlPop()) {
             filterDisplayUpdate();           
         }
-        commaRender();        
+        commaRender();  
+        renderTools();      
         //lets see if we have a valid feature selected                      
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
@@ -1043,6 +1109,7 @@ $(document).ready(function () {
      
       $("#highlight-summary").click(commaHighlighterDetailToggle);        
       $("[data-ref='view']").click(commaViewer);   
+      $("#controls-reset").click(filterResetClick);   
 
       if (typeof test === "function") {
         $('#tests').html(test());

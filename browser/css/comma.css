@@ -85,6 +85,16 @@ header, #content-wrapper, footer {
   height:100%;      
 }
 
+.sideNav {
+  overflow:auto;
+}
+
+#section-filters, #section-more {
+  padding: 0 10px;
+}
+#tool-wrapper {
+  min-height: 300px;
+}
 /*
 header
 ----------------------------------------------------------
@@ -283,6 +293,11 @@ Highlighter
 
 .control.active, .chip.active {  
   border:solid 2px darkslategray;
+}
+
+#controls-reset {
+  text-align: center;
+  font-style: italic;
 }
 
 

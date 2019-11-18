@@ -52,42 +52,71 @@
         <div id="sidedrawer-intro">
             <img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
         </div>
-        <div class="collection with-header">
-            <h4 class="collection-header"><i class="material-icons">panorama</i>Display</h4>
-            <a class="collection-item" data-ref="view" data-view="map"><i class="material-icons right">map</i> Map</a>
-            <a class="collection-item" data-ref="view" data-view="timeline"><i class="material-icons right">event</i> Timeline</a>
-            <a class="collection-item" data-ref="view" data-view="cards"><i class="material-icons right">collections</i> Cards</a>
+        <div id="section-view">
+            <div class="collection with-header">
+                <h4 class="collection-header"><i class="material-icons">panorama</i>Display</h4>
+                <a class="collection-item" data-ref="view" data-view="map"><i class="material-icons">map</i>
+                    Map</a>
+                <a class="collection-item" data-ref="view" data-view="timeline"><i
+                        class="material-icons">event</i> Timeline</a>
+                <a class="collection-item" data-ref="view" data-view="cards"><i
+                        class="material-icons">collections</i> Cards</a>
+            </div>
+        </div>
+        <div id="section-filters">
+            <h4><i class="material-icons small">filter_list</i>Filter</h4>
+            <ul id="control-wrapper" class="collapsible expandable">
+                <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">layers</i>Categories<span
+                            id="controls-category-badge"></span></div>
+                    <div id="controls-category" class="collapsible-body controls" data-ref="controls"></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">category</i>Types<span
+                            id="controls-type-badge"></span></div>
+                    <div id="controls-type" class="collapsible-body controls" data-ref="controls"></div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">tags</i>Tags<span
+                            id="controls-tags-badge"></span></div>
+                    <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
+                </li>
+                <li id="controls-reset"><a href="#">Reset filters</a> </li>
+            </ul>
+        </div>
+        <div id="section-more">
+            <h4><i class="material-icons small">settings_applications</i>More</h4>
+            <ul id="tool-wrapper" class="collapsible expandable">
+                <li class="active">
+                    <div class="collapsible-header"><i class="material-icons">transit_enterexit</i>Atlas</div>
+                    <div id="tools-atlas" class="collapsible-body">
+                    </div>
+                </li>
+                <li>
+                <li class="">
+                    <div class="collapsible-header"><i class="material-icons">help</i>About</div>
+                    <div id="tools-help" class="collapsible-body">
+                        Developed for Comensi
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">edit</i>Source</div>
+                    <div id="tools-source" class="collapsible-body"></div>
+                </li>
+            </ul>
         </div>
 
-
-        <h4><i class="material-icons small">filter_list</i>Filter</h4>
-        <ul id="control-wrapper" class="collapsible expandable">
-            <li class="active">
-                <div class="collapsible-header"><i class="material-icons">layers</i>Categories</div>
-                <div id="controls-category" class="collapsible-body controls" data-ref="controls"></div>
-            </li>
-            <li>
-                <div class="collapsible-header"><i class="material-icons">category</i>Types</div>
-                <div id="controls-type" class="collapsible-body controls" data-ref="controls"></div>
-            </li>
-            <li>
-            <div class="collapsible-header"><i class="material-icons">tags</i>Tags</div>
-                <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
-            </li>
-        </ul>
-        
     </div>
     <header id="header" class="navbar-fixed">
         <nav class="light-blue lighten-1">
             <div class="nav-wrapper">
-                <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i
-                        class="material-icons">menu</i></a>
+                <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <span id="title" class="brand-logo">Community Atlas</span>
             </div>
         </nav>
     </header>
     <div id="content-wrapper">
-        <div id="map-wrapper" class="viewer">            
+        <div id="map-wrapper" class="viewer">
             <div id="leafletMap"></div>
         </div>
         <div id="timeline-wrapper" class="viewer">
@@ -99,17 +128,17 @@
                 <div class="gap"></div>
                 <div class="gap"></div>
             </div>
-            
-        
+
+
         </div>
     </div>
-    <div id="highlighter-wrapper">           
+    <div id="highlighter-wrapper">
         <div id="highlight-summary">
         </div>
-        <div id="highlight-detail">              
+        <div id="highlight-detail">
         </div>
     </div>
-    
+
     <!--
     <footer id="footer" class="page-footer">
         <div class="container">
@@ -118,7 +147,7 @@
         </div>
     </footer>
 -->
-<div id="tests"></div>
+    <div id="tests"></div>
     <script src="browser/js/comma.js"></script>
     <script type="text/javascript" src="browser/js/materialize.min.js"></script>
     <!--<script src="browser/tests/test.js"></script>-->
