@@ -6,7 +6,7 @@
 
 var CONFIG = {    
     "mehringplatz-en" :{
-        "editorUrl": "https://coda.io/d/d7AIqM1bRiY",
+        "editorUrl": "https://coda.io/d/dQ3lMBnVcYw",
         "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/mehringplatz_en.geojson",        
         "homepage": {
             "url": "https://www.community-atlas.net",
