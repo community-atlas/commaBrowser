@@ -194,7 +194,8 @@ function renderHighlighter(feature) {
 function renderTools(){
     let editorUrl = commaGetConfig('editorUrl');
     let sourceUrl = commaGetConfig('commaJSONUrl');
-    let homepage = commaGetConfig('homepage');        
+    let homepage = commaGetConfig('homepage');   
+    let globals = commaGetGlobals();  
     
     if (homepage) {
         let about = `<ul>
@@ -205,7 +206,9 @@ function renderTools(){
 
     let source = `<ul>
       <li><a href="${editorUrl}">Source editor</a></li>
-      <li><a href="${sourceUrl}">Raw GeoJSON source</a></li></ul>`;
+      <li><a href="${sourceUrl}">Raw GeoJSON source</a></li>
+      <li>Published: ${globals.published}</li>
+      </ul>`;
     $('#tools-source').html(source);
 
     
