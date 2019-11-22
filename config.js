@@ -18,7 +18,8 @@ var CONFIG = {
         "showDetail": true,
         "filters": {
             "category":["Delimitations"],
-        }
+        },
+        "lang":"en"
     },
     "palermo":{
         "editorUrl": "https://coda.io/d/dWcfAWfG9io",        
@@ -30,7 +31,8 @@ var CONFIG = {
         "mapBoxToken" : "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView" : "map",
-        "showDetail": true
+        "showDetail": true,
+        "lang": "it"
     },
     "testing" :{
         "commaJSONUrl" : "https://raw.githubusercontent.com/community-atlas/commaBrowser/master/browser/tests/data/test1.geojson",
@@ -44,7 +46,8 @@ var CONFIG = {
         "showDetail": true,
         "filters": {
             "category":["Delimitations"],
-        }
+        },
+        "lang":"en"
     },
   
  

@@ -43,15 +43,15 @@ var localConfig;
 
 
 
- 
+
 /**
  * Renders an individual feature on a card
  * @param {object} feature 
  */
-function renderCard(feature) {    
+function renderCard(feature) {
     let event = feature.properties.start_date ? 'event' : '';
-    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';    
-    let key=commaCategories[feature.properties.category]?commaCategories[feature.properties.category].key:0;
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
+    let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].key : 0;
     return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
     <div class="card-image darken-1 waves-effect waves-block waves-light">
     <img src="${feature.properties.image}">
@@ -72,19 +72,19 @@ function renderCard(feature) {
  * Renders the detailed display of a feature
  * @param {object} feature 
  */
-function renderHighlighter(feature) {    
+function renderHighlighter(feature) {
     /*
      If we don't have a feature, populate from globals
     */
     if (!feature) {
         feature = {
             'properties': commaGetGlobals(),
-            'id':'all'
+            'id': 'all'
         }
-    }     
-    let image = feature.properties.image?feature.properties.image:'../images/marker.png';
-    let event = feature.properties.end_date?'event':'';
-    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : ''; 
+    }
+    let image = feature.properties.image ? feature.properties.image : '../images/marker.png';
+    let event = feature.properties.end_date ? 'event' : '';
+    let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
 
     $("#highlight-summary").html(
         `<div class="card-image"><img src="${image}" /></div>
@@ -104,7 +104,7 @@ function renderHighlighter(feature) {
     let properties = feature.properties;
     let content = [];
 
-    
+
     content.push(`<div id="highlight-detail-type" class="detail"><i class="material-icons tiny">category</i>
     <span class="type">${properties.type}</span></div>`);
 
@@ -118,13 +118,13 @@ function renderHighlighter(feature) {
         <span class="category">${properties.category}</span>${subcategory}</div>`);
     }
     // Event
-    if (properties.start_date) {        
-        
+    if (properties.start_date) {
+
         let start_date = new Date(properties.start_date).toLocaleDateString();
-        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;        
+        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;
         if (properties.end_date) {
-            let end_date =  new Date(properties.end_date).toLocaleDateString(); 
-            dateContent +=`<span class="end">${fields.end} ${end_date}</span>`;        
+            let end_date = new Date(properties.end_date).toLocaleDateString();
+            dateContent += `<span class="end">${fields.end} ${end_date}</span>`;
         }
         content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
     }
@@ -132,41 +132,41 @@ function renderHighlighter(feature) {
     if (properties.links) {
         let links = properties.links.map(link => {
             // we have to have a url
-            if (link.url && link.url.length > 0 ) {
-                let url = link.url.toLowerCase().substr(0,4)=="http"?link.url:"http://"+link.url;
-                let title = (link.title && link.title.length>0)?link.title:link.url; 
+            if (link.url && link.url.length > 0) {
+                let url = link.url.toLowerCase().substr(0, 4) == "http" ? link.url : "http://" + link.url;
+                let title = (link.title && link.title.length > 0) ? link.title : link.url;
                 let type = link.type || "website";
                 let description = link.description || "";
                 let icon = "language";
-                let tooltip = link.description?"tooltipped":"";
+                let tooltip = link.description ? "tooltipped" : "";
                 return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}"><i class="material-icons tiny">${icon}</i> ${title}</a>`
-        
+
             }
         });
-        if (links.length>0) {
+        if (links.length > 0) {
             links = links.join("");
             content.push(`<div id="highlight-detail-links" class="collection">${links}</div>`);
-        }        
+        }
     }
 
     content.push(`
     <div id="highlight-detail-description">        
         <p class="description">${properties.description}<p>
-    </div>`);        
+    </div>`);
 
     if (properties.tags) {
-        content.push(renderTagFilters(properties.tags,null));
+        content.push(renderTagFilters(properties.tags, null));
     }
 
 
-    if (properties.relationships && properties.relationships.length>0) {    
+    if (properties.relationships && properties.relationships.length > 0) {
         let related = properties.relationships.map(id => {
             let feature
             if (feature = commaFeatureFind(id)) {
-              return renderCard(feature);
+                return renderCard(feature);
             }
         });
-        if (related.length>0) {
+        if (related.length > 0) {
             related = related.join('');
             content.push(`<div id="highlight-detail-related" >
             <h4>Related</h4>
@@ -174,33 +174,33 @@ function renderHighlighter(feature) {
             </div>`);
         }
     }
-    
-   
+
+
     //wrapper
-    content=content.join('');
+    content = content.join('');
     $("#highlight-detail").html(`
         <div id="highlight-detail-properties" class="${geo} ${event}">
            ${content}
         </div>                
-    `)  
+    `)
     // Attach events
     $('.tooltipped').tooltip();
-   $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
-  //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
+    $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
+    //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
 }
 
 
 
-function renderTools(){
+function renderTools() {
     let editorUrl = commaGetConfig('editorUrl');
     let sourceUrl = commaGetConfig('commaJSONUrl');
-    let homepage = commaGetConfig('homepage');   
-    let globals = commaGetGlobals();  
-    
+    let homepage = commaGetConfig('homepage');
+    let globals = commaGetGlobals();
+
     if (homepage) {
         let about = `<ul>
             <li><a href="${homepage.url}">${homepage.title}</a></li>
-        </ul>`;    
+        </ul>`;
         $('#tools-atlas').html(about);
     }
 
@@ -211,7 +211,7 @@ function renderTools(){
       </ul>`;
     $('#tools-source').html(source);
 
-    
+
 }
 
 
@@ -221,20 +221,20 @@ function renderTools(){
  * Returns the relevant config 
  * @param {*} key 
  */
-function commaGetConfig(key){
+function commaGetConfig(key) {
 
-    function getLocalConfig(){                
-        let configDomain = null; 
+    function getLocalConfig() {
+        let configDomain = null;
         let urlParameters = new URLSearchParams(document.URL.search);
         let configKeys = Object.keys(CONFIG);
 
 
-        if (!(configDomain = urlParameters.get("atlas")))  {
-          if (!(configDomain = window.location.hostname.split('.')[0]) || configKeys.indexOf(configDomain) == -1) {
-              configDomain = Object.keys(CONFIG)[0];
-          }
+        if (!(configDomain = urlParameters.get("atlas"))) {
+            if (!(configDomain = window.location.hostname.split('.')[0]) || configKeys.indexOf(configDomain) == -1) {
+                configDomain = Object.keys(CONFIG)[0];
+            }
         }
-        console.log(configDomain); 
+        console.log(configDomain);
         localConfig = CONFIG[configDomain];
     }
 
@@ -242,7 +242,7 @@ function commaGetConfig(key){
     if (key) {
         return localConfig[key];
     } else {
-        return localConfig; 
+        return localConfig;
     }
 }
 
@@ -251,10 +251,10 @@ function commaGetConfig(key){
  * @param {object} geoData 
  */
 function commaInitialiseFeatureData(geoData) {
-    commaGeo = geoData;      
+    commaGeo = geoData;
     commaFeatures = commaUnifyFeatures(geoData)
     commaFeatures = commaFeatures.map(commaFeatureFill);
-    commaCategories = commaExtractFeatureCategories(commaFeatures);    
+    commaCategories = commaExtractFeatureCategories(commaFeatures);
     return commaFeatures;
 }
 
@@ -264,29 +264,29 @@ function commaInitialiseFeatureData(geoData) {
  */
 var featureIdCounter = 1; // Used to assign ids to features
 function commaFeatureFill(feature) {
-  let geometry;
-  if (!feature.id) {
-      feature.id = featureIdCounter++; 
-  }
-  if (!feature.properties.image) {
-      if (feature.geometry && (geometry = feature.geometry.coordinates)) {
-         if (Array.isArray(geometry[0])) {
-             geometry = geometry[0][0];
-         }
-         feature.properties.image=`https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${geometry[0]},${geometry[1]},13,0,0/400x300?access_token=pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmI1enMwZmkwM2dsaWg3emJnODg1In0.kD8yI6unRQOrVzNY-07-tg`
-      }
-      
-  }
+    let geometry;
+    if (!feature.id) {
+        feature.id = featureIdCounter++;
+    }
+    if (!feature.properties.image) {
+        if (feature.geometry && (geometry = feature.geometry.coordinates)) {
+            if (Array.isArray(geometry[0])) {
+                geometry = geometry[0][0];
+            }
+            feature.properties.image = `https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${geometry[0]},${geometry[1]},13,0,0/400x300?access_token=pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmI1enMwZmkwM2dsaWg3emJnODg1In0.kD8yI6unRQOrVzNY-07-tg`
+        }
+
+    }
 
 
-  let propertyDefaults = {
-      "type" : '',
-      "description" : "",      
-  }
+    let propertyDefaults = {
+        "type": '',
+        "description": "",
+    }
 
-  feature.properties = {...propertyDefaults, ...feature.properties}
-  feature.properties.description = feature.properties.description.replace(/\n/g, "<br />") || '';  
-  return feature; 
+    feature.properties = { ...propertyDefaults, ...feature.properties }
+    feature.properties.description = feature.properties.description.replace(/\n/g, "<br />") || '';
+    return feature;
 }
 
 
@@ -321,14 +321,14 @@ function commaExtractFeatureProperty(features, property = 'type') {
  */
 function commaExtractFeatureCategories(features) {
     let categories = {}
-    features.forEach(feature => {                
-       if (feature.properties.category && !categories[feature.properties.category]) {
-           categories[feature.properties.category] = {
-               'category': feature.properties.category,
-               'description': feature.properties['category-description'],
-               'key':Object.keys(categories).length+1,
-           }
-       }    
+    features.forEach(feature => {
+        if (feature.properties.category && !categories[feature.properties.category]) {
+            categories[feature.properties.category] = {
+                'category': feature.properties.category,
+                'description': feature.properties['category-description'],
+                'key': Object.keys(categories).length + 1,
+            }
+        }
     });
     return categories;
 }
@@ -339,17 +339,17 @@ function commaExtractFeatureCategories(features) {
  */
 function commaExtractFeatureTags(features) {
     let tags = [];
-    features.forEach(feature =>{if(feature.properties.tags) tags= tags.concat(feature.properties.tags) })
+    features.forEach(feature => { if (feature.properties.tags) tags = tags.concat(feature.properties.tags) })
     tags = [...new Set(tags)]
-    return tags; 
+    return tags;
 }
 
 
 function commaGetGlobals() {
     let defaults = {
-      type:'Community atlas',
-    };    
-    return {...defaults, ...commaGeo.properties}
+        type: 'Community atlas',
+    };
+    return { ...defaults, ...commaGeo.properties }
 }
 
 /**
@@ -357,46 +357,46 @@ function commaGetGlobals() {
  * 
  * @param {object} feature 
  */
-function commaFeatureSelect(selector){
-  // if selector is already selected, we toggle
-  if (selectedFeature && selectedFeature.id == selector) selectedFeature = null 
-  else selectedFeature = commaFeatureFind(selector);
-  // get the id 
-  let id = null;
-  if (selectedFeature) id = selectedFeature.id;  
-  // update highligher
-  renderHighlighter(selectedFeature);
-  // update map
-  leafletHighightMarker(id);    
-  // update cards
-  cardHighlight(id);
-  commaUrlPush();
-  if (id) {
-    bodyElement.classList.add('showFeatured','showDetail');
-   // if (currentView!=='map') bodyElement.classList.add('showDetail');  // force detail if we are not on the map
-  }
-  else {
-      bodyElement.classList.remove('showFeatured','showDetail');
-    //  if (currentView!=='map') bodyElement.classList.remove('showDetail');  // force detail if we are not on the map
-  }
+function commaFeatureSelect(selector) {
+    // if selector is already selected, we toggle
+    if (selectedFeature && selectedFeature.id == selector) selectedFeature = null
+    else selectedFeature = commaFeatureFind(selector);
+    // get the id 
+    let id = null;
+    if (selectedFeature) id = selectedFeature.id;
+    // update highligher
+    renderHighlighter(selectedFeature);
+    // update map
+    leafletHighightMarker(id);
+    // update cards
+    cardHighlight(id);
+    commaUrlPush();
+    if (id) {
+        bodyElement.classList.add('showFeatured', 'showDetail');
+        // if (currentView!=='map') bodyElement.classList.add('showDetail');  // force detail if we are not on the map
+    }
+    else {
+        bodyElement.classList.remove('showFeatured', 'showDetail');
+        //  if (currentView!=='map') bodyElement.classList.remove('showDetail');  // force detail if we are not on the map
+    }
 }
 
 /**
  * Returns a single feature matching a selector
  * @param {*} id 
  */
-function commaFeatureFind(selector = null) {   
+function commaFeatureFind(selector = null) {
     let selected = null;
-    if (!selector || (selectedFeature && selector == selectedFeature.id )) {
+    if (!selector || (selectedFeature && selector == selectedFeature.id)) {
         // if we have no selector, or the selector is the current selected feature
         selected = selectedFeature;
-    } else if (selector) {        
+    } else if (selector) {
         // we are looking for a new feature
-        let features = commaFeatures;    
-        selected = features.find(function (feature) {        
+        let features = commaFeatures;
+        selected = features.find(function (feature) {
             return feature.id == selector
-        });        
-    } 
+        });
+    }
     return selected;
 }
 
@@ -405,7 +405,7 @@ function commaFeatureFind(selector = null) {
 
 function commaUrlPush() {
     const filterHash = filterEncode(commaFilters);
-    const selectedHash = selectedFeature?"/"+encodeURIComponent(selectedFeature.id):'';
+    const selectedHash = selectedFeature ? "/" + encodeURIComponent(selectedFeature.id) : '';
     const url = '#' + currentView + "/" + filterHash + selectedHash;
     window.location.assign(url);
 }
@@ -414,29 +414,29 @@ function commaUrlPush() {
  * Retrieve settings from the URL
  */
 function commaUrlPop() {
-  const hash = window.location.hash.substr(1);
-  let filterChange = false; 
-  if (hash) {
-    const components = hash.split('/');        
-    if (components[2]) {
-        selectedFeature = commaFeatureFind(decodeURIComponent(components[2]))
-    } 
-    if (components[1].length) {
-        commaFilters = filterDecode(components[1]);
-        filterChange = true; 
-    }
-    if (components[0].length) {
-        commaSetView(components[0]);
-    } 
-  } else {
-      // if there is no URL override, check the config for a default      
-      if (commaGetConfig('filters')) {
-          commaFilters = commaGetConfig('filters');
-          filterChange = true;
-      }
+    const hash = window.location.hash.substr(1);
+    let filterChange = false;
+    if (hash) {
+        const components = hash.split('/');
+        if (components[2]) {
+            selectedFeature = commaFeatureFind(decodeURIComponent(components[2]))
+        }
+        if (components[1].length) {
+            commaFilters = filterDecode(components[1]);
+            filterChange = true;
+        }
+        if (components[0].length) {
+            commaSetView(components[0]);
+        }
+    } else {
+        // if there is no URL override, check the config for a default      
+        if (commaGetConfig('filters')) {
+            commaFilters = commaGetConfig('filters');
+            filterChange = true;
+        }
 
-  }
-  return filterChange;
+    }
+    return filterChange;
 }
 
 //---------------------------Timeline
@@ -493,7 +493,7 @@ function convertFeaturesToTimeline(features) {
             'text': {
                 'headline': globals.title,
                 'text': globals.description,
-            }           
+            }
         }
     }
     if (globals.image) {
@@ -542,12 +542,12 @@ const mixer = mixitup(container, {
 function cardHighlight(selector) {
     let selected = document.querySelector('.card.active');
     if (selected) selected.classList.remove('active');
-    if (selector)  document.querySelector("[data-id='"+selector+"']").classList.add('active');
+    if (selector) document.querySelector("[data-id='" + selector + "']").classList.add('active');
 }
 
 
 function renderCards(features) {
-       mixer.dataset(features);
+    mixer.dataset(features);
 }
 
 
@@ -562,45 +562,45 @@ function cardClick(event) {
 
 
 function renderLeaflet() {
-   // L.mapbox.accessToken = mapBoxToken;
-   // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-   // leafletMap = L.Wrld.map('leafletMap', '68e0ce6179ac3f8ae3df7a9949927879');
-  leafletMap = L.map('leafletMap');
-   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    // L.mapbox.accessToken = mapBoxToken;
+    // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+    // leafletMap = L.Wrld.map('leafletMap', '68e0ce6179ac3f8ae3df7a9949927879');
+    leafletMap = L.map('leafletMap');
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: commaGetConfig('mapId'),
         accessToken: commaGetConfig('mapBoxToken')
-    }).addTo(leafletMap);   
-    leafletMap.on('move', mapOnMove);  
+    }).addTo(leafletMap);
+    leafletMap.on('move', mapOnMove);
 }
 
-function renderLeafletFeatures(features) {   
+function renderLeafletFeatures(features) {
     const geojson = {
         "type": "FeatureCollection",
         "features": features
     }
-   if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
-    leafletNodeLayer = L.geoJSON(null,{
+    if (leafletNodeLayer) leafletMap.removeLayer(leafletNodeLayer);
+    leafletNodeLayer = L.geoJSON(null, {
         onEachFeature: mapOnEachFeaturePoints,
-      //  style: L.mapbox.simplestyle.style
+        //  style: L.mapbox.simplestyle.style
         pointToLayer: mapMarker,
-        filter: function(feature){return feature.geometry.type.toLowerCase() == 'point'}
+        filter: function (feature) { return feature.geometry.type.toLowerCase() == 'point' }
     }); // .addTo(leafletMap);
 
     if (leafletPolygonLayer) leafletMap.removeLayer(leafletPolygonLayer);
-    leafletPolygonLayer = L.geoJSON(null,{
+    leafletPolygonLayer = L.geoJSON(null, {
         onEachFeature: mapOnEachFeaturePoly,
-      //  style: L.mapbox.simplestyle.style
+        //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
-        filter: function(feature){return feature.geometry.type.toLowerCase() != 'point'}
+        filter: function (feature) { return feature.geometry.type.toLowerCase() != 'point' }
     }).addTo(leafletMap);
 
-    
-   
+
+
     leafletNodeLayer.addData(geojson);
     leafletPolygonLayer.addData(geojson);
-    
+
     // clustering
     if (leafletClusterLayer) leafletMap.removeLayer(leafletClusterLayer);
     leafletClusterLayer = L.markerClusterGroup();
@@ -617,14 +617,14 @@ function renderLeafletFeatures(features) {
     }
 }
 
-  /**
-   * Returns an icon object, tailored for the current selector (category/type etc)
-   * @param {string} category 
-   * @param {boolean} active 
-   */
-  function mapIcon(category=null,active=false) {       
-    let key=commaCategories[category]?commaCategories[category].key:0;
-    active = active?'active':'';
+/**
+ * Returns an icon object, tailored for the current selector (category/type etc)
+ * @param {string} category 
+ * @param {boolean} active 
+ */
+function mapIcon(category = null, active = false) {
+    let key = commaCategories[category] ? commaCategories[category].key : 0;
+    active = active ? 'active' : '';
     const icon = L.divIcon({
         className: "mapMarker",
         iconAnchor: [0, 24],
@@ -634,44 +634,44 @@ function renderLeafletFeatures(features) {
     })
     return icon;
 
-  }
+}
 
-  function mapMarker(feature, latlng) {
+function mapMarker(feature, latlng) {
     let icon = mapIcon(feature.properties.category);
-    return L.marker(latlng, {"icon": icon});
-  }
+    return L.marker(latlng, { "icon": icon });
+}
 
-  /**
-   * Event handler for map move event
-   * @param {*} event 
-   */
+/**
+ * Event handler for map move event
+ * @param {*} event 
+ */
 
-  function mapOnMove(event){
-      commaHighlighterDetailSet(false);
-  }
+function mapOnMove(event) {
+    commaHighlighterDetailSet(false);
+}
 
 /**
  * Process every point feature
  * @param {*} feature 
  * @param {*} layer 
  */
-function mapOnEachFeaturePoints(feature, layer) { 
-  
-    leafletFeatureLookup[feature.id] = L.stamp(layer); 
-    layer.on('click', function (e) {     
-        commaFeatureSelect(e.target.feature.id);          
-});
+function mapOnEachFeaturePoints(feature, layer) {
+
+    leafletFeatureLookup[feature.id] = L.stamp(layer);
+    layer.on('click', function (e) {
+        commaFeatureSelect(e.target.feature.id);
+    });
 }
 
-function mapOnEachFeaturePoly(feature,layer){
+function mapOnEachFeaturePoly(feature, layer) {
     // store a reference
-    mapFeaturePolyLookup[feature.id] = L.stamp(layer); 
+    mapFeaturePolyLookup[feature.id] = L.stamp(layer);
     layer.on('click', e => {
-        mapResetMarkers();        
+        mapResetMarkers();
         clickedPoly = e.target;
         clickedPolyColor = e.target.options.color;
-        clickedPoly.setStyle({'color':'#ff3333'});
-        commaFeatureSelect(e.target.feature.id);          
+        clickedPoly.setStyle({ 'color': '#ff3333' });
+        commaFeatureSelect(e.target.feature.id);
     });
 }
 
@@ -679,10 +679,10 @@ function mapOnEachFeaturePoly(feature,layer){
  * Reset any currently highlighed map features 
  * */
 function mapResetMarkers() {
-    if (clickedPoly) { 
-        clickedPoly.setStyle({'color':clickedPolyColor});
-    }    
-   
+    if (clickedPoly) {
+        clickedPoly.setStyle({ 'color': clickedPolyColor });
+    }
+
 }
 
 /**
@@ -690,32 +690,32 @@ function mapResetMarkers() {
  * @todo Unify highlighting
  * @param {string} featureId 
  */
-function leafletHighightMarker(featureId) {  
-  //reset the current marker
-  //mapResetMarkers();
+function leafletHighightMarker(featureId) {
+    //reset the current marker
+    //mapResetMarkers();
     if (featureId) {
-        let _leaflet_id = leafletFeatureLookup[featureId];  
-        if (_leaflet_id) {            
-            leafletMap.eachLayer(function(layer) {
-                 //mapResetMarkers();                            	  
-                if(layer._leaflet_id == _leaflet_id) {                                
-                    layer.setIcon(mapIcon(layer.feature.properties.category,true));	  
-                    
-                    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category,false));	  
-                    clickedMarker = layer;                    
-                    
+        let _leaflet_id = leafletFeatureLookup[featureId];
+        if (_leaflet_id) {
+            leafletMap.eachLayer(function (layer) {
+                //mapResetMarkers();                            	  
+                if (layer._leaflet_id == _leaflet_id) {
+                    layer.setIcon(mapIcon(layer.feature.properties.category, true));
+
+                    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
+                    clickedMarker = layer;
+
                 }
             });
-        } 
-        else if (_leaflet_id = mapFeaturePolyLookup[featureId]) {            
-            leafletMap.eachLayer(function(layer) {
-                if(layer._leaflet_id == _leaflet_id) {                                
+        }
+        else if (_leaflet_id = mapFeaturePolyLookup[featureId]) {
+            leafletMap.eachLayer(function (layer) {
+                if (layer._leaflet_id == _leaflet_id) {
                     clickedPoly = layer;
                     clickedPolyColor = layer.options.color;
-                    clickedPoly.setStyle({'color':'#ff3333'});
+                    clickedPoly.setStyle({ 'color': '#ff3333' });
                 }
             });
-            
+
         }
     }
 }
@@ -726,30 +726,30 @@ function leafletHighightMarker(featureId) {
  * Returns a filtered and sorted version of the unified dataset 
  * @param {object } params 
  */
-function filterFeatures(params=false,localFilters = false) {    
+function filterFeatures(params = false, localFilters = false) {
     let features = commaFeatures;
     // filter the features
-    if (!localFilters) localFilters=commaFilters;        
+    if (!localFilters) localFilters = commaFilters;
     features = features.filter(function (feature) {
         let keep = true;
         Object.keys(localFilters).forEach(property => {
             if (feature.properties[property] && Array.isArray(feature.properties[property])) {
                 if (feature.properties[property].length == 0) {
                     // there is nothing here
-                    keep=false;
+                    keep = false;
                 }
-                else {  
-                    let found=false;                  
+                else {
+                    let found = false;
                     feature.properties[property].forEach(value => {
                         // loop through each value in the target property                        
-                        if (localFilters[property].indexOf(value)  != -1) found=true;
-                        keep=found;
-                    } )
+                        if (localFilters[property].indexOf(value) != -1) found = true;
+                        keep = found;
+                    })
                 }
             } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
-                keep=false;
-            }              
-        });          
+                keep = false;
+            }
+        });
         return keep;
     });
     // we can also filter only for geo features
@@ -759,12 +759,12 @@ function filterFeatures(params=false,localFilters = false) {
             if (params.class == 'geo') { keep = feature.hasOwnProperty('geometry') }
             return keep;
         });
-    }    
+    }
     return features;
 }
 
 
-function filterStats(){
+function filterStats() {
     let stats = {};
     Object.keys(commaFilters).forEach(property => {
         stats[property] = commaFilters[property].length;
@@ -778,7 +778,7 @@ function filterStats(){
 /**
  * Reset filters to default
  */
-function filterReset(){
+function filterReset() {
     let filters = commaGetConfig('filters');
     if (!filters) {
         filters = {}
@@ -789,7 +789,7 @@ function filterReset(){
 
 
 // returns the current filters
-function filterGet(){
+function filterGet() {
     return commaFilters;
 }
 
@@ -797,38 +797,38 @@ function filterGet(){
 
 // set the state of a filter
 function filterSet(attribute, value, state) {
-  if (commaFilters[attribute]) {
-      let index = commaFilters[attribute].indexOf(value);
-      if (state && index == -1) {
-        commaFilters[attribute].push(value);
-      } else if (!state && index !== -1) {
-          // remove the value 
-          if (commaFilters[attribute].length==1) {
-              delete commaFilters[attribute];
-          } else {
-            commaFilters[attribute].splice(index,1);
-          }            
-      }
-  } else if (!commaFilters[attribute] && state) {
-      // Add a new property
-      commaFilters[attribute]=[value];
-  }
- }
-
-// handle a click on a filter
-function filterClick(event){
-  let element = event.target;  
-  let state = !element.classList.contains('active');
-  Object.keys(element.dataset).forEach(attribute => {
-      if (attribute != "ref") filterSet(attribute, element.dataset[attribute],state);
-      
-  });
-  filterDisplayUpdate(commaFilters);
-  commaUrlPush();
-  commaRender();
+    if (commaFilters[attribute]) {
+        let index = commaFilters[attribute].indexOf(value);
+        if (state && index == -1) {
+            commaFilters[attribute].push(value);
+        } else if (!state && index !== -1) {
+            // remove the value 
+            if (commaFilters[attribute].length == 1) {
+                delete commaFilters[attribute];
+            } else {
+                commaFilters[attribute].splice(index, 1);
+            }
+        }
+    } else if (!commaFilters[attribute] && state) {
+        // Add a new property
+        commaFilters[attribute] = [value];
+    }
 }
 
-function filterResetClick(){
+// handle a click on a filter
+function filterClick(event) {
+    let element = event.target;
+    let state = !element.classList.contains('active');
+    Object.keys(element.dataset).forEach(attribute => {
+        if (attribute != "ref") filterSet(attribute, element.dataset[attribute], state);
+
+    });
+    filterDisplayUpdate(commaFilters);
+    commaUrlPush();
+    commaRender();
+}
+
+function filterResetClick() {
     filterReset();
     filterDisplayUpdate();
     commaUrlPush();
@@ -837,20 +837,20 @@ function filterResetClick(){
 }
 
 // Update all filter elements with the active class
-function filterDisplayUpdate(localFilters = null){
-   if (!localFilters) localFilters= commaFilters;
-   let elements = document.querySelectorAll('[data-ref="filter"]');
-   elements.forEach(element => {
-     element.classList.remove('active');
-     Object.keys(localFilters).forEach(property => {
-       if (localFilters[property].includes(element.dataset[property])) element.classList.add('active')       
+function filterDisplayUpdate(localFilters = null) {
+    if (!localFilters) localFilters = commaFilters;
+    let elements = document.querySelectorAll('[data-ref="filter"]');
+    elements.forEach(element => {
+        element.classList.remove('active');
+        Object.keys(localFilters).forEach(property => {
+            if (localFilters[property].includes(element.dataset[property])) element.classList.add('active')
+        });
     });
-  });
-  let stats = filterStats();    
-  $('#controls-category-badge').replaceWith(`<span id="controls-category-badge" class="new badge"  data-badge-caption="">${stats.category || 0}</span>`)
-  $('#controls-type-badge').replaceWith(`<span id="controls-type-badge" class="new badge"  data-badge-caption="">${stats.type || 0}</span>`)
-  $('#controls-tags-badge').replaceWith(`<span id="controls-tags-badge" class="new badge"  data-badge-caption="">${stats.tags || 0}</span>`)
-  
+    let stats = filterStats();
+    $('#controls-category-badge').replaceWith(`<span id="controls-category-badge" class="new badge"  data-badge-caption="">${stats.category || 0}</span>`)
+    $('#controls-type-badge').replaceWith(`<span id="controls-type-badge" class="new badge"  data-badge-caption="">${stats.type || 0}</span>`)
+    $('#controls-tags-badge').replaceWith(`<span id="controls-tags-badge" class="new badge"  data-badge-caption="">${stats.tags || 0}</span>`)
+
 }
 
 
@@ -862,8 +862,8 @@ function filterEncode(filters) {
     let path = Object.keys(filters).map(filter => {
         if (filters[filter]) {
             let encoded = filters[filter].map(encodeURIComponent)
-            return encodeURIComponent(filter)+":"+encoded.join(',')
-        }        
+            return encodeURIComponent(filter) + ":" + encoded.join(',')
+        }
     });
     return path.join('::');
 }
@@ -873,13 +873,13 @@ function filterEncode(filters) {
  * @param {string} hash 
  */
 function filterDecode(hash) {
-  let filters = {};
-  const components = hash.split('::');
-  components.forEach(element => {
-      const propertyFilter = element.split(':');
-      filters[decodeURIComponent(propertyFilter[0])]=propertyFilter[1].split(',').map(decodeURIComponent);
-  });
-  return filters;
+    let filters = {};
+    const components = hash.split('::');
+    components.forEach(element => {
+        const propertyFilter = element.split(':');
+        filters[decodeURIComponent(propertyFilter[0])] = propertyFilter[1].split(',').map(decodeURIComponent);
+    });
+    return filters;
 }
 
 /**
@@ -887,14 +887,14 @@ function filterDecode(hash) {
  * @param { array } values  An array of possible values
  * @param { string } property   The name of the property being filtered
  */
-function renderPropertyFilters(values,property = 'type' ) {
-    
+function renderPropertyFilters(values, property = 'type') {
+
     function renderFilter(value) {
         return `<div class="chip control-filter control-filter-${property}" 
         data-ref="filter" data-${property}="${value}" >${value}</div>`
     }
-    const filters = values.map(renderFilter);    
-    $('#controls-'+property).html(filters.join(''));
+    const filters = values.map(renderFilter);
+    $('#controls-' + property).html(filters.join(''));
 }
 
 
@@ -902,24 +902,24 @@ function renderPropertyFilters(values,property = 'type' ) {
  * Renders the filters for the categories
  * @param {array of objects} values 
  */
-function renderCategoryFilters(values) {    
-        function renderFilter(key) {
-            let value = values[key];
-          //  return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
-          //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
-          
-                      
-           return `<div class="chip control-filter control-filter-${property} category-${value.key}" 
+function renderCategoryFilters(values) {
+    function renderFilter(key) {
+        let value = values[key];
+        //  return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
+        //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
+
+
+        return `<div class="chip control-filter control-filter-${property} category-${value.key}" 
            data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</div>`
 
 
-        }    
-        
-        const property = 'category';
-        const filters = Object.keys(values).map(renderFilter).join('');                
-        const content = filters;
-        console.log(content);
-        $('#controls-category').html(content);    
+    }
+
+    const property = 'category';
+    const filters = Object.keys(values).map(renderFilter).join('');
+    const content = filters;
+    console.log(content);
+    $('#controls-category').html(content);
 }
 
 
@@ -929,26 +929,26 @@ function renderTagFilter(value) {
     data-ref="filter" data-tags="${value}" >${value}</div>`
 }
 
-function renderTagFilters(tags, elementLocator = "#controls-tags"){    
-    let filters = tags.map(renderTagFilter).join('');                
-    if (elementLocator) $(elementLocator).html(filters);  
+function renderTagFilters(tags, elementLocator = "#controls-tags") {
+    let filters = tags.map(renderTagFilter).join('');
+    if (elementLocator) $(elementLocator).html(filters);
     return filters;
 }
 
 
 function renderFilters(features) {
-  const categories = commaExtractFeatureCategories(features);
-  const types = commaExtractFeatureProperty(features,'type');
-  const tags = commaExtractFeatureTags(features);
+    const categories = commaExtractFeatureCategories(features);
+    const types = commaExtractFeatureProperty(features, 'type');
+    const tags = commaExtractFeatureTags(features);
 
-  renderPropertyFilters(types);
-  renderCategoryFilters(categories);
-  renderTagFilters(tags);  
-  $('[data-ref="filter"]').click(filterClick);   
-  
+    renderPropertyFilters(types);
+    renderCategoryFilters(categories);
+    renderTagFilters(tags);
+    $('[data-ref="filter"]').click(filterClick);
+
 }
 
- 
+
 // =======================================================
 
 
@@ -957,12 +957,12 @@ function renderFilters(features) {
 
 
 function commaHighlighterDetailSet(show) {
-    if (show) bodyElement.classList.add('showDetail','showFeatured');  
+    if (show) bodyElement.classList.add('showDetail', 'showFeatured');
     else {
         // remove the detail, but put the small card back
-        bodyElement.classList.remove('showDetail');  
+        bodyElement.classList.remove('showDetail');
         bodyElement.classList.add('showFeatured');
-    }  
+    }
 
 }
 
@@ -970,36 +970,36 @@ function commaHighlighterDetailSet(show) {
  * Zooms into the emlement detail
  * @param {*} element 
  */
-function commaHighlighterDetailToggle(element){
-    bodyElement.classList.toggle('showDetail');  
-    bodyElement.classList.add('showFeatured');  
+function commaHighlighterDetailToggle(element) {
+    bodyElement.classList.toggle('showDetail');
+    bodyElement.classList.add('showFeatured');
 }
 
 
 /**
  * Render all standard elements. 
  */
-function commaRender(){
+function commaRender() {
     let features = filterFeatures();
-    mixer.dataset(features);        
+    mixer.dataset(features);
     if (currentView == 'timeline') {
         // the timeline can only be rendered if it is visible
         renderTimeline(features);
     }
-    let geoFeatures = filterFeatures({        
+    let geoFeatures = filterFeatures({
         "class": "geo"
-    })    
+    })
     // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
     $(".card-image, .card-content").unbind().click(cardClick);
     if (features.length) {
-        M.toast({html: `${features.length} feature(s) available to explore`})
+        M.toast({ html: `${features.length} feature(s) available to explore` })
     } else {
-        M.toast({html: `There are no features that match your filter. Update or reset your filters.`})
+        M.toast({ html: `There are no features that match your filter. Update or reset your filters.` })
     }
 
 
-    
+
 }
 
 
@@ -1007,7 +1007,7 @@ function commaRender(){
  * Onclick handler for view change
  * @param {object} element 
  */
-function commaViewer(element){
+function commaViewer(element) {
     commaSetView(element.currentTarget.dataset.view);
 }
 
@@ -1017,24 +1017,24 @@ function commaViewer(element){
  * @param {string} view 
  */
 function commaSetView(view) {
-    let cssClass; 
-    switch (view) {                    
-        case 'timeline': 
-          cssClass = 'viewTimeline';
-        break;
-        case 'cards': 
-          cssClass = 'viewCards';
-        break;
-        case 'map': 
+    let cssClass;
+    switch (view) {
+        case 'timeline':
+            cssClass = 'viewTimeline';
+            break;
+        case 'cards':
+            cssClass = 'viewCards';
+            break;
+        case 'map':
         default:
-          cssClass = 'viewMap';
-        break;
+            cssClass = 'viewMap';
+            break;
     }
 
     if (!bodyElement.classList.contains(cssClass)) {
-        if (bodyElement.classList.length>0) bodyElement.classList.remove('viewMap','viewTimeline','viewCards');                
+        if (bodyElement.classList.length > 0) bodyElement.classList.remove('viewMap', 'viewTimeline', 'viewCards');
         bodyElement.classList.add(cssClass);
-        currentView = view;         
+        currentView = view;
         commaUrlPush();
         commaRefresh();
     }
@@ -1044,13 +1044,13 @@ function commaSetView(view) {
 /**
  * refresh elements of the page depending on the current view
  */
-function commaRefresh(){
+function commaRefresh() {
 
-    if (currentView == 'timeline' )  { 
+    if (currentView == 'timeline') {
         renderTimeline(commaFeatures);
     }
     else if (currentView == 'map') {
-      leafletMap._onResize();  
+        leafletMap._onResize();
     }
 }
 
@@ -1060,11 +1060,11 @@ function commaRefresh(){
 /**
  * Initialise the matarialize interface features
  */
-function initMaterialize(){
+function initMaterialize() {
     M.AutoInit();
-  /*  let tabElement = document.querySelector('.tabs')
-    var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});*/
-    
+    /*  let tabElement = document.querySelector('.tabs')
+      var tabs = M.Tabs.init(tabElement, {'onShow':materializeTabs});*/
+
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, {
         onOpenEnd: commaRefresh,
@@ -1073,55 +1073,72 @@ function initMaterialize(){
 
 }
 
+
+/**
+ * Apply translation
+ */
+function translateTexts() {
+    $('body').i18n();
+}
+
+
 //==========================================================
 
 $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
+    $.i18n.debug = true;
+    $.i18n().locale = commaGetConfig('lang') || "en";
+    $.i18n().load("browser/translation/i18n.json");
 
-       $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
-        let features = commaInitialiseFeatureData(data);        
-        let globals = commaGetGlobals();              
-        
-        
+    $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
+        let features = commaInitialiseFeatureData(data);
+        let globals = commaGetGlobals();
+
+
         //@todo...... Move these
-        document.title = "Community Atlas >> "+globals.title; 
+        document.title = "Community Atlas >> " + globals.title;
         $("nav #title").html(globals.title);
         $("#cards-header-content").html(globals.title);
 
 
         // perform initial rendering of all aspects so that we start will all the right data
         //viewTabEventsInit();
-      //  initDrawers();
-        
-        renderFilters(features); 
+        //  initDrawers();
+
+        renderFilters(features);
         //renderCards(commaFeatures);
         //renderTimeline(commaFeatures);        
         renderLeaflet();
         initMaterialize();
         //renderLeafletFeatures(commaGetFeatures({ class: 'geo' }));
-        
+
         // Now, if there are any updates pushed from the url or config update the display
         if (commaUrlPop()) {
-            filterDisplayUpdate();           
+            filterDisplayUpdate();
         }
-        commaRender();  
-        renderTools();      
+        commaRender();
+        renderTools();
         //lets see if we have a valid feature selected                      
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
         commaHighlighterDetailSet(commaGetConfig('showDetail'));
 
 
-    
-      // renderViewControls();
-     
-      $("#highlight-summary").click(commaHighlighterDetailToggle);        
-      $("[data-ref='view']").click(commaViewer);   
-      $("#controls-reset").click(filterResetClick);   
 
-      if (typeof test === "function") {
-        $('#tests').html(test());
-      }
+        // renderViewControls();
+
+        $("#highlight-summary").click(commaHighlighterDetailToggle);
+        $("[data-ref='view']").click(commaViewer);
+        $("#controls-reset").click(filterResetClick);
+        $('.lang-switch').click(function (e) {
+            e.preventDefault();
+            $.i18n().locale = $(this).data('locale');
+            translateTexts();
+        });
+
+        if (typeof test === "function") {
+            $('#tests').html(test());
+        }
 
 
     });
