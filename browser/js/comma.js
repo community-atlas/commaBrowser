@@ -918,7 +918,6 @@ function renderCategoryFilters(values) {
     const property = 'category';
     const filters = Object.keys(values).map(renderFilter).join('');
     const content = filters;
-    console.log(content);
     $('#controls-category').html(content);
 }
 
@@ -1077,7 +1076,7 @@ function initMaterialize() {
 /**
  * Apply translation
  */
-function translateTexts() {
+function translateTexts(selector = 'body') {
     $('body').i18n();
 }
 
@@ -1087,8 +1086,14 @@ function translateTexts() {
 $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
     $.i18n.debug = true;
-    $.i18n().locale = commaGetConfig('lang') || "en";
-    $.i18n().load("browser/translation/i18n.json");
+    let lang= commaGetConfig('lang') || "en";
+    $.i18n().locale = lang;
+    $.i18n().load(
+        {
+            "en" : "browser/translation/en.json",
+            "de" : "browser/translation/de.json"
+        }
+        );
 
     $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
         let features = commaInitialiseFeatureData(data);
@@ -1122,6 +1127,7 @@ $(document).ready(function () {
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
         commaHighlighterDetailSet(commaGetConfig('showDetail'));
+        translateTexts();
 
 
 

@@ -1,0 +1,16 @@
+{
+    "@metadata": {
+        "authors": [
+            "Peter Brownell"
+        ],
+        "last-updated": "2019-11-22",
+        "locale": "en"
+    },
+  
+        "title-commnity-atlas": "Community Atlas",
+        "menu_display": "Display",
+        "menu_map": "Map",
+        "menu-timeline": "Timeline",
+        "menu-cards": "Cards"
+    
+}
