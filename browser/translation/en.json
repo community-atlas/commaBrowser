@@ -9,8 +9,8 @@
   
         "title-commnity-atlas": "Community Atlas",
         "menu_display": "Display",
-        "menu_map": "Map",
-        "menu-timeline": "Timeline",
-        "menu-cards": "Cards"
+        "menu_map": "Map view",
+        "menu_timeline": "Timeline view",
+        "menu_cards": " Card view"
     
 }
