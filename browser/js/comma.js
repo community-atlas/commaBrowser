@@ -124,7 +124,7 @@ function renderHighlighter(feature) {
         let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;
         if (properties.end_date) {
             let end_date = new Date(properties.end_date).toLocaleDateString();
-            dateContent += `<span class="end">${fields.end} ${end_date}</span>`;
+            dateContent += ` <span class="end">${fields.end} ${end_date}</span>`;
         }
         content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
     }
@@ -208,8 +208,10 @@ function renderTools() {
       <li><a href="${editorUrl}">Source editor</a></li>
       <li><a href="${sourceUrl}">Raw GeoJSON source</a></li>
       <li>Published: ${globals.published}</li>
+      <li><a id="reload-trigger" i18n-data="btn_reload" href="#">Reload</li>
       </ul>`;
     $('#tools-source').html(source);
+    $('#reload-trigger').click(commaReloadGeoData);
 
 
 }
@@ -438,6 +440,24 @@ function commaUrlPop() {
     }
     return filterChange;
 }
+
+
+/**
+ * Pull a new copy of the geo data
+ */
+function commaReloadGeoData(){
+    // Don't cache the JSON data
+    $.ajaxSetup({
+        cache:false
+      });
+    $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
+        let features = commaInitialiseFeatureData(data);
+        let globals = commaGetGlobals();
+        commaRender();
+        renderTools();
+    });
+}
+
 
 //---------------------------Timeline
 
