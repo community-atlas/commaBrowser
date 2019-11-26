@@ -94,18 +94,16 @@
                     <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
                 </li>
                 <li id="controls-reset"><a href="#">Reset filters</a> </li>
-            </ul>
-            
-  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light modal-trigger" href="#config"><h4><i class="material-icons small">settings_applications</i>More</h4></a>
-            
+            </ul>            
         </div>
     </div>
     <header id="header" class="navbar-fixed">
         <nav class="light-blue lighten-1">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <span id="title" class="brand-logo">Community Atlas</span>
+                <a id="settings-icon" class="right modal-trigger" href="#config"><i class="material-icons small">settings_applications</i></a>       
+                <span id="title" class="brand-logo">Community Atlas</span>            
+                
             </div>
         </nav>
     </header>
@@ -131,9 +129,11 @@
         </div>
         <div id="highlight-detail">
         </div>
+        
     </div>
 
-    <div id="config" class="modal bottom-sheet">
+    <div id="config" class="modal top-sheet">
+                             <!-- Modal Trigger -->                             
         <div class="modal-content">
           <h4>Config</h4>
           <div id="section-more">

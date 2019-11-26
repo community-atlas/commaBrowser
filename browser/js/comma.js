@@ -421,7 +421,7 @@ function commaUrlPop() {
         if (components[2]) {
             selectedFeature = commaFeatureFind(decodeURIComponent(components[2]))
         }
-        if (components[1].length) {
+        if (components[1] && components[1].length) {
             commaFilters = filterDecode(components[1]);
             filterChange = true;
         }
@@ -877,7 +877,9 @@ function filterDecode(hash) {
     const components = hash.split('::');
     components.forEach(element => {
         const propertyFilter = element.split(':');
-        filters[decodeURIComponent(propertyFilter[0])] = propertyFilter[1].split(',').map(decodeURIComponent);
+        if (Array.isArray(propertyFilter) && propertyFilter[1]) {
+            filters[decodeURIComponent(propertyFilter[0])] = propertyFilter[1].split(',').map(decodeURIComponent);
+        }
     });
     return filters;
 }
