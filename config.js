@@ -7,7 +7,7 @@
 var CONFIG = {  
     "playground" :{
         "editorUrl": "https://coda.io/d/dvdo5WMIQlF",
-        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/play.geojson",        
+        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/play-vdo5WMIQlF.geojson",        
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
@@ -20,7 +20,7 @@ var CONFIG = {
     },  
     "mehringplatz-en" :{
         "editorUrl": "https://coda.io/d/dQ3lMBnVcYw",
-        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/mehringplatz_en.geojson",        
+        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/mehringplatz_en-Q3lMBnVcYw.geojson",        
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
@@ -36,7 +36,7 @@ var CONFIG = {
     },
     "palermo":{
         "editorUrl": "https://coda.io/d/dWcfAWfG9io",        
-        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/palermo.geojson",
+        "commaJSONUrl" : "https://raw.githubusercontent.com/Comensi/atlases/master/polermo-WcfAWfG9io.geojson",
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
