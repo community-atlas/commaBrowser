@@ -1086,14 +1086,14 @@ function translateTexts(selector = 'body') {
 $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
     $.i18n.debug = true;
-    let lang= commaGetConfig('lang') || "en";
+    let lang = commaGetConfig('lang') || "en";
     $.i18n().locale = lang;
     $.i18n().load(
         {
-            "en" : "browser/translation/en.json",
-            "de" : "browser/translation/de.json"
+            "en": "browser/translation/en.json",
+            "de": "browser/translation/de.json"
         }
-        );
+    );
 
     $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
         let features = commaInitialiseFeatureData(data);
@@ -1127,8 +1127,6 @@ $(document).ready(function () {
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
         commaHighlighterDetailSet(commaGetConfig('showDetail'));
-        translateTexts();
-
 
 
         // renderViewControls();
@@ -1145,6 +1143,9 @@ $(document).ready(function () {
         if (typeof test === "function") {
             $('#tests').html(test());
         }
+
+
+        translateTexts(); 
 
 
     });
