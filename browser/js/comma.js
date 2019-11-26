@@ -1087,14 +1087,7 @@ $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
     $.i18n.debug = true;
     let lang = commaGetConfig('lang') || "en";
-    $.i18n().locale = lang;
-    $.i18n().load(
-        {
-            "en": "browser/translation/en.json",
-            "de": "browser/translation/de.json"
-        }
-    );
-
+    $.i18n().locale = lang;   
     $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
         let features = commaInitialiseFeatureData(data);
         let globals = commaGetGlobals();
@@ -1144,8 +1137,15 @@ $(document).ready(function () {
             $('#tests').html(test());
         }
 
+        $.i18n().load(
+            {
+                "en": "browser/translation/en.json",
+                "de": "browser/translation/de.json"
+            }
+        ).done(translateTexts);
 
-        translateTexts(); 
+
+        
 
 
     });
