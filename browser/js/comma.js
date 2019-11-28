@@ -253,7 +253,7 @@ function commaGetConfig(key) {
  * @param {object} geoData 
  */
 function commaInitialiseFeatureData(geoData) {
-    commaGeo = geoData || {};
+    commaGeo = geoData;
     commaFeatures = commaUnifyFeatures(geoData)
     commaFeatures = commaFeatures.map(commaFeatureFill);
     commaCategories = commaExtractFeatureCategories(commaFeatures);
@@ -301,7 +301,7 @@ function commaUnifyFeatures(comma) {
     if (features && comma.nonGeoFeatures) {
         features = comma.features.concat(comma.nonGeoFeatures);
     }
-    return features || [];
+    return features;
 }
 
 /**
