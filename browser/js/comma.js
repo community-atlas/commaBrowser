@@ -297,9 +297,9 @@ function commaFeatureFill(feature) {
  * @param {*} comma 
  */
 function commaUnifyFeatures(comma) {
-    let features = comma.features;
+    let features = comma.features || [];
     if (features && comma.nonGeoFeatures) {
-        features = comma.features.concat(comma.nonGeoFeatures);
+        features = features.concat(comma.nonGeoFeatures);
     }
     return features;
 }
