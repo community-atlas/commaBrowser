@@ -253,7 +253,7 @@ function commaGetConfig(key) {
  * @param {object} geoData 
  */
 function commaInitialiseFeatureData(geoData) {
-    commaGeo = geoData;
+    commaGeo = geoData || {};
     commaFeatures = commaUnifyFeatures(geoData)
     commaFeatures = commaFeatures.map(commaFeatureFill);
     commaCategories = commaExtractFeatureCategories(commaFeatures);
@@ -298,10 +298,10 @@ function commaFeatureFill(feature) {
  */
 function commaUnifyFeatures(comma) {
     let features = comma.features;
-    if (comma.nonGeoFeatures) {
+    if (features && comma.nonGeoFeatures) {
         features = comma.features.concat(comma.nonGeoFeatures);
     }
-    return features;
+    return features || [];
 }
 
 /**
@@ -585,7 +585,7 @@ function renderLeaflet() {
     // L.mapbox.accessToken = mapBoxToken;
     // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
     // leafletMap = L.Wrld.map('leafletMap', '68e0ce6179ac3f8ae3df7a9949927879');
-    leafletMap = L.map('leafletMap');
+    leafletMap = L.map('leafletMap').setView([0,0],2);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
