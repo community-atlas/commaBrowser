@@ -309,7 +309,7 @@ Highlighter
 
 
 
-/* Controls
+/* Controls and chips
 ---------------------------------------------------------------------- */
 
 .control.active, .chip.active {  
@@ -319,6 +319,25 @@ Highlighter
 #controls-reset {
   text-align: center;
   font-style: italic;
+}
+
+.chip {
+  border:solid 2px white;
+  display: block; 
+  height: 26px;
+  line-height: 24px;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+#controls-category .chip {
+  color: lightgrey;
+  font-weight: 600;
+}
+
+#controls-category .chip.active {
+  color: white;
+  
 }
 
 

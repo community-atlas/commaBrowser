@@ -5,6 +5,22 @@
  */
 
 var CONFIG = { 
+    "mehringplatz-en" :{
+        "editorUrl": "https://coda.io/d/dQ3lMBnVcYw",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/mehringplatz_en-Q3lMBnVcYw.geojson",        
+        "homepage": {
+            "url": "https://www.community-atlas.net",
+            "title": "community-atlas.net",
+        },
+        "mapBoxToken" : "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
+        "mapId": "mapbox.streets",
+        "startView" : "map",
+        "showDetail": true,
+        "filters": {
+            "category":["Delimitations"],
+        },
+        "lang":"en"
+    },
     "atlas" :{
         "editorUrl": "https://coda.io/d/db8UloKHtPW",
         "commaJSONUrl" : "https://comensi.github.io/atlases/atlas-b8UloKHtPW.geojson",
@@ -31,22 +47,7 @@ var CONFIG = {
         "showDetail": true,       
         "lang":"en"
     },
-    "mehringplatz-en" :{
-        "editorUrl": "https://coda.io/d/dQ3lMBnVcYw",
-        "commaJSONUrl" : "https://comensi.github.io/atlases/mehringplatz_en-Q3lMBnVcYw.geojson",        
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
-        "mapBoxToken" : "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
-        "mapId": "mapbox.streets",
-        "startView" : "map",
-        "showDetail": true,
-        "filters": {
-            "category":["Delimitations"],
-        },
-        "lang":"en"
-    },
+  
     "playground" :{
         "editorUrl": "https://coda.io/d/dvdo5WMIQlF",
         "commaJSONUrl" : "https://comensi.github.io/atlases/play-vdo5WMIQlF.geojson",        
