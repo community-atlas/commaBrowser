@@ -349,7 +349,8 @@ Highlighter
 
 .control.active, .chip.active {  
   border:solid 2px darkslategray;
-  font-weight: 700;
+  background-color: #eb5757;
+  color: #000;
 }
 
 #controls-reset {
