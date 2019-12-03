@@ -45,11 +45,11 @@
     <!-- I18n-->
     <script src="browser/js/jqueryi18n/CLDRPluralRuleParser.js"></script>
     <script src="browser/js/jqueryi18n/jquery.i18n.js"></script>
-	<script src="browser/js/jqueryi18n/jquery.i18n.messagestore.js"></script>
-	<script src="browser/js/jqueryi18n/jquery.i18n.fallbacks.js"></script>
-	<script src="browser/js/jqueryi18n/jquery.i18n.parser.js"></script>
-	<script src="browser/js/jqueryi18n/jquery.i18n.emitter.js"></script>
-	<script src="browser/js/jqueryi18n/jquery.i18n.language.js"></script>
+    <script src="browser/js/jqueryi18n/jquery.i18n.messagestore.js"></script>
+    <script src="browser/js/jqueryi18n/jquery.i18n.fallbacks.js"></script>
+    <script src="browser/js/jqueryi18n/jquery.i18n.parser.js"></script>
+    <script src="browser/js/jqueryi18n/jquery.i18n.emitter.js"></script>
+    <script src="browser/js/jqueryi18n/jquery.i18n.language.js"></script>
 
 
     <link type="text/css" rel="stylesheet" href="browser/css/comma.css" />
@@ -63,16 +63,20 @@
         <div id="sidedrawer-intro">
             <img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas">
         </div>
-        <div id="section-view">
-            <div class="collection">                
-                <a class="collection-item" data-ref="view" data-view="map"><h4><i class="material-icons">map</i>
-                   <span data-i18n="menu_map">Map</span></h4>
-                <a class="collection-item" data-ref="view" data-view="timeline"><h4><i
-                        class="material-icons">event</i>
-                        <span data-i18n="menu_timeline">Timeline</span></h4></a>
-                <a class="collection-item" data-ref="view" data-view="cards"><h4><i
-                        class="material-icons">collections</i>
-                        <span data-i18n="menu_cards"> Cards</span></h4></a>
+        <h2 id="sidedrawer-title" class="hide-on-med-and-down">Community Atlas</h2>
+        <div id="section-view" class="hide-on-large-only">
+            <div class="collection">
+                <a class="collection-item" data-ref="view" data-view="map">
+                    <h4><i class="material-icons">map</i>
+                        <span data-i18n="menu_map">Map</span></h4>
+                    <a class="collection-item" data-ref="view" data-view="timeline">
+                        <h4><i class="material-icons">event</i>
+                            <span data-i18n="menu_timeline">Timeline</span></h4>
+                    </a>
+                    <a class="collection-item" data-ref="view" data-view="cards">
+                        <h4><i class="material-icons">collections</i>
+                            <span data-i18n="menu_cards"> Cards</span></h4>
+                    </a>
             </div>
         </div>
         <div id="section-filters">
@@ -94,17 +98,29 @@
                     <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
                 </li>
                 <li id="controls-reset"><a href="#">Reset filters</a> </li>
-            </ul>            
+            </ul>
         </div>
     </div>
     <header id="header" class="navbar-fixed">
-        <nav class="light-blue lighten-1">
+        <nav class="white lighten-1">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <a id="settings-icon" class="right modal-trigger" href="#config"><i class="material-icons small">settings_applications</i></a>       
-                <span id="title" class="brand-logo">Community Atlas</span>            
-                
+                <ul id="nav-menu" class="hide-on-med-and-down right">
+                    <li><a class="collection-item" data-ref="view" data-view="map">
+                            <span data-i18n="menu_map">Map</span><i class="material-icons right">map</i></a>
+                    <li>
+                    <li><a class="collection-item" data-ref="view" data-view="timeline">
+                            <span data-i18n="menu_timeline">Timeline</span><i
+                            class="material-icons right">event</i></a></li>
+                    <li><a class="collection-item" data-ref="view" data-view="cards">
+                            <span data-i18n="menu_cards"> Cards</span><i
+                            class="material-icons right">collections</i></a></li>                    
+                </ul>
+                <a id="settings-icon" class="modal-trigger" href="#config"><i
+                    class="material-icons small">settings_applications</i></a>
+                <span id="title" class="brand-logo hide-on-large-only">Community Atlas</span>
             </div>
+
         </nav>
     </header>
     <div id="content-wrapper">
@@ -129,48 +145,48 @@
         </div>
         <div id="highlight-detail">
         </div>
-        
+
     </div>
 
     <div id="config" class="modal top-sheet">
-                             <!-- Modal Trigger -->                             
+        <!-- Modal Trigger -->
         <div class="modal-content">
-          <h4>Config</h4>
-          <div id="section-more">
-            <ul id="tool-wrapper" class="collapsible expandable">
-                <li class="active">
-                    <div class="collapsible-header"><i class="material-icons">transit_enterexit</i>Atlas</div>
-                    <div id="tools-atlas" class="collapsible-body">
-                    </div>
-                </li>
-                <li class="">
-                    <div class="collapsible-header"><i class="material-icons">transit_enterexit</i>Language</div>
-                    <div id="tools-language" class="collapsible-body">
-                        <ul>
-                            <li><a href="#" class="lang-switch" data-locale="en">English</a> </li>
-                            <li><a href="#" class="lang-switch" data-locale="de">German</a></li>
-                            <li><a href="#" class="lang-switch" data-locale="it">Italian</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="">
-                    <div class="collapsible-header"><i class="material-icons">help</i>About</div>
-                    <div id="tools-help" class="collapsible-body">
-                        Developed for Comensi
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">edit</i>Source</div>
-                    <div id="tools-source" class="collapsible-body"></div>                    
-                </li>
-            </ul>
-        </div>
-          
+            <h4>Config</h4>
+            <div id="section-more">
+                <ul id="tool-wrapper" class="collapsible expandable">
+                    <li class="active">
+                        <div class="collapsible-header"><i class="material-icons">transit_enterexit</i>Atlas</div>
+                        <div id="tools-atlas" class="collapsible-body">
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="collapsible-header"><i class="material-icons">transit_enterexit</i>Language</div>
+                        <div id="tools-language" class="collapsible-body">
+                            <ul>
+                                <li><a href="#" class="lang-switch" data-locale="en">English</a> </li>
+                                <li><a href="#" class="lang-switch" data-locale="de">German</a></li>
+                                <li><a href="#" class="lang-switch" data-locale="it">Italian</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="collapsible-header"><i class="material-icons">help</i>About</div>
+                        <div id="tools-help" class="collapsible-body">
+                            Developed for Comensi
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">edit</i>Source</div>
+                        <div id="tools-source" class="collapsible-body"></div>
+                    </li>
+                </ul>
+            </div>
+
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
-      </div>
+    </div>
 
     <!--
     <footer id="footer" class="page-footer">

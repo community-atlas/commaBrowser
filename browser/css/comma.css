@@ -22,7 +22,7 @@ body {
     box-sizing: border-box;
 }
 
-body,#sidedrawer,#highlighter-wrapper {
+body,#sidedrawer {
   background-image: url("/browser/images/background.png");
 }
 
@@ -33,7 +33,10 @@ body {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial;
 }
 
-
+h2 {
+  font-size: 2.5rem;
+  margin: 1rem;
+}
 
 h4 {
   font-size: 1.5rem;
@@ -45,10 +48,18 @@ h4 {
 /*
 Layout
 -------------------------------------------------------------------*/
+#sidedrawer {
+  z-index:999;
+}
 
+header {
+  box-sizing:border-box;
+  width: calc(100% - 300px);  
+}
 
 header, #content-wrapper, footer {
   padding-left: 300px;
+  
 }
 
 @media only screen and (max-width : 992px) {
@@ -113,11 +124,22 @@ img#logo {
 
 nav .brand-logo {
   padding-left: 20px;
+  color:#000;
 }
 
 nav {
-  z-index:3;
+  z-index:999;
   overflow: hidden;
+}
+
+
+nav #nav-menu {
+  width:800px;
+}
+
+nav a, nav ul a {
+  color: #000;
+  font-size:1.5rem;
 }
 
 @media only screen and (max-width : 992px) {
@@ -314,6 +336,7 @@ Highlighter
 
 .control.active, .chip.active {  
   border:solid 2px darkslategray;
+  font-weight: 700;
 }
 
 #controls-reset {
@@ -323,14 +346,15 @@ Highlighter
 
 .chip {
   border:solid 2px white;
+  
+}
+
+#controls-category .chip {
   display: block; 
   height: 26px;
   line-height: 24px;
   border-radius: 0;
   box-sizing: border-box;
-}
-
-#controls-category .chip {
   color: lightgrey;
   font-weight: 600;
 }
@@ -367,7 +391,7 @@ Highlighter
 
 
 .card .card-image {
-  height:50%;  
+  height:100%;  
   padding-top:5px;
 }
 
@@ -375,6 +399,13 @@ Highlighter
   height:100%;
   object-fit: cover;
 }
+
+
+.card .card-image .card-title {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding:5px;
+}
+
 
 .card .card-action {
   padding: 3px 24px;

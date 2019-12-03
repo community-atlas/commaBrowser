@@ -52,13 +52,15 @@ function renderCard(feature) {
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
     let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].key : 0;
+    let description = feature.properties.description.substr(0,120).replace(/<[^>]*>?/gm, ' ');
     return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
     <div class="card-image darken-1 waves-effect waves-block waves-light">
     <img src="${feature.properties.image}">
+    <span class="card-title grey-text text-darken-4"><i class="material-icons right forward">arrow_forward</i><i class="material-icons right back">arrow_back</i>${feature.properties.title}</span>
     </div>
     
-        <div class="card-content">
-            <span class="card-title grey-text text-darken-4"><i class="material-icons right forward">arrow_forward</i><i class="material-icons right back">arrow_back</i>${feature.properties.title}</span>
+        <div class="card-content truncate">
+            ${description}
         </div>
         <div class="card-action">
           <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
@@ -1118,6 +1120,7 @@ $(document).ready(function () {
         //@todo...... Move these
         document.title = "Community Atlas >> " + globals.title;
         $("nav #title").html(globals.title);
+        $("#sidedrawer-title").html(globals.title);
         $("#cards-header-content").html(globals.title);
 
 
