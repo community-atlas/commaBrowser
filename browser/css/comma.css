@@ -185,27 +185,29 @@ Map
 
 
 .mapMarker span{    
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     display: block;
-    left: -1.5rem;
-    top: -1.5rem;
+    left: -1rem;
+    top: -1rem;
     position: relative;
     border-radius: 3rem 3rem 0;
     transform: rotate(45deg);
-    border: 1px solid #FFFFFF;
+    border: 1px solid #000;
+    opacity: 0.75;
 }
 
 .mapMarker span.active{    
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   display: block;
-  left: -1.5rem;
-  top: -1.5rem;
+  left: -2rem;
+  top: -2rem;
   position: relative;
   border-radius: 3rem 3rem 0;
   transform: rotate(45deg);
-  border: 3px solid #FFFFFF;
+  border: 3px solid  #eb5757;
+  opacity: 1;
 }
 
 
