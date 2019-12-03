@@ -161,6 +161,19 @@ nav a, nav ul a {
     
   }  
 }
+
+.viewMap #sidenav-menu-map, .viewTimeline #sidenav-menu-timeline, .viewCards #sidenav-menu-cards  {
+  color: #eb5757;
+}
+
+.viewMap #nav-menu-mapm, .viewTimeline #nav-menu-timeline, .viewCards #nav-menu-cards {
+  background-color: rgba(0, 0, 0, 0.1);  
+}
+
+.viewMap #nav-menu-map a , .viewTimeline #nav-menu-timeline a, .viewCards #nav-menu-cards a {
+  color: #eb5757;
+
+}
     
 
 /*
