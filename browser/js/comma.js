@@ -939,10 +939,11 @@ function renderCategoryFilters(values) {
         let value = values[key];
         //  return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
         //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
-
+        let position = "right";
+        if (window.innerWidth < 922) position="bottom";
 
         return `<div class="tooltipped chip control-filter control-filter-${property} category-${value.id}" 
-           data-ref="filter" data-${property}="${value.category}"  data-position="right" data-tooltip="${value.description}"  >${value.category}</div>`
+           data-ref="filter" data-${property}="${value.category}"  data-position="${position}" data-tooltip="${value.description}"  >${value.category}</div>`
 
 
     }

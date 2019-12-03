@@ -460,6 +460,12 @@ Highlighter
 
 
 /* ------------------------*/
+
+.material-tooltip {
+  top: 30px;
+}
+
+
 /* -------------------- Map fixes
 
 .leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated { will-change:auto !important; }
