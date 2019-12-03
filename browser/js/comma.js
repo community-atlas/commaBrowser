@@ -51,7 +51,7 @@ var localConfig;
 function renderCard(feature) {
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].key : 0;
+    let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].id : 0;
     let description = feature.properties.description.substr(0,120).replace(/<[^>]*>?/gm, ' ');
     return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
     <div class="card-image darken-1 waves-effect waves-block waves-light">
@@ -325,15 +325,23 @@ function commaExtractFeatureProperty(features, property = 'type') {
  */
 function commaExtractFeatureCategories(features) {
     let categories = {}
-    features.forEach(feature => {
-        if (feature.properties.category && !categories[feature.properties.category]) {
-            categories[feature.properties.category] = {
-                'category': feature.properties.category,
-                'description': feature.properties['category-description'],
-                'key': Object.keys(categories).length + 1,
+    let globals = commaGetGlobals();
+    if (globals.taxonomy) {
+        categories = globals.taxonomy;
+        categories = categories.sort((a = 0,b = 0) => a.weight - b.weight)
+    } 
+    else {
+        // there is no taxonomy property, so lets work out our categories
+        features.forEach(feature => {
+            if (feature.properties.category && !categories[feature.properties.category]) {
+                categories[feature.properties.category] = {
+                    'category': feature.properties.category,
+                    'description': feature.properties['category-description'],
+                    'id': Object.keys(categories).length + 1,
+                }
             }
-        }
-    });
+        });
+    }
     return categories;
 }
 
@@ -645,7 +653,7 @@ function renderLeafletFeatures(features) {
  * @param {boolean} active 
  */
 function mapIcon(category = null, active = false) {
-    let key = commaCategories[category] ? commaCategories[category].key : 0;
+    let key = commaCategories[category] ? commaCategories[category].id : 0;
     active = active ? 'active' : '';
     const icon = L.divIcon({
         className: "mapMarker",
@@ -933,8 +941,8 @@ function renderCategoryFilters(values) {
         //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
 
 
-        return `<div class="chip control-filter control-filter-${property} category-${value.key}" 
-           data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</div>`
+        return `<div class="tooltipped chip control-filter control-filter-${property} category-${value.id}" 
+           data-ref="filter" data-${property}="${value.category}"  data-position="right" data-tooltip="${value.description}"  >${value.category}</div>`
 
 
     }
