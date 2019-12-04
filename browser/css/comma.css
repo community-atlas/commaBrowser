@@ -467,6 +467,10 @@ span.badge.new {
     overflow:auto;
 }
 
+#cards-wrapper .controls {
+  float:right;
+}
+
 .cards {
   z-index: 1;
   display:grid;
@@ -475,6 +479,7 @@ span.badge.new {
     padding: 0.75rem;  
   /*  background-color: #fff;*/
     overflow: hidden;    
+    clear: both;
 }
 
 .cards:after {
@@ -535,12 +540,17 @@ span.badge.new {
 
 
 
-
+.sort-title.sortDir-asc .controls [data-sort="title"].direction-asc, .sort-title.sortDir-desc .controls [data-sort="title"].direction-desc,
+.sort-created_date.sortDir-asc .controls [data-sort="created_date"].direction-asc, .sort-created_date.sortDir-desc .controls [data-sort="created_date"].direction-desc,
+.sort-updated_date.sortDir-asc .controls [data-sort="updated_date"].direction-asc, .sort-updated_date.sortDir-desc .controls [data-sort="updated_date"].direction-desc  {
+  color:  #eb5757;
+}
 
 /* ------------------------*/
 
 .material-tooltip {
   top: 30px;
+  border: 1px solid white;
 }
 
 

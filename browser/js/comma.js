@@ -11,6 +11,9 @@ let commaFilters = {};
 let selectedFeature = null;
 // current view
 let currentView = "map";
+// sort 
+let sortProperty = "title"
+let sortAsc = true;
 
 
 
@@ -413,6 +416,29 @@ function commaFeatureFind(selector = null) {
 }
 
 
+/**
+ * Sort features by attribute
+ * @param {*} features 
+ * @param {*} property 
+ * @param {*} asc 
+ */
+function commaFeatureSort(features, property=null, asc=null){
+    if (!property) property = sortProperty;
+    if (asc == null) asc = sortAsc; 
+
+    features = features.sort((a,b) =>{ 
+           let aVal = a.properties[property];
+           let bVal = b.properties[property];
+           if (typeof aVal == "string") {
+               aVal = aVal.toLowerCase().trim();
+               bVal = bVal.toLowerCase().trim();
+           }
+           return (aVal > bVal) ? 1 : -1 ;              
+    });
+    if (!asc) features = features.reverse();
+    return features;
+  }
+
 
 
 function commaUrlPush() {
@@ -793,8 +819,11 @@ function filterFeatures(params = false, localFilters = false) {
             return keep;
         });
     }
+    features = commaFeatureSort(features)
+
     return features;
 }
+
 
 
 function filterStats() {
@@ -1000,6 +1029,20 @@ function renderFilters(features) {
 
 // =======================================================
 
+// handle a click on a sort
+function sortClick(event) {
+    let element = event.currentTarget;    
+    sortProperty = element.dataset.sort;
+    sortAsc = element.dataset.asc == 1;    
+    $('body').removeClass(['sort-title','sort-created_date', 'sort-updated_date', 'sort-weight','sortDir-desc', 'sortDir-asc']);
+    $('body').addClass('sort-'+sortProperty);
+    if (sortAsc) {
+        $('body').addClass('sortDir-asc');
+    } else {
+        $('body').addClass('sortDir-desc');
+    }
+    commaRender();
+}
 
 
 
@@ -1178,6 +1221,7 @@ $(document).ready(function () {
         $("#highlight-summary").click(commaHighlighterDetailToggle);
         $("[data-ref='view']").click(commaViewer);
         $("#controls-reset").click(filterResetClick);
+        $("#cards-wrapper .controls .control").click(sortClick);
         $('.lang-switch').click(function (e) {
             e.preventDefault();
             $.i18n().locale = $(this).data('locale');

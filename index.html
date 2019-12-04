@@ -99,7 +99,7 @@
                 </li>
                 <li id="controls-reset"><a href="#">Reset filters</a> </li>
             </ul>
-        </div>
+        </div>        
     </div>
     <header id="header" class="navbar-fixed z-depth-0">
         <nav class="">
@@ -131,6 +131,18 @@
             <div id='timeline-embed'></div>
         </div>
         <div id="cards-wrapper" class="viewer">
+            <div class="controls">                
+                <i class="material-icons small" >sort</i>
+                <i class="material-icons"  data-sort="title" >sort_by_alpha</i>
+                <span data-ref="sort" class="direction-asc control" data-sort="title" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control" data-sort="title" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>
+                <i class="material-icons" data-sort="created_date">schedule</i>               <span
+                 data-ref="sort" class="direction-asc control" data-sort="created_date" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control " data-sort="created_date" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>
+                <i class="material-icons" data-sort="updated_date">update</i>
+                <span data-ref="sort" class="direction-asc control" data-sort="updated_date" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control" data-sort="updated_date" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>                
+            </div>
             <div id="cards" class="cards" data-ref="container">
                 <div class="gap" data-ref="first-gap"></div>
                 <div class="gap"></div>
