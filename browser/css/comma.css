@@ -1,7 +1,6 @@
 html,
 body {
-    height: 100%;
-    background: #fff;
+    height: 100%;    
 }
 
  
@@ -22,7 +21,7 @@ body {
     box-sizing: border-box;
 }
 
-body,#sidedrawer {
+body, #sidedrawer {
   background-image: url("/browser/images/background.png");
 }
 
@@ -57,6 +56,17 @@ header {
   width: calc(100% - 300px);  
 }
 
+
+#content-wrapper {
+  position: fixed;
+  overflow:auto;
+  z-index:1;
+  width:100%;
+  top: 70px;
+  height:calc(100% - 70px);      
+}
+
+
 header, #content-wrapper, footer {
   padding-left: 300px;
   
@@ -66,20 +76,18 @@ header, #content-wrapper, footer {
   header, #content-wrapper, footer {
     padding-left: 0;
   }
+
 }
       
 
-#content-wrapper {
-  z-index:1;
-  width:auto;
-}
+
 
 #map-wrapper,#timeline-wrapper,#cards-wrapper {
   display:none;  
 }
 
-.viewCards.showDetail #content-wrapper {
-  margin-right:400px;
+body.viewCards.showDetail #content-wrapper {
+  width:calc(100% - 400px);
 }
 
 /*
@@ -98,10 +106,6 @@ header, #content-wrapper, footer {
 }
 
 
-#content-wrapper {
-  top: 70px;
-  height:calc(100% - 70px);      
-} 
 
 #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
   height:100%;
@@ -121,6 +125,20 @@ header, #content-wrapper, footer {
 header
 ----------------------------------------------------------
 */
+nav {
+  z-index:999;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+}
+
+@media only screen and (max-width : 992px) {
+  nav {
+    box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    background: #fff;  
+  }
+}
+    
 
 
 img#logo {
@@ -132,10 +150,6 @@ nav .brand-logo {
   color:#000;
 }
 
-nav {
-  z-index:999;
-  overflow: hidden;
-}
 
 
 nav #nav-menu {
@@ -169,10 +183,6 @@ nav a, nav ul a {
 
 .viewMap #sidenav-menu-map, .viewTimeline #sidenav-menu-timeline, .viewCards #sidenav-menu-cards  {
   color: #eb5757;
-}
-
-.viewMap #nav-menu-mapm, .viewTimeline #nav-menu-timeline, .viewCards #nav-menu-cards {
-  background-color: rgba(0, 0, 0, 0.1);  
 }
 
 .viewMap #nav-menu-map a , .viewTimeline #nav-menu-timeline a, .viewCards #nav-menu-cards a {
@@ -263,10 +273,9 @@ Highlighter
 }
 
 .viewMap.showDetail #highlighter-wrapper, .viewCards.showDetail #highlighter-wrapper {
-  display: inline-block;
-  padding-top:64px;
+  display: inline-block;  
   width:400px;
-  height: 100%;  
+  height: calc(100% - 100px);
   right:0;       
   bottom:0;
   position: fixed;
