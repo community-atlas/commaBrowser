@@ -12,8 +12,9 @@ let selectedFeature = null;
 // current view
 let currentView = "map";
 // sort 
-let sortProperty = "title"
+let sortProperty = "title";
 let sortAsc = true;
+let commaLanguage = "en";
 
 
 
@@ -66,8 +67,8 @@ function renderCard(feature) {
             ${description}
         </div>
         <div class="card-action">
-          <i class="small material-icons date" alt="Feature appears in timeline">date_range</i>
-          <i class="small material-icons map" alt="Feature appears on map">map</i>
+          <i class="small material-icons date" >date_range</i>
+          <i class="small material-icons map">map</i>
 
         </div>       
     </div>`;
@@ -87,7 +88,7 @@ function renderHighlighter(feature) {
             'id': 'all'
         }
     }
-    let image = feature.properties.image ? feature.properties.image : '../images/marker.png';
+    let image = feature.properties.image ? feature.properties.image : 'browser/images/atlas-logo-x1.png';
     let event = feature.properties.end_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
 
@@ -97,15 +98,7 @@ function renderHighlighter(feature) {
         `
     )
 
-
-    let fields = {
-        type: 'Type',
-        'start': 'Start: ',
-        'end': 'End',
-        'category': 'Category',
-        'subcategory': 'Sub category',
-
-    }
+    
     let properties = feature.properties;
     let content = [];
 
@@ -126,10 +119,10 @@ function renderHighlighter(feature) {
     if (properties.start_date) {
 
         let start_date = new Date(properties.start_date).toLocaleDateString();
-        let dateContent = `<span class="start">${fields.start} ${start_date}</span>`;
+        let dateContent = `<span class="start"><i class="material-icons tiny ">play_arrow</i> ${start_date}</span>`;
         if (properties.end_date) {
             let end_date = new Date(properties.end_date).toLocaleDateString();
-            dateContent += ` <span class="end">${fields.end} ${end_date}</span>`;
+            dateContent += ` <span class="end"><i class="material-icons tiny ">stop</i> ${end_date}</span>`;
         }
         content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
     }
@@ -174,7 +167,7 @@ function renderHighlighter(feature) {
         if (related.length > 0) {
             related = related.join('');
             content.push(`<div id="highlight-detail-related" >
-            <h4>Related</h4>
+            <h4><i class="material-icons">link</i></h4>
             ${related}
             </div>`);
         }
@@ -210,10 +203,11 @@ function renderTools() {
     }
 
     let source = `<ul>
-      <li><a href="${editorUrl}">Source editor</a></li>
-      <li><a href="${sourceUrl}">Raw GeoJSON source</a></li>
+      <li><a href="${editorUrl}" data-i18n="tools_source_editor">Source editor</a></li>
+      <li><a href="${sourceUrl}" data-i18n="tools_raw">Raw GeoJSON source</a></li>
       <li>Published: ${globals.published}</li>
-      <li><a id="reload-trigger" i18n-data="btn_reload" href="#">Reload</li>
+      <li><a id="reload-trigger" href="#" data-i18n="tools_reload" >Reload</a></li>
+
       </ul>`;
     $('#tools-source').html(source);
     $('#reload-trigger').click(commaReloadGeoData);
@@ -571,6 +565,10 @@ function convertFeaturesToTimeline(features) {
  */
 function renderTimeline(features) {
     let timeline = convertFeaturesToTimeline(features);
+    let options = {
+        debug: false,
+        language: commaLanguage,
+    }
     window.timeline = new TL.Timeline('timeline-embed', timeline, { debug: false });
 }
 
@@ -1071,7 +1069,7 @@ function commaHighlighterDetailToggle(element) {
 /**
  * Render all standard elements. 
  */
-function commaRender() {
+function commaRender(toast=true) {
     let features = filterFeatures();
     mixer.dataset(features);
     if (currentView == 'timeline') {
@@ -1084,12 +1082,13 @@ function commaRender() {
     // renderMapFeatures(map, geoFeatures);
     renderLeafletFeatures(geoFeatures);
     $(".card-image, .card-content").unbind().click(cardClick);
-    if (features.length) {
-        M.toast({ html: `${features.length} feature(s) available to explore` })
-    } else {
-        M.toast({ html: `There are no features that match your filter. Update or reset your filters.` })
+    if (toast) {
+        if (features.length) {
+            M.toast({ html: $.i18n('toast_available',features.length)})
+        } else {
+            M.toast({ html:  $.i18n('toast_reset') })
+        }
     }
-
 
 
 }
@@ -1208,7 +1207,7 @@ $(document).ready(function () {
         if (commaUrlPop()) {
             filterDisplayUpdate();
         }
-        commaRender();
+        commaRender(false);
         renderTools();
         //lets see if we have a valid feature selected                      
         renderHighlighter(commaFeatureFind());
@@ -1225,6 +1224,7 @@ $(document).ready(function () {
         $('.lang-switch').click(function (e) {
             e.preventDefault();
             $.i18n().locale = $(this).data('locale');
+            commaLanguage = $(this).data('locale');
             translateTexts();
         });
 

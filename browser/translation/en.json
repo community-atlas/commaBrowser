@@ -11,6 +11,15 @@
         "menu_display": "Display",
         "menu_map": "Map",
         "menu_timeline": "Timeline",
-        "menu_cards": " Cards"
+        "menu_cards": "Cards", 
+        "filter_categories": "Categories",
+        "filter_types": "Types",
+        "filter_tags": "Tags",
+        "filter_reset": "Reset filters",
+        "tools_source_editor": "Source editor",
+        "tools_raw": "Raw GeoJSON source",
+        "tools_reload": "Reload JSON data",
+        "toast_available": "$1 {{PLURAL:$1|feature|features}} available to explore",
+        "toast_reset": "There are no features that match your filter. Update or reset your filters."
     
 }
