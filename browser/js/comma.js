@@ -982,7 +982,7 @@ function renderCategoryFilters(values) {
         let tooltip = "";
         if (value.description.length > 0)  {
             let position = "right";
-            if (window.innerWidth < 922) position="bottom";
+           // if (window.innerWidth < 922) position="bottom";
             tooltip = `data-position="${position}" data-tooltip="${value.description}"`;
             cssClass = cssClass + " tooltipped";
         }
