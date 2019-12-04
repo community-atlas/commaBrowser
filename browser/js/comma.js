@@ -500,6 +500,9 @@ function createTimelineEvent(feature) {
         }
         if (feature.properties.image) event.background = { "url": feature.properties.image };
         if (feature.properties.image) event.media = { "url": feature.properties.image };
+        if (feature.properties.category) event.group = feature.properties.category;
+        event.unique_id = feature.id;
+
 
         return event;
     }

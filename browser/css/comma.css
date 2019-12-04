@@ -217,6 +217,22 @@ Map
 
 
 
+/* Timeline
+-------------------------------------------------------------------*/
+
+.tl-timemarker.tl-timemarker-active .tl-timemarker-content-container {
+  background-color:  #eb5757;
+}
+
+
+.tl-timemarker.tl-timemarker-active .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline.tl-headline-fadeout::after, .tl-timemarker.tl-timemarker-active:hover .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline.tl-headline-fadeout::after {
+  background:none; 
+}
+
+.tl-timegroup .tl-timegroup-message {
+  color: #999;
+}
+
 /*
 Highlighter
 ---------------------------------------------------------------------*/
