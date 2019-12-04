@@ -795,10 +795,13 @@ function filterFeatures(params = false, localFilters = false) {
 
 
 function filterStats() {
-    let stats = {};
+    let stats = {
+        total: 0
+    };
     Object.keys(commaFilters).forEach(property => {
         stats[property] = commaFilters[property].length;
-    })
+        stats.total += stats[property];
+    })    
     return stats;
 }
 
@@ -850,7 +853,7 @@ function filterClick(event) {
     let element = event.target;
     let state = !element.classList.contains('active');
     Object.keys(element.dataset).forEach(attribute => {
-        if (attribute != "ref") filterSet(attribute, element.dataset[attribute], state);
+        if (['category','tag','type'].indexOf(attribute)!=-1) filterSet(attribute, element.dataset[attribute], state);
 
     });
     filterDisplayUpdate(commaFilters);
@@ -880,6 +883,12 @@ function filterDisplayUpdate(localFilters = null) {
     $('#controls-category-badge').replaceWith(`<span id="controls-category-badge" class="new badge"  data-badge-caption="">${stats.category || 0}</span>`)
     $('#controls-type-badge').replaceWith(`<span id="controls-type-badge" class="new badge"  data-badge-caption="">${stats.type || 0}</span>`)
     $('#controls-tags-badge').replaceWith(`<span id="controls-tags-badge" class="new badge"  data-badge-caption="">${stats.tags || 0}</span>`)
+    if (stats.total) {
+        $('body').removeClass('noFilters');
+    } else {
+        $('body').addClass('noFilters');
+    }
+
 
 }
 
@@ -939,11 +948,16 @@ function renderCategoryFilters(values) {
         let value = values[key];
         //  return `<button type="button" class="mui-btn control control-filter control-filter-${property}" 
         //  data-ref="filter" data-${property}="${value.category}"  title="${value.description}">${value.category}</button>`
-        let position = "right";
-        if (window.innerWidth < 922) position="bottom";
+        let cssClass = `chip control-filter control-filter-${property} category-${value.id}`
+        let tooltip = "";
+        if (value.description.length > 0)  {
+            let position = "right";
+            if (window.innerWidth < 922) position="bottom";
+            tooltip = `data-position="${position}" data-tooltip="${value.description}"`;
+            cssClass = cssClass + " tooltipped";
+        }
 
-        return `<div class="tooltipped chip control-filter control-filter-${property} category-${value.id}" 
-           data-ref="filter" data-${property}="${value.category}"  data-position="${position}" data-tooltip="${value.description}"  >${value.category}</div>`
+        return `<div class="${cssClass}" data-ref="filter" data-${property}="${value.category}"  ${tooltip}  >${value.category}<i class="small material-icons enabled right">filter_list</i></div>`
 
 
     }

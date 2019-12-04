@@ -98,8 +98,13 @@ header, #content-wrapper, footer {
 }
 
 
-#content-wrapper, #map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
-  height:100%;      
+#content-wrapper {
+  top: 70px;
+  height:calc(100% - 70px);      
+} 
+
+#map-wrapper,  #leafletMap, #timeline-wrapper,  #timeline-embed {
+  height:100%;
 }
 
 .sideNav {
@@ -376,8 +381,25 @@ Highlighter
 }
 
 #controls-category .chip.active {
-  color: white;
-  
+  color: white;  
+}
+
+
+
+#controls-category .chip i.enabled, #controls-category .chip.active i.disabled {
+  display: none;
+}
+
+#controls-category .chip.active i.enabled{
+  display: inline-block;
+}
+
+body.noFilters #controls-category .chip i {
+  display:none;
+}
+
+span.badge.new {
+  background-color: #eb5757;;
 }
 
 
@@ -386,7 +408,9 @@ Highlighter
 ---------------------------------------------------------------------- */
 #cards-wrapper {
     clear: both;
-    z-index: 1;    
+    z-index: 1;
+    height:100%;
+    overflow:auto;
 }
 
 .cards {
