@@ -25,6 +25,7 @@ body, #sidedrawer {
   background-image: url("/browser/images/background.png");
 }
 
+
 /*
 Text
 --------------------------------------------------------------*/
@@ -49,6 +50,9 @@ Layout
 -------------------------------------------------------------------*/
 #sidedrawer {
   z-index:999;
+  overflow: auto;
+  height: calc(100% - 66px);
+  
 }
 
 header {
@@ -63,22 +67,15 @@ header {
   z-index:1;
   width:100%;
   top: 70px;
-  height:calc(100% - 70px);      
+  height:calc(100% - 134px);      
 }
 
 
-header, #content-wrapper, footer {
-  padding-left: 300px;
-  
+header, #content-wrapper {
+  padding-left: 300px;  
 }
 
-@media only screen and (max-width : 992px) {
-  header, #content-wrapper, footer {
-    padding-left: 0;
-  }
-
-}
-      
+ 
 
 
 
@@ -111,9 +108,6 @@ body.viewCards.showDetail #content-wrapper {
   height:100%;
 }
 
-.sideNav {
-  overflow:auto;
-}
 
 #section-filters, #section-more {
   padding: 0 10px;
@@ -121,6 +115,39 @@ body.viewCards.showDetail #content-wrapper {
 #tool-wrapper {
   min-height: 400px;
 }
+
+
+.page-footer {
+  position: fixed;
+  bottom:0;
+  width:100%;
+  height: 64px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-top: 1px solid #333;
+  color:#333;
+  padding-top:10px;
+}
+
+.page-footer img {
+  max-height: 35px;
+}
+@media only screen and (max-width : 992px) {
+  #sidedrawer {
+    height:100%;
+  }
+  header, #content-wrapper, footer {
+    padding-left: 0;
+  }
+  footer {
+    display:none;
+  }
+  #content-wrapper {
+    height:calc(100% - 68px);      
+  }
+
+}
+     
+
 /*
 header
 ----------------------------------------------------------
@@ -189,6 +216,8 @@ nav a, nav ul a {
   color: #eb5757;
 
 }
+
+
     
 
 /*
