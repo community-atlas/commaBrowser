@@ -986,10 +986,8 @@ function renderCategoryFilters(values) {
                 // tooltips don't work for categories on mobile            
                 tooltip = `data-position="${position}" data-tooltip="${value.description}"`;
             }
-        }
             cssClass = cssClass + " tooltipped";
-        }
-
+        }            
         return `<div class="${cssClass}" data-ref="filter" data-${property}="${value.category}"  ${tooltip}  >${value.category}<i class="small material-icons enabled right">filter_list</i></div>`
 
 
