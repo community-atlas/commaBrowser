@@ -55,17 +55,16 @@ var localConfig;
 function renderCard(feature) {
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
+    console.log(feature.properties);
+    
+
     let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].id : 0;
     let description = feature.properties.description.substr(0,120).replace(/<[^>]*>?/gm, ' ');
     return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
     <div class="card-image darken-1 waves-effect waves-block waves-light">
     <img src="${feature.properties.image}">
     <span class="card-title grey-text text-darken-4"><i class="material-icons right forward">arrow_forward</i><i class="material-icons right back">arrow_back</i>${feature.properties.title}</span>
-    </div>
-    
-        <div class="card-content truncate">
-            ${description}
-        </div>
+    </div>    
         <div class="card-action">
           <i class="small material-icons date" >date_range</i>
           <i class="small material-icons map">map</i>
@@ -324,8 +323,14 @@ function commaExtractFeatureCategories(features) {
     let categories = {}
     let globals = commaGetGlobals();
     if (globals.taxonomy) {
-        categories = globals.taxonomy;
-        categories = categories.sort((a = 0,b = 0) => a.weight - b.weight)
+
+        let categoryArray = globals.taxonomy;
+        categoryArray = categoryArray.sort((a = 0,b = 0) => a.weight - b.weight)
+        //convert to an object
+        categoryArray.forEach(category => {
+            categories[category.category]=category;
+        })
+        
     } 
     else {
         // there is no taxonomy property, so lets work out our categories

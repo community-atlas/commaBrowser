@@ -453,7 +453,7 @@ body.noFilters #controls-category .chip i {
 }
 
 span.badge.new {
-  background-color: #eb5757;;
+  background-color: #eb5757;
 }
 
 
@@ -488,6 +488,9 @@ span.badge.new {
     width: 100%;
 }
 
+.card.small .card-image {
+  max-height: 85%;
+}
 
 .card .card-image {
   height:100%;  
