@@ -1045,7 +1045,7 @@ function sortClick(event) {
     } else {
         $('body').addClass('sortDir-desc');
     }
-    commaRender();
+    commaRender(false);
 }
 
 
