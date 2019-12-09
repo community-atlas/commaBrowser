@@ -982,8 +982,11 @@ function renderCategoryFilters(values) {
         let tooltip = "";
         if (value.description.length > 0)  {
             let position = "right";
-           // if (window.innerWidth < 922) position="bottom";
-            tooltip = `data-position="${position}" data-tooltip="${value.description}"`;
+            if (window.innerWidth > 922) {
+                // tooltips don't work for categories on mobile            
+                tooltip = `data-position="${position}" data-tooltip="${value.description}"`;
+            }
+        }
             cssClass = cssClass + " tooltipped";
         }
 
