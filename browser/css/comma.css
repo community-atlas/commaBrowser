@@ -128,6 +128,11 @@ body.viewCards.showDetail #content-wrapper {
   padding-top:10px;
 }
 
+
+body.liveMode .page-footer {
+  border-top: 2px solid red;
+}
+
 .page-footer img {
   max-height: 35px;
 }

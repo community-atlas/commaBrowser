@@ -5,6 +5,7 @@ let commaFeatures = []; // processed Features
 let commaCategories = {};
 
 
+
 // store our global filterset
 let commaFilters = {};
 // The currently selected feature
@@ -15,6 +16,8 @@ let currentView = "map";
 let sortProperty = "title";
 let sortAsc = true;
 let commaLanguage = "en";
+let commaLiveMode = false;  // controls caching of geodata
+let commaLiveReloadTimer = null;
 
 
 
@@ -206,6 +209,14 @@ function renderTools() {
       <li><a href="${sourceUrl}" data-i18n="tools_raw">Raw GeoJSON source</a></li>
       <li>Published: ${globals.published}</li>
       <li><a id="reload-trigger" href="#" data-i18n="tools_reload" >Reload</a></li>
+      <li><div class="switch">Live mode
+      <label>
+        Off
+        <input id="control-liveMode" type="checkbox">
+        <span class="lever"></span>
+        On
+      </label>
+    </div>
 
       </ul>`;
     $('#tools-source').html(source);
@@ -484,14 +495,19 @@ function commaReloadGeoData(){
     // Don't cache the JSON data
     $.ajaxSetup({
         cache:false
-      });
+    });
+    console.log('checking for new data');
     $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
-        let features = commaInitialiseFeatureData(data);
-        let globals = commaGetGlobals();
-        commaRender();
-        renderTools();
+        if (data.properties.published != commaGeo.properties.published) {
+            console.log('Got new data');
+             // we have an update    
+            commaInitialiseFeatureData(data);        
+            commaRender();
+            renderTools();
+        }
     });
 }
+
 
 
 //---------------------------Timeline
@@ -1179,6 +1195,20 @@ function translateTexts(selector = 'body') {
 }
 
 
+function liveModeClick(e) {
+    console.log(e);
+  commaLiveMode = e.target.checked;
+  if (commaLiveMode) {
+    commaLiveReloadTimer = setInterval ( commaReloadGeoData, 5000 );
+    console.log('Enabled live mode');
+    $('body').addClass('liveMode');
+  } else {
+      clearInterval(commaLiveReloadTimer)
+      $('body').removeClass('liveMode');
+      console.log('Disabled live mode');
+  }
+}
+
 //==========================================================
 
 $(document).ready(function () {
@@ -1233,6 +1263,7 @@ $(document).ready(function () {
             commaLanguage = $(this).data('locale');
             translateTexts();
         });
+        $("#control-liveMode").click(liveModeClick)
 
         if (typeof test === "function") {
             $('#tests').html(test());
