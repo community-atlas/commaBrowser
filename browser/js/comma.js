@@ -285,9 +285,11 @@ function commaFeatureFill(feature) {
     }
     if (!feature.properties.image) {
         if (feature.geometry && (geometry = feature.geometry.coordinates)) {
-            if (Array.isArray(geometry[0])) {
+            console.log(geometry)
+            if (feature.geometry.type=='PolyLine') {
                 geometry = geometry[0][0];
-            }
+            } 
+            
             feature.properties.image = `https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/${geometry[0]},${geometry[1]},13,0,0/400x300?access_token=pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmI1enMwZmkwM2dsaWg3emJnODg1In0.kD8yI6unRQOrVzNY-07-tg`
         }
 
@@ -385,9 +387,9 @@ function commaGetGlobals() {
  * Sets the current selected feature
  * 
  * @param {object} feature
- * @param {object} element A dom element for the selected feature  
+ * @param {boolean} zoom Zoom map to selected feature  
  */
-function commaFeatureSelect(selector, element = null) {
+function commaFeatureSelect(selector, zoom = true) {
     // if selector is already selected, we toggle
     if (selectedFeature && selectedFeature.id == selector) selectedFeature = null
     else selectedFeature = commaFeatureFind(selector);
@@ -397,7 +399,7 @@ function commaFeatureSelect(selector, element = null) {
     // update highligher
     renderHighlighter(selectedFeature);
     // update map
-    leafletHighightMarker(id, element);
+    leafletHighightMarker(id, zoom);
     // update cards
     cardHighlight(id);
     commaUrlPush();
@@ -743,7 +745,7 @@ function mapOnEachFeaturePoints(feature, layer) {
 
     leafletFeatureLookup[feature.id] = L.stamp(layer);
     layer.on('click', function (e) {
-        commaFeatureSelect(e.target.feature.id);
+        commaFeatureSelect(e.target.feature.id, false);
     });
 }
 
@@ -754,7 +756,7 @@ function mapOnEachFeaturePoly(feature, layer) {
     layer.setStyle({className:"category-"+key});
     layer.on('click', e => {
         e.target.bringToBack();
-        commaFeatureSelect(e.target.feature.id, e.target.getElement());
+        commaFeatureSelect(e.target.feature.id, false);
     });
 }
 
@@ -763,9 +765,9 @@ function mapOnEachFeaturePoly(feature, layer) {
  * Highlight the currently selected marker
  * @todo Unify highlighting
  * @param {string} featureId 
- * @param {object} element  the selected dom element
+ * @param {boolean} zoom  zoom to marker
  */
-function leafletHighightMarker(featureId, element= null) {
+function leafletHighightMarker(featureId, zoom = true) {
     if (featureId) {
         let _leaflet_id = leafletFeatureLookup[featureId];
         if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
@@ -775,17 +777,25 @@ function leafletHighightMarker(featureId, element= null) {
                 if (layer._leaflet_id == _leaflet_id) {
                     layer.setIcon(mapIcon(layer.feature.properties.category, true));    
                     clickedMarker = layer;
+                    
+                    if (zoom) {
+                        var latLngs = [ clickedMarker.getLatLng() ];
+                        var markerBounds = L.latLngBounds(latLngs);
+                        leafletMap.fitBounds(markerBounds);
+                    }
                 }
             });
         }
         else if (_leaflet_id = mapFeaturePolyLookup[featureId]) {
             leafletMap.eachLayer(function (layer) {
                 if (layer._leaflet_id == _leaflet_id) {
-                    console.log(_leaflet_id)
-                    console.log(layer);
                     clickedPoly = layer;
                     clickedPoly.setStyle({ 'color': leafletPolyStrokeActive });
-                    
+                    if (zoom) {
+                        var latLngs = clickedPoly.getLatLngs();
+                        var markerBounds = L.latLngBounds(latLngs);
+                        leafletMap.fitBounds(markerBounds);
+                    }
                 }
             });
 
