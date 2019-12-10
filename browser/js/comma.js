@@ -34,6 +34,10 @@ var clickedMarker;
 var clickedIcon;
 var clickedPoly;
 var clickedPolyColor;
+
+var leafletPolyStroke = '#999';
+var leafletPolyStrokeActive = '#eb5757';
+
 let mapFeaturePolyLookup = {};
 
 // Elements 
@@ -380,9 +384,10 @@ function commaGetGlobals() {
 /**
  * Sets the current selected feature
  * 
- * @param {object} feature 
+ * @param {object} feature
+ * @param {object} element A dom element for the selected feature  
  */
-function commaFeatureSelect(selector) {
+function commaFeatureSelect(selector, element = null) {
     // if selector is already selected, we toggle
     if (selectedFeature && selectedFeature.id == selector) selectedFeature = null
     else selectedFeature = commaFeatureFind(selector);
@@ -392,7 +397,7 @@ function commaFeatureSelect(selector) {
     // update highligher
     renderHighlighter(selectedFeature);
     // update map
-    leafletHighightMarker(id);
+    leafletHighightMarker(id, element);
     // update cards
     cardHighlight(id);
     commaUrlPush();
@@ -671,6 +676,7 @@ function renderLeafletFeatures(features) {
         onEachFeature: mapOnEachFeaturePoly,
         //  style: L.mapbox.simplestyle.style
         //pointToLayer: L.mapbox.marker.style
+        color: leafletPolyStroke,
         filter: function (feature) { return feature.geometry.type.toLowerCase() != 'point' }
     }).addTo(leafletMap);
 
@@ -744,53 +750,42 @@ function mapOnEachFeaturePoints(feature, layer) {
 function mapOnEachFeaturePoly(feature, layer) {
     // store a reference
     mapFeaturePolyLookup[feature.id] = L.stamp(layer);
+    let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].id : 0;
+    layer.setStyle({className:"category-"+key});
     layer.on('click', e => {
-        mapResetMarkers();
-        clickedPoly = e.target;
-        clickedPolyColor = e.target.options.color;
-        clickedPoly.setStyle({ 'color': '#ff3333' });
-        commaFeatureSelect(e.target.feature.id);
+        e.target.bringToBack();
+        commaFeatureSelect(e.target.feature.id, e.target.getElement());
     });
 }
 
-/**
- * Reset any currently highlighed map features 
- * */
-function mapResetMarkers() {
-    if (clickedPoly) {
-        clickedPoly.setStyle({ 'color': clickedPolyColor });
-    }
-
-}
 
 /**
  * Highlight the currently selected marker
  * @todo Unify highlighting
  * @param {string} featureId 
+ * @param {object} element  the selected dom element
  */
-function leafletHighightMarker(featureId) {
-    //reset the current marker
-    //mapResetMarkers();
+function leafletHighightMarker(featureId, element= null) {
     if (featureId) {
         let _leaflet_id = leafletFeatureLookup[featureId];
+        if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
+        if (clickedPoly) clickedPoly.setStyle({ 'color': leafletPolyStroke });
         if (_leaflet_id) {
-            leafletMap.eachLayer(function (layer) {
-                //mapResetMarkers();                            	  
+            leafletMap.eachLayer(function (layer) {                       	  
                 if (layer._leaflet_id == _leaflet_id) {
-                    layer.setIcon(mapIcon(layer.feature.properties.category, true));
-
-                    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
+                    layer.setIcon(mapIcon(layer.feature.properties.category, true));    
                     clickedMarker = layer;
-
                 }
             });
         }
         else if (_leaflet_id = mapFeaturePolyLookup[featureId]) {
             leafletMap.eachLayer(function (layer) {
                 if (layer._leaflet_id == _leaflet_id) {
+                    console.log(_leaflet_id)
+                    console.log(layer);
                     clickedPoly = layer;
-                    clickedPolyColor = layer.options.color;
-                    clickedPoly.setStyle({ 'color': '#ff3333' });
+                    clickedPoly.setStyle({ 'color': leafletPolyStrokeActive });
+                    
                 }
             });
 

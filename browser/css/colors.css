@@ -1,46 +1,56 @@
 .mapMarker .category-0, .card.category-0 .card-image {
     background-color: darkblue;
+    fill:darkblue;
 }
 
-
-.mapMarker .category-1, .card.category-1 .card-image, .chip.category-1  {
+.mapMarker .category-1, .card.category-1 .card-image, .chip.category-1,path.leaflet-interactive.category-1  {
     background-color: darkcyan;
-}
+    fill: darkcyan;}
 
-.mapMarker .category-2, .card.category-2 .card-image, .chip.category-2  {
+.mapMarker .category-2, .card.category-2 .card-image, .chip.category-2,path.leaflet-interactive.category-2  {
     background-color: darkgoldenrod;
+    fill: darkgoldenrod;
 }
 
-.mapMarker .category-3, .card.category-3 .card-image, .chip.category-3  {
+.mapMarker .category-3, .card.category-3 .card-image, .chip.category-3,path.leaflet-interactive.category-3  {
     background-color:darkmagenta;
+    fill:darkmagenta;
 }
 
-.mapMarker .category-4,.card.category-4 .card-image, .chip.category-4  {
+.mapMarker .category-4,.card.category-4 .card-image, .chip.category-4,path.leaflet-interactive.category-4  {
     background-color: darkolivegreen;
+    fill: darkolivegreen;
 }
 
-.mapMarker .category-5,.card.category-5 .card-image, .chip.category-5  {
+.mapMarker .category-5,.card.category-5 .card-image, .chip.category-5 ,path.leaflet-interactive.category-5 {
     background-color:darkred;
+    fill:darkred;
 }
 
-.mapMarker .category-6, .card.category-6 .card-image, .chip.category-6  {
+.mapMarker .category-6, .card.category-6 .card-image, .chip.category-6, path.leaflet-interactive.category-6  {
     background-color:darkturquoise;
+    fill:darkturquoise;
 }
 
-.mapMarker .category-7, .card.category-7 .card-image, .chip.category-7  {
+.mapMarker .category-7, .card.category-7 .card-image, .chip.category-7, path.leaflet-interactive.category-7  {
     background-color:darkslateblue;
+    fill:darkslateblue;
+
 }
 
-.mapMarker .category-8, .card.category-8 .card-image, .chip.category-8  {
+.mapMarker .category-8, .card.category-8 .card-image, .chip.category-8, path.leaflet-interactive.category-8  {
     background-color:darkslateblue;
+    fill:darkslateblue;
 }
 
-.mapMarker .category-9, .card.category-9 .card-image, .chip.category-9  {
+.mapMarker .category-9, .card.category-9 .card-image, .chip.category-9, path.leaflet-interactive.category-9  {
     background-color:darkslateblue;
+    fill:darkslateblue;
 }
 
-.mapMarker .category-10, .card.category-10 .card-image, .chip.category-10  {
+.mapMarker .category-10, .card.category-10 .card-image, .chip.category-10, path.leaflet-interactive.category-10  {
     background-color:darkslateblue;
+    fill:darkslateblue;
 }
 
 
