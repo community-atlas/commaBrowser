@@ -90,8 +90,8 @@ var CONFIG = {
         "lang":"en"
     },  
     "savskonaselje" :{
-        "editorUrl": "https://coda.io/d/d3WcLbnkFTz",
-        "commaJSONUrl" : "https://comensi.github.io/atlases/savskonaselje-B5I707-dL-.geojson",
+        "editorUrl": "https://coda.io/d/dYR6hsmoGmL",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/savskonaselje-YR6hsmoGmL.geojson",
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
