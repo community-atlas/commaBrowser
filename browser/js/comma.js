@@ -72,11 +72,11 @@ function renderCard(feature) {
     <img src="${feature.properties.image}">
     <span class="card-title grey-text text-darken-4"><i class="material-icons right forward">arrow_forward</i><i class="material-icons right back">arrow_back</i>${feature.properties.title}</span>
     </div>    
-        <div class="card-action">
+     <!--   <div class="card-action">
           <i class="small material-icons date" >date_range</i>
           <i class="small material-icons map">map</i>
 
-        </div>       
+        </div>-->       
     </div>`;
 }
 
@@ -143,7 +143,7 @@ function renderHighlighter(feature) {
                 let description = link.description || "";
                 let icon = "language";
                 let tooltip = link.description ? "tooltipped" : "";
-                return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}"><i class="material-icons tiny">${icon}</i> ${title}</a>`
+                return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}" target="_blank"><i class="material-icons tiny">${icon}</i> ${title}</a>`
 
             }
         });
@@ -173,7 +173,6 @@ function renderHighlighter(feature) {
         if (related.length > 0) {
             related = related.join('');
             content.push(`<div id="highlight-detail-related" >
-            <h4><i class="material-icons">link</i></h4>
             ${related}
             </div>`);
         }
