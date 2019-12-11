@@ -2,6 +2,10 @@
 
 The translation files are a simple JSON data structure. Every entry has a Key, and then the text that goes with it. 
 
+Example: `"title-commnity-atlas": "Community Atlas" `
+
+The first item, in this case "title-commnity-atlas" is the key. This must not be modified as it is used to find the text. The second element "Community Atlas" is the translateable text, modify this as needed, but make sure that the quotes stay intact. 
+
 To add a translation, edit the file for the language, and modify the second part of the data, replacing english text with the translated version. The simplest way to edit the file is directly on GitHub.  
 
 ```
