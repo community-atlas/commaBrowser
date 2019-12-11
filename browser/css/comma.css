@@ -343,6 +343,12 @@ Highlighter
   width:100%;
 }
 
+.image-credit {
+  float: right;
+  font-size: 0.5em;
+  color: gray;
+  padding-right: 20px;
+}
 
 .showFeatured  #highlight-summary h2  {    
   padding: 10px;

@@ -99,7 +99,7 @@ function renderHighlighter(feature) {
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
 
     $("#highlight-summary").html(
-        `<div class="card-image"><img src="${image}" /></div>
+        `<div class="card-image"><img src="${image}" /><span class="image-credit">${feature.properties.image_credit}</div>
         <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
     )
