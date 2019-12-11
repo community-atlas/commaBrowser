@@ -596,8 +596,13 @@ function renderTimeline(features) {
     let options = {
         debug: false,
         language: commaLanguage,
+        
     }
     window.timeline = new TL.Timeline('timeline-embed', timeline, { debug: false });
+    if (selectedFeature && selectedFeature.id) window.timeline.goToId(selectedFeature.id)
+    window.timeline.addEventListener('change',e =>{
+        commaFeatureSelect(e.unique_id);
+    });
 }
 
 
@@ -1163,7 +1168,6 @@ function commaSetView(view) {
  * refresh elements of the page depending on the current view
  */
 function commaRefresh() {
-
     if (currentView == 'timeline') {
         renderTimeline(commaFeatures);
     }
