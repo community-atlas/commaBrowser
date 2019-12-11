@@ -1287,7 +1287,8 @@ $(document).ready(function () {
         $.i18n().load(
             {
                 "en": "browser/translation/en.json",
-                "de": "browser/translation/de.json"
+                "de": "browser/translation/de.json",
+                "it": "browser/translation/it.json"
             }
         ).done(translateTexts);
 
