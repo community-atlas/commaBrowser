@@ -34,6 +34,21 @@ var CONFIG = {
         },
         "lang":"en"
     },
+    "mehringplatz-de" :{
+        "editorUrl": "https://coda.io/d/dC8unX_WN0K",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/mehringplatz_de-C8unX_WN0K.geojson",        
+        "homepage": {
+            "url": "https://www.community-atlas.net",
+            "title": "community-atlas.net",
+        },
+        "mapBoxToken" : "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
+        "mapId": "mapbox.streets",
+        "startView" : "map",
+        "showDetail": true,       
+        "lang":"de"
+    },
+
+
     "atlas" :{
         "editorUrl": "https://coda.io/d/db8UloKHtPW",
         "commaJSONUrl" : "https://comensi.github.io/atlases/atlas-b8UloKHtPW.geojson",
