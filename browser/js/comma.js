@@ -1163,7 +1163,12 @@ function commaSetView(view) {
     if (!bodyElement.classList.contains(cssClass)) {
         if (bodyElement.classList.length > 0) bodyElement.classList.remove('viewMap', 'viewTimeline', 'viewCards');
         bodyElement.classList.add(cssClass);
-        currentView = view;
+        currentView = view;        
+        // quick fix for detail  on cards view
+        if (view=="cards" && selectedFeature.id) {
+            bodyElement.classList.add('showDetail');
+
+        }
         commaUrlPush();
         commaRefresh();
     }
