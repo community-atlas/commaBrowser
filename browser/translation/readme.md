@@ -33,3 +33,9 @@ In most cases, the translation is very simple and direct, but sometimes there is
 `toast_available": "$1 {{PLURAL:$1|feature|features}} available to explore"`
 
 In this example, the structure within the curly braces needs to have two components, the singular and the plural version of the phrase.  Here, you need to replace the word "feature" with the singular translation, and "features" with the plural - making sure that the rest of the structure is not changed. 
+
+
+## Save and it goes live
+The moment you "commit changes" to a translation file, it will be added to the code and published within a few minutes. 
+
+
