@@ -914,7 +914,7 @@ function filterClick(event) {
     let element = event.target;
     let state = !element.classList.contains('active');
     Object.keys(element.dataset).forEach(attribute => {
-        if (['category','tag','type'].indexOf(attribute)!=-1) filterSet(attribute, element.dataset[attribute], state);
+        if (['category','tags','type'].indexOf(attribute)!=-1) filterSet(attribute, element.dataset[attribute], state);
 
     });
     filterDisplayUpdate(commaFilters);
