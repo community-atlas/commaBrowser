@@ -35,8 +35,8 @@ var CONFIG = {
         "lang":"en"
     },
     "mehringplatz-de" :{
-        "editorUrl": "https://coda.io/d/dC8unX_WN0K",
-        "commaJSONUrl" : "https://comensi.github.io/atlases/mehringplatz_de-C8unX_WN0K.geojson",        
+        "editorUrl": "https://coda.io/d/daBTKgiA4dJ",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/mehringplatz_de-aBTKgiA4dJ.geojson",        
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
