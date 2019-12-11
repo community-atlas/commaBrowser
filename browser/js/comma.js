@@ -35,7 +35,7 @@ var clickedIcon;
 var clickedPoly;
 var clickedPolyColor;
 
-var leafletPolyStroke = '#999';
+var leafletPolyStroke = 'darkcyan';
 var leafletPolyStrokeActive = '#eb5757';
 
 let mapFeaturePolyLookup = {};
@@ -97,9 +97,10 @@ function renderHighlighter(feature) {
     let image = feature.properties.image ? feature.properties.image : 'browser/images/atlas-logo-x1.png';
     let event = feature.properties.end_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
+    let credit = feature.properties.image_credit || '' 
 
     $("#highlight-summary").html(
-        `<div class="card-image"><img src="${image}" /><span class="image-credit">${feature.properties.image_credit}</div>
+        `<div class="card-image"><img src="${image}" /><span class="image-credit">${credit}</div>
         <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
     )
