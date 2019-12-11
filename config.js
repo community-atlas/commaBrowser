@@ -48,8 +48,8 @@ var CONFIG = {
         "lang":"en"
     },
     "mildmay" :{
-        "editorUrl": "https://coda.io/d/d3WcLbnkFTz",
-        "commaJSONUrl" : "https://comensi.github.io/atlases/mildmay-3WcLbnkFTz.geojson",
+        "editorUrl": "https://coda.io/d/d8vrMUsemgn",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/mildmay-8vrMUsemgn.geojson",
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
@@ -88,8 +88,8 @@ var CONFIG = {
         "lang":"en"
     },  
     "bairrodaajuda" :{
-        "editorUrl": "https://coda.io/d/dfVwHnFNOX4",
-        "commaJSONUrl" : "https://comensi.github.io/atlases/bairrodaajuda-fVwHnFNOX4.geojson",
+        "editorUrl": "https://coda.io/d/rMkxapY_KF.geojson",
+        "commaJSONUrl" : "https://comensi.github.io/atlases/barriodaajuda-rMkxapY_KF.geojson",
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
@@ -105,8 +105,8 @@ var CONFIG = {
    
    
     "palermo":{
-        "editorUrl": "https://coda.io/d/dWcfAWfG9io",        
-        "commaJSONUrl" : "https://comensi.github.io/atlases/polermo-WcfAWfG9io.geojson",
+        "editorUrl": "https://coda.io/d/dRf4FQINsE-",        
+        "commaJSONUrl" : "https://comensi.github.io/atlases/palermo-Rf4FQINsE-.geojson",
         "homepage": {
             "url": "https://www.community-atlas.net",
             "title": "community-atlas.net",
