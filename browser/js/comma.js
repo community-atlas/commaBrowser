@@ -1166,7 +1166,7 @@ function commaSetView(view) {
         bodyElement.classList.add(cssClass);
         currentView = view;        
         // quick fix for detail  on cards view
-        if (view=="cards" && selectedFeature.id) {
+        if (view=="cards" && selectedFeature) {
             bodyElement.classList.add('showDetail');
 
         }
