@@ -818,26 +818,33 @@ function filterFeatures(params = false, localFilters = false) {
     // filter the features
     if (!localFilters) localFilters = commaFilters;
     features = features.filter(function (feature) {
-        let keep = true;
+        let keep = {}
+        let finalKeep = true;
         Object.keys(localFilters).forEach(property => {
+            keep[property]=true;
             if (feature.properties[property] && Array.isArray(feature.properties[property])) {
                 if (feature.properties[property].length == 0) {
                     // there is nothing here
-                    keep = false;
+                    keep[property] = false;
                 }
                 else {
                     let found = false;
                     feature.properties[property].forEach(value => {
                         // loop through each value in the target property                        
                         if (localFilters[property].indexOf(value) != -1) found = true;
-                        keep = found;
+                        keep[property] = found;
                     })
                 }
             } else if (localFilters[property].indexOf(feature.properties[property]) == -1) {
-                keep = false;
+                keep[property] = false;
             }
         });
-        return keep;
+        console.log(keep);
+        keep = Object.keys(keep).forEach(property => {
+            finalKeep = keep[property] && finalKeep;
+        });
+        console.log(finalKeep)
+        return finalKeep;
     });
     // we can also filter only for geo features
     if (params && params.class) {
