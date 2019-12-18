@@ -327,6 +327,8 @@ function commaUnifyFeatures(comma) {
 function commaExtractFeatureProperty(features, property = 'type') {
     var properties = features.map(function (feature) { return feature.properties[property] });
     properties = [...new Set(properties)];
+    console.log(properties);
+    properties = properties.filter(n => n.length > 0)
     return properties;
 }
 
@@ -850,11 +852,11 @@ function filterFeatures(params = false, localFilters = false) {
                 keep[property] = false;
             }
         });
-        console.log(keep);
+        //console.log(keep);
         keep = Object.keys(keep).forEach(property => {
             finalKeep = keep[property] && finalKeep;
         });
-        console.log(finalKeep)
+        //console.log(finalKeep)
         return finalKeep;
     });
     // we can also filter only for geo features
