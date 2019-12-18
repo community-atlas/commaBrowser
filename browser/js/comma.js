@@ -391,7 +391,10 @@ function commaGetGlobals() {
  */
 function commaFeatureSelect(selector, zoom = true) {
     // if selector is already selected, we toggle
-    if (selectedFeature && selectedFeature.id == selector) selectedFeature = null
+    if (selector === null || (selectedFeature && selectedFeature.id == selector)) {
+        selectedFeature = null
+        console.log('Removing selection');
+    }
     else selectedFeature = commaFeatureFind(selector);
     // get the id 
     let id = null;
@@ -632,7 +635,15 @@ const mixer = mixitup(container, {
 function cardHighlight(selector) {
     let selected = document.querySelector('.card.active');
     if (selected) selected.classList.remove('active');
-    if (selector) document.querySelector("[data-id='" + selector + "']").classList.add('active');
+    if (selector) {
+        let element = document.querySelector("[data-id='" + selector + "']");
+        if (element) {
+            element.classList.add('active')
+            element.scrollIntoView({
+                behavior:'smooth'
+            });
+        }
+    }
 }
 
 
@@ -641,8 +652,7 @@ function renderCards(features) {
 }
 
 
-function cardClick(event) {
-    console.log(event.currentTarget);
+function cardClick(event) {    
     let featureId = event.currentTarget.parentElement.dataset.id;
     commaFeatureSelect(featureId);
 }
@@ -738,7 +748,7 @@ function mapMarker(feature, latlng) {
  */
 
 function mapOnMove(event) {
-    commaHighlighterDetailSet(false);
+    //commaHighlighterDetailSet(false);
 }
 
 /**
@@ -773,10 +783,10 @@ function mapOnEachFeaturePoly(feature, layer) {
  * @param {boolean} zoom  zoom to marker
  */
 function leafletHighightMarker(featureId, zoom = true) {
+    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
+    if (clickedPoly) clickedPoly.setStyle({ 'color': leafletPolyStroke });
     if (featureId) {
-        let _leaflet_id = leafletFeatureLookup[featureId];
-        if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
-        if (clickedPoly) clickedPoly.setStyle({ 'color': leafletPolyStroke });
+        let _leaflet_id = leafletFeatureLookup[featureId];        
         if (_leaflet_id) {
             leafletMap.eachLayer(function (layer) {                       	  
                 if (layer._leaflet_id == _leaflet_id) {
@@ -1096,12 +1106,15 @@ function commaHighlighterDetailSet(show) {
 }
 
 /**
- * Zooms into the emlement detail
+ * Zooms into the emlement detail. 
  * @param {*} element 
  */
 function commaHighlighterDetailToggle(element) {
-    bodyElement.classList.toggle('showDetail');
-    bodyElement.classList.add('showFeatured');
+    //bodyElement.classList.toggle('showDetail');
+    //bodyElement.classList.add('showFeatured');
+
+    // The detail / non-detail view have been causing trouble. Removing for now. 
+    commaFeatureSelect(null)
 }
 
 
@@ -1123,7 +1136,7 @@ function commaRender(toast=true) {
     $(".card-image, .card-content").unbind().click(cardClick);
     if (toast) {
         if (features.length) {
-            M.toast({ html: $.i18n('toast_available',features.length)})
+          //  M.toast({ html: $.i18n('toast_available',features.length)})
         } else {
             M.toast({ html:  $.i18n('toast_reset') })
         }
@@ -1164,11 +1177,10 @@ function commaSetView(view) {
     if (!bodyElement.classList.contains(cssClass)) {
         if (bodyElement.classList.length > 0) bodyElement.classList.remove('viewMap', 'viewTimeline', 'viewCards');
         bodyElement.classList.add(cssClass);
-        currentView = view;        
+        currentView = view;              
         // quick fix for detail  on cards view
-        if (view=="cards" && selectedFeature) {
-            bodyElement.classList.add('showDetail');
-
+        if (view=="cards" && selectedFeature && selectedFeature.id) {
+            cardHighlight(selectedFeature.id);
         }
         commaUrlPush();
         commaRefresh();
@@ -1269,7 +1281,7 @@ $(document).ready(function () {
         //lets see if we have a valid feature selected                      
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
-        commaHighlighterDetailSet(commaGetConfig('showDetail'));
+        //commaHighlighterDetailSet(commaGetConfig('showDetail'));
 
 
         // renderViewControls();

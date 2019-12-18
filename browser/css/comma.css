@@ -532,7 +532,7 @@ span.badge.new {
 
 
 .card.active {
-  border:solid 3px darkblue;
+  border:solid 4px #eb5757;
 }
 
 .card i.back, .card.active i.forward {
