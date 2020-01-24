@@ -226,9 +226,21 @@ function renderTools() {
     $('#tools-source').html(source);
     $('#reload-trigger').click(commaReloadGeoData);
 
-
 }
 
+function renderFooter(){
+  let logoData = commaGetConfig('logos') || [];
+  let logos = logoData.map(data => {
+      let href = data.href || '#';
+      let fragment = `<img src="${data.src}" alt="${data.alt || ''}"/>\n`
+      if (data.href) {
+        fragment = `<a href="${href}" target ="_blank">${fragment}</a>\n`
+      }
+      
+      return fragment;
+  })
+  $("#footer-logos").html(logos);
+}
 
 //---------------------------Utils
 
@@ -394,8 +406,7 @@ function commaGetGlobals() {
 function commaFeatureSelect(selector, zoom = true) {
     // if selector is already selected, we toggle
     if (selector === null || (selectedFeature && selectedFeature.id == selector)) {
-        selectedFeature = null
-        console.log('Removing selection');
+        selectedFeature = null       
     }
     else selectedFeature = commaFeatureFind(selector);
     // get the id 
@@ -516,6 +527,7 @@ function commaReloadGeoData(){
             commaInitialiseFeatureData(data);        
             commaRender();
             renderTools();
+            renderFilters();
         }
     });
 }
@@ -1063,7 +1075,12 @@ function renderTagFilters(tags, elementLocator = "#controls-tags") {
 }
 
 
+/**
+ * Render the filters for the current features
+ * @param {array of objects} features 
+ */
 function renderFilters(features) {
+    if (!features) features=commaFeatures;
     const categories = commaExtractFeatureCategories(features);
     const types = commaExtractFeatureProperty(features, 'type');
     const tags = commaExtractFeatureTags(features);
@@ -1093,9 +1110,20 @@ function sortClick(event) {
     commaRender(false);
 }
 
+/**
+ * Shows the home popup. 
+ */
+function commaShowHome(){
+    commaFeatureSelect(null);
+    commaHighlighterDetailSet(true);
 
+}
 
-
+/**
+ * Show or hide the Detail popup
+ * @param {*} show 
+ * 
+ */
 
 function commaHighlighterDetailSet(show) {
     if (show) bodyElement.classList.add('showDetail', 'showFeatured');
@@ -1266,7 +1294,7 @@ $(document).ready(function () {
         // perform initial rendering of all aspects so that we start will all the right data
         //viewTabEventsInit();
         //  initDrawers();
-
+        renderFooter();
         renderFilters(features);
         //renderCards(commaFeatures);
         //renderTimeline(commaFeatures);        
@@ -1283,11 +1311,13 @@ $(document).ready(function () {
         //lets see if we have a valid feature selected                      
         renderHighlighter(commaFeatureFind());
         commaSetView(currentView);
-        //commaHighlighterDetailSet(commaGetConfig('showDetail'));
+        commaHighlighterDetailSet(commaGetConfig('showDetail'));
 
 
         // renderViewControls();
 
+        $("#sidedrawer-title").click(commaShowHome);
+        $("#info-icon").click(commaShowHome);
         $("#highlight-summary").click(commaHighlighterDetailToggle);
         $("[data-ref='view']").click(commaViewer);
         $("#controls-reset").click(filterResetClick);

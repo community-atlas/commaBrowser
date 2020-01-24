@@ -63,7 +63,7 @@
         <div id="sidedrawer-intro">
             <a href="https://www.community-atlas.net"><img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas"></a>
         </div>
-        <h2 id="sidedrawer-title" class="hide-on-med-and-down">Community Atlas</h2>
+        <h2 id="sidedrawer-title" class="hide-on-med-and-down" style="cursor:pointer">Community Atlas</h2>
         <div id="section-view" class="hide-on-large-only">
             <div class="collection">
                 <a id="sidenav-menu-map" class="collection-item" data-ref="view" data-view="map">
@@ -117,6 +117,8 @@
                             <span data-i18n="menu_cards"> Cards</span><i
                             class="material-icons right">collections</i></a></li>                    
                 </ul>
+                <a id="info-icon" href="#info"><i
+                    class="material-icons small">info</i></a>
                 <a id="settings-icon" class="modal-trigger" href="#config"><i
                     class="material-icons small">settings_applications</i></a>
                 <span id="title" class="brand-logo hide-on-large-only">Community Atlas</span>
@@ -201,14 +203,8 @@
         </div>
     </div>
     
-    <footer id="footer" class="page-footer footer-fixed">        
-            <img src="browser/images/logo-erasmusleft_en.jpg" /> 
-            <img src="browser/images/logo-comensi-darkandtransparent.png" />
-            <img src="browser/images/logo_bond.png" />
-            <img src="browser/images/logo-4change.png" />
-            <img src="browser/images/logo-tesserae.jpg" />
-            <img src="browser/images/logo-prostoroz.jpg" />            
-            <img src="browser/images/logo-mapping.png" />
+    <footer id="footer" class="page-footer footer-fixed"> 
+        <div id="footer-logos"></div>       
     </footer>
 
     <div id="tests"></div>

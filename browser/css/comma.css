@@ -200,6 +200,14 @@ nav a, nav ul a {
   }
 }
 
+#info-icon {
+  display:none;
+  position:absolute;
+  top:0px;
+  right:335px;
+  z-index: 100;
+}  
+
 #settings-icon {
   position:absolute;
   top:0px;
@@ -207,9 +215,15 @@ nav a, nav ul a {
   z-index: 100;
 }  
 
+
 @media only screen and (max-width : 992px) {
   #settings-icon {
     right:5px;
+    
+  } 
+  #info-icon {
+    display:block;
+    right:30px;
     
   }  
 }
