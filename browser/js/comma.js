@@ -153,10 +153,17 @@ function renderHighlighter(feature) {
             content.push(`<div id="highlight-detail-links" class="collection">${links}</div>`);
         }
     }
-
+    // set up editor contact if we are on the main blurb
+    let contact = 'hello';
+    
+    if (feature.id == 'all') {
+        let contactLink = commaGetConfig('editorContact');
+        contact = `<p id="contact"><a href="${contactLink}"><i class="material-icons tiny">email</i></a></p>`
+    }
     content.push(`
     <div id="highlight-detail-description">        
         <p class="description">${properties.description}<p>
+        ${contact}
     </div>`);
 
     if (properties.tags) {

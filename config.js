@@ -7,11 +7,8 @@
 var CONFIG = {
     "playground": {
         "editorUrl": "https://coda.io/d/dvdo5WMIQlF",
+        "editorContact": "mailto:test@example.com",
         "commaJSONUrl": "https://comensi.github.io/atlases/play-vdo5WMIQlF.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
@@ -58,10 +55,6 @@ var CONFIG = {
     "mehringplatz-en": {
         "editorUrl": "https://coda.io/d/dQ3lMBnVcYw",
         "commaJSONUrl": "https://comensi.github.io/atlases/mehringplatz_en-Q3lMBnVcYw.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
@@ -161,11 +154,7 @@ var CONFIG = {
 
     "mildmay": {
         "editorUrl": "https://coda.io/d/d8vrMUsemgn",
-        "commaJSONUrl": "https://comensi.github.io/atlases/mildmay-8vrMUsemgn.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
+        "commaJSONUrl": "https://comensi.github.io/atlases/mildmay-8vrMUsemgn.geojson",        
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
@@ -212,11 +201,7 @@ var CONFIG = {
 
     "bairrodaajuda": {
         "editorUrl": "https://coda.io/d/rMkxapY_KF.geojson",
-        "commaJSONUrl": "https://comensi.github.io/atlases/barriodaajuda-rMkxapY_KF.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
+        "commaJSONUrl": "https://comensi.github.io/atlases/barriodaajuda-rMkxapY_KF.geojson",       
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
@@ -262,11 +247,7 @@ var CONFIG = {
     },
     "palermo": {
         "editorUrl": "https://coda.io/d/dRf4FQINsE-",
-        "commaJSONUrl": "https://comensi.github.io/atlases/palermo-Rf4FQINsE-.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
+        "commaJSONUrl": "https://comensi.github.io/atlases/palermo-Rf4FQINsE-.geojson",   
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
@@ -311,11 +292,7 @@ var CONFIG = {
         ]
     },
     "testing": {
-        "commaJSONUrl": "https://raw.githubusercontent.com/community-atlas/commaBrowser/master/browser/tests/data/test1.geojson",
-        "homepage": {
-            "url": "https://www.community-atlas.net",
-            "title": "community-atlas.net",
-        },
+        "commaJSONUrl": "https://raw.githubusercontent.com/community-atlas/commaBrowser/master/browser/tests/data/test1.geojson",  
         "mapBoxToken": "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg",
         "mapId": "mapbox.streets",
         "startView": "map",
