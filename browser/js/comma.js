@@ -559,13 +559,13 @@ function createTimelineEvent(feature) {
         if (start_date) {
             event.start_date = {
                 "year": start_date.getFullYear(),
-                "month": start_date.getMonth(),
+                "month": start_date.getMonth()+1,
                 "day": start_date.getDate(),
             }
             if (end_date) {
                 event.end_date = {
                     "year": end_date.getFullYear(),
-                    "month": end_date.getMonth(),
+                    "month": end_date.getMonth()+1,
                     "day": end_date.getDate(),
                 }
             }
