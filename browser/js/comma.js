@@ -574,7 +574,7 @@ function createTimelineEvent(feature) {
         if (feature.properties.image) event.media = { "url": feature.properties.image };
         if (feature.properties.category) event.group = feature.properties.category;
         event.unique_id = feature.id;
-
+``
 
         return event;
     }
@@ -1057,7 +1057,7 @@ function renderCategoryFilters(values) {
             }
             cssClass = cssClass + " tooltipped";
         }            
-        return `<div class="${cssClass}" data-ref="filter" data-${property}="${value.category}"  ${tooltip}  >${value.category}<i class="small material-icons enabled right">filter_list</i></div>`
+        return `<div class="${cssClass}" data-ref="filter" data-${property}="${value.category}"  ${tooltip}  >${value.category}<i style="pointer-events:none" class="small material-icons enabled right">filter_list</i></div>`
 
 
     }
