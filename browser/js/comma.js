@@ -154,7 +154,7 @@ function renderHighlighter(feature) {
         }
     }
     // set up editor contact if we are on the main blurb
-    let contact = 'hello';
+    let contact = '';
     
     if (feature.id == 'all') {
         let contactLink = commaGetConfig('editorContact');
@@ -361,14 +361,12 @@ function commaExtractFeatureCategories(features) {
     let categories = {}
     let globals = commaGetGlobals();
     if (globals.taxonomy) {
-
         let categoryArray = globals.taxonomy;
         categoryArray = categoryArray.sort((a = 0,b = 0) => a.weight - b.weight)
         //convert to an object
         categoryArray.forEach(category => {
             categories[category.category]=category;
         })
-        
     } 
     else {
         // there is no taxonomy property, so lets work out our categories
