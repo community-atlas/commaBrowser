@@ -143,7 +143,20 @@ function renderHighlighter(feature) {
                 let title = (link.title && link.title.length > 0) ? link.title : link.url;
                 let type = link.type || "website";
                 let description = link.description || "";
-                let icon = "language";
+                let icon = "web"; // default
+                switch(type){
+                    case "website": 
+                        icon="web";
+                        break;
+                    case "email":
+                        icon="email"
+                        break;
+                    case "translation":
+                        icon="language"
+                        break;
+                } 
+ 
+
                 let tooltip = link.description ? "tooltipped" : "";
                 return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}" target="_blank"><i class="material-icons tiny">${icon}</i> ${title}</a>`
 
