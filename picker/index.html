@@ -58,9 +58,18 @@
         var popup = L.popup();
 
         function onMapClick(e) {
+            var latLng = e.latlng;
+            var max = 180;
+            var min = -180;
+            var d = max - min;
+    
+            var lng = latLng.lng === max ? latLng.lng : ((latLng.lng - min) % d + d) % d + min;
+            var lat = latLng.lat === max ? latLng.lat : ((latLng.lat - min) % d + d) % d + min;
+
+
             popup
                 .setLatLng(e.latlng)
-                .setContent("Latitude: " + e.latlng.lat.toFixed(4) + "<br/> Longitude: "+e.latlng.lng.toFixed(4))
+                .setContent("Latitude: " + lat.toFixed(4) + "<br/> Longitude: "+lng.toFixed(4))
                 .openOn(mymap);
         }
 
