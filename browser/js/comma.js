@@ -134,11 +134,12 @@ function renderHighlighter(feature) {
         content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
     }
     //lines
+    console.log(properties.links);
     if (properties.links) {
         let links = properties.links.map(link => {
             // we have to have a url
             if (link.url && link.url.length > 0) {
-                let url = link.url.toLowerCase().substr(0, 4) == "http" ? link.url : "http://" + link.url;
+                let url = (link.url.toLowerCase().substr(0, 4) == "http" || link.url.toLowerCase().substr(0, 6) == "mailto") ? link.url : "http://" + link.url;
                 let title = (link.title && link.title.length > 0) ? link.title : link.url;
                 let type = link.type || "website";
                 let description = link.description || "";
