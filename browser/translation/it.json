@@ -1,22 +1,21 @@
 {
     "@metadata": {       
-        "last-updated": "2019-11-22",
+        "last-updated": "2020-02-17",
         "locale": "it"
     },
   
-        "title-commnity-atlas": "Community Atlas",
-        "menu_display": "Display",
-        "menu_map": "Map",
-        "menu_timeline": "Timeline",
-        "menu_cards": "Cards", 
-        "filter_categories": "Categories",
-        "filter_types": "Types",
-        "filter_tags": "Tags",
-        "filter_reset": "Reset filters",
-        "tools_source_editor": "Source editor",
-        "tools_raw": "Raw GeoJSON source",
-        "tools_reload": "Reload JSON data",
-        "toast_available": "$1 {{PLURAL:$1|feature|features}} available to explore",
-        "toast_reset": "There are no features that match your filter. Update or reset your filters."
+    "title-commnity-atlas": "Community Atlas",
+    "menu_display": "Display",
+    "menu_map": "Mappa",
+    "menu_timeline": "Cronologia",
+    "menu_cards": "Carte", 
+    "filter_categories": "Categorie",
+    "filter_types": "Tipologie",
+    "filter_tags": "Tags",
+    "filter_reset": "Ripristina filtri",
+    "tools_source_editor": "Source editor",
+    "tools_raw": "Raw GeoJSON source",
+    "tools_reload": "Reload JSON data",        
+    "toast_reset": "Non ci sono categorie che corrispondono ai tuoi filtri. Aggiorna o ripristina filtri"
     
 }
