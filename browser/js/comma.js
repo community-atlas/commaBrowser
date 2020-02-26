@@ -634,9 +634,7 @@ function renderTimeline(features) {
     let timeline = convertFeaturesToTimeline(features);
     let options = {
         debug: false,
-        //language: commaLanguage,
-        language: "it",
-        
+        language: commaLanguage,                
     }
     window.timeline = new TL.Timeline('timeline-embed', timeline, options);
     if (selectedFeature && selectedFeature.id) window.timeline.goToId(selectedFeature.id)
