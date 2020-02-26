@@ -636,7 +636,12 @@ function renderTimeline(features) {
         debug: false,
         language: commaLanguage,                
     }
-    window.timeline = new TL.Timeline('timeline-embed', timeline, options);
+    if (timeline.events.length) {   
+      window.timeline = new TL.Timeline('timeline-embed', timeline, options);
+    } else {
+        // we should probably remove the timeline
+        // but this prevents the error message 
+    }
     if (selectedFeature && selectedFeature.id) window.timeline.goToId(selectedFeature.id)
     window.timeline.addEventListener('change',e =>{
         commaFeatureSelect(e.unique_id);
