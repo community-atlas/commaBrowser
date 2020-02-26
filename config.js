@@ -13,7 +13,7 @@ var CONFIG = {
         "mapId": "mapbox.streets",
         "startView": "map",
         "showDetail": true,
-        "lang": "en",
+        "lang": "it",
         "logos" : [
             {
                src: "browser/images/logo-erasmusleft_en.jpg",
@@ -298,7 +298,7 @@ var CONFIG = {
         "mapId": "mapbox.streets",
         "startView": "map",
         "showDetail": true,
-        "lang": "it",
+        "lang": "en",
         "logos" : [
             {
                src: "browser/images/logo-erasmusleft_en.jpg",

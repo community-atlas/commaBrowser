@@ -582,7 +582,10 @@ function createTimelineEvent(feature) {
                 }
             }
         }
-        if (feature.properties.image) event.background = { "url": feature.properties.image };
+        if (feature.properties.image) event.background = { 
+            "url": feature.properties.image,
+            //"color": 'blue'  // if we can generate category colors in code, we can use them here. Not perfect, but useful. 
+        };
         if (feature.properties.image) event.media = { "url": feature.properties.image };
         if (feature.properties.category) event.group = feature.properties.category;
         event.unique_id = feature.id;
@@ -631,10 +634,11 @@ function renderTimeline(features) {
     let timeline = convertFeaturesToTimeline(features);
     let options = {
         debug: false,
-        language: commaLanguage,
+        //language: commaLanguage,
+        language: "it",
         
     }
-    window.timeline = new TL.Timeline('timeline-embed', timeline, { debug: false });
+    window.timeline = new TL.Timeline('timeline-embed', timeline, options);
     if (selectedFeature && selectedFeature.id) window.timeline.goToId(selectedFeature.id)
     window.timeline.addEventListener('change',e =>{
         commaFeatureSelect(e.unique_id);
@@ -1274,6 +1278,12 @@ function initMaterialize() {
  */
 function translateTexts(selector = 'body') {
     $('body').i18n();
+    // fix sort tooltips
+    $("#card-sort-alpha").attr('data-tooltip',$.i18n('sort_alpha'))
+    $("#card-sort-creation").attr('data-tooltip',$.i18n('sort_creation'))
+    $("#card-sort-update").attr('data-tooltip',$.i18n('sort_update'))
+
+
 }
 
 
@@ -1296,8 +1306,8 @@ function liveModeClick(e) {
 $(document).ready(function () {
     bodyElement = document.getElementsByTagName('body')[0];
     $.i18n.debug = true;
-    let lang = commaGetConfig('lang') || "en";
-    $.i18n().locale = lang;   
+    commaLanguage = commaGetConfig('lang') || "en";
+    $.i18n().locale = commaLanguage;   
     $.getJSON(commaGetConfig('commaJSONUrl')).done(function (data) {
         let features = commaInitialiseFeatureData(data);
         let globals = commaGetGlobals();

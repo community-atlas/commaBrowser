@@ -16,6 +16,9 @@
     "tools_source_editor": "Source editor",
     "tools_raw": "Raw GeoJSON source",
     "tools_reload": "Reload JSON data",        
-    "toast_reset": "Non ci sono categorie che corrispondono ai tuoi filtri. Aggiorna o ripristina filtri"
+    "toast_reset": "Non ci sono categorie che corrispondono ai tuoi filtri. Aggiorna o ripristina filtri",
+    "sort_alpha": "Sort alphabetically",
+    "sort_created": "Sort by creation time",
+    "sort_updated": "Sort by update time"
     
 }

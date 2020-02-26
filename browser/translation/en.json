@@ -20,6 +20,10 @@
         "tools_raw": "Raw GeoJSON source",
         "tools_reload": "Reload JSON data",
         "toast_available": "$1 {{PLURAL:$1|feature|features}} available to explore",
-        "toast_reset": "There are no features that match your filter. Update or reset your filters."
+        "toast_reset": "There are no features that match your filter. Update or reset your filters.",
+        "sort_alpha": "Sort alphabetically",
+        "sort_creation": "Sort by creation time",
+        "sort_update": "Sort by update time"
+
     
 }
