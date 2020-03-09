@@ -84,7 +84,7 @@ header, #content-wrapper {
 }
 
 body.viewCards.showDetail #content-wrapper {
-  width:calc(100% - 400px);
+  width:calc(100% - 500px);
 }
 
 /*
@@ -323,7 +323,7 @@ Highlighter
 
 .viewMap.showDetail #highlighter-wrapper, .viewCards.showDetail #highlighter-wrapper {
   display: inline-block;  
-  width:400px;
+  width:495px;
   height: calc(100% - 100px);
   right:0;       
   bottom:0;
@@ -408,9 +408,6 @@ Highlighter
   color:#999;
 }
 
-
-#highlight-detail-related {
-}
 
 #highlight-detail-related .card{  
   height: 200px;
@@ -500,7 +497,7 @@ span.badge.new {
 .cards {
   z-index: 1;
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   grid-gap: 10px;
     padding: 0.75rem;  
   /*  background-color: #fff;*/
