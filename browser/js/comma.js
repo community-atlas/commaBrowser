@@ -563,7 +563,7 @@ function createTimelineEvent(feature) {
     if (feature.properties.start_date) {
         let event = {};
         let start_date = new Date(feature.properties.start_date);
-        let end_date = feature.properties.end_date ? new Date(feature.properties.end_date) : null;
+        let end_date = feature.properties.end_date ? new Date(feature.properties.end_date) : new Date(Date.now());
         event.text = {
             "headline": feature.properties.title || "",
             "text": feature.properties.description || "",
