@@ -100,7 +100,7 @@ function renderHighlighter(feature) {
     let credit = feature.properties.image_credit || '' 
 
     $("#highlight-summary").html(        
-        `<i id="summary-close" class="material-icons right">close</i><div class="card-image"><img src="${image}" /><span class="image-credit">${credit}</div>
+        `<i id="summary-close" class="material-icons right">close</i><div class="card-image"><span class="image-credit">${credit}</span><img src="${image}" /></div>
         <h2><i class="material-icons left zoomClose">arrow_back</i><i class="material-icons right zoomOpen">arrow_forward</i>${feature.properties.title}</h2>         
         `
     )
