@@ -520,7 +520,8 @@ span.badge.new {
   padding-top:5px;
 }
 
-.card .card-image .img {
+#cards .card .card-image img {
+  height:100%;
   height:100%;
   object-fit: cover;
 }
