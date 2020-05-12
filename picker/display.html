@@ -43,7 +43,7 @@
               let lat = vars.lat || 0;
               let lng = vars.lng || 0;
               let zoom = vars.zoom || 2;
-              let geojsonFeature = vars.geoJson || '{"type": "Polygon", "coordinates": [[[4.921875 , 51.563412],[8.173828 , 50.035974],[5.844727 , 46.164614],[1.889648 , 46.709736],[0.527344 , 49.296472],[2.856445 , 51.344339],[4.921875 , 51.563412]]] }'                                        
+              let geojsonFeature = decodeURIComponent(vars.geoJson) || '{"type": "Polygon", "coordinates": [[[4.921875 , 51.563412],[8.173828 , 50.035974],[5.844727 , 46.164614],[1.889648 , 46.709736],[0.527344 , 49.296472],[2.856445 , 51.344339],[4.921875 , 51.563412]]] }'                                        
               console.log("vars: " + vars);
               geojsonFeature = JSON.parse(geojsonFeature);
                                           
