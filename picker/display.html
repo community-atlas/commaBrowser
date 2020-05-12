@@ -43,9 +43,9 @@
               let lat = vars.lat || 0;
               let lng = vars.lng || 0;
               let zoom = vars.zoom || 2;
-              let geojsonFeature = decodeURIComponent(vars.geoJson) || '{"type": "Polygon", "coordinates": [[[4.921875 , 51.563412],[8.173828 , 50.035974],[5.844727 , 46.164614],[1.889648 , 46.709736],[0.527344 , 49.296472],[2.856445 , 51.344339],[4.921875 , 51.563412]]] }'                                        
+              let geojsonFeature = decodeURIComponent(vars.geoJson) || null                                       
               console.log("vars: " + vars);
-              geojsonFeature = JSON.parse(geojsonFeature);
+              
                                           
         var mapBoxToken = "pk.eyJ1IjoiZ3JlZW5tYW4yMyIsImEiOiJjazBrMmMwMG8wYmppM2N0azdqcnZuZzVjIn0.jpODNTgb9TIxZ6yhZKnTvg";
         var mymap = L.map('mapid').setView([lat, lng], zoom)
@@ -55,8 +55,11 @@
             id: 'mapbox.streets',
             accessToken: mapBoxToken,
         }).addTo(mymap);
-        var feature = L.geoJSON(geojsonFeature).addTo(mymap);
-        mymap.fitBounds(feature.getBounds());
+        if (geojsonFeature) {
+            geojsonFeature = JSON.parse(geojsonFeature);
+            var feature = L.geoJSON(geojsonFeature).addTo(mymap);
+            mymap.fitBounds(feature.getBounds());
+        }
 
       
     </script>
