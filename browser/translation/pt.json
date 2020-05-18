@@ -1,0 +1,23 @@
+{
+    "@metadata": {       
+        "last-updated": "2020-05-18",
+        "locale": "pt"
+    }, 
+        "title-commnity-atlas":  "Atlas - Plataforma Comunitária Digital",
+        "menu_display": "Exibir",
+        "menu_map": "Mapa",
+        "menu_timeline":"Cronologia",
+        "menu_cards": "Fichas", 
+        "filter_categories": "Categorias",
+        "filter_types": "Tipos",
+        "filter_tags": "Tags",
+        "filter_reset": "Apagar filtros",
+        "tools_source_editor": "Editar fonte",
+        "tools_raw": "Raw GeoJSON source",
+        "tools_reload": "Reload JSON data",
+        "toast_available": "$1 {{PLURAL:$1|característica|características}} características disponíveis para explorar",
+        "toast_reset": "Não há características que correspondam ao seu filtro. Apagar ou modificar os filtros.",
+        "sort_alpha": "Ordenar alfabeticamente",
+        "sort_creation": "Ordenar por data de criação",
+        "sort_update": "Ordenar por data de actualização" 
+}

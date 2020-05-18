@@ -1370,7 +1370,8 @@ $(document).ready(function () {
             {
                 "en": "browser/translation/en.json",
                 "de": "browser/translation/de.json",
-                "it": "browser/translation/it.json"
+                "it": "browser/translation/it.json",
+                "pt": "browser/translation/pt.json",
             }
         ).done(translateTexts);
 
