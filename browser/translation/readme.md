@@ -9,7 +9,6 @@ The first item, in this case "title-commnity-atlas" is the key. This must not be
 To add a translation, edit the file for the language, and modify the second part of the data, replacing english text with the translated version. The simplest way to edit the file is directly on GitHub.  
 
 ```
-{     
         "title-commnity-atlas": "Community Atlas",
         "menu_display": "Display",
         "menu_map": "Map",
@@ -23,9 +22,10 @@ To add a translation, edit the file for the language, and modify the second part
         "tools_raw": "Raw GeoJSON source",
         "tools_reload": "Reload JSON data",
         "toast_available": "$1 {{PLURAL:$1|feature|features}} available to explore",
-        "toast_reset": "There are no features that match your filter. Update or reset your filters."
-    
-}
+        "toast_reset": "There are no features that match your filter. Update or reset your filters.",
+        "sort_alpha": "Sort alphabetically",
+        "sort_creation": "Sort by creation time",
+        "sort_update": "Sort by update time"
 ```
 
 In most cases, the translation is very simple and direct, but sometimes there is a little bit of logic to manage plurals. 
