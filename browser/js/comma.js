@@ -1290,9 +1290,17 @@ function translateTexts(selector = 'body') {
 }
 
 
-function liveModeClick(e) {
-    console.log(e);
-  commaLiveMode = e.target.checked;
+/**
+ * Enables or disables "Live mode" 
+ * @param {} e 
+ * @param {*} force 
+ */
+function liveModeClick(e, force) {  
+  if (force != null) {
+    commaLiveMode = e.target.checked;
+  } else {
+    commaLiveMode = force;
+  }
   if (commaLiveMode) {
     commaLiveReloadTimer = setInterval ( commaReloadGeoData, 5000 );
     console.log('Enabled live mode');
@@ -1360,7 +1368,12 @@ $(document).ready(function () {
             commaLanguage = $(this).data('locale');
             translateTexts();
         });
-        $("#control-liveMode").click(liveModeClick)
+
+        $("#control-liveMode").click(liveModeClick); 
+        // Start off in live mode 
+        $("#control-liveMode").trigger('click')
+        
+//        liveModeClick(null,true);
 
         if (typeof test === "function") {
             $('#tests').html(test());
