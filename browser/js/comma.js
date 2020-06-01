@@ -62,9 +62,6 @@ var localConfig;
 function renderCard(feature) {
     let event = feature.properties.start_date ? 'event' : '';
     let geo = (feature.hasOwnProperty('geometry')) ? 'geo' : '';
-    console.log(feature.properties);
-    
-
     let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].id : 0;
     let description = feature.properties.description.substr(0,120).replace(/<[^>]*>?/gm, ' ');
     return `<div class="card small hoverable  ${feature.properties.type} ${event} ${geo} category-${key}" data-ref="card"  data-id="${feature.id}">
@@ -133,8 +130,7 @@ function renderHighlighter(feature) {
         }
         content.push(`<div id="highlight-detail-event" class="detail"><i class="material-icons tiny">event</i> ${dateContent}</div>`);
     }
-    //lines
-    console.log(properties.links);
+    //links    
     if (properties.links) {
         let links = properties.links.map(link => {
             // we have to have a url
@@ -423,6 +419,7 @@ function commaGetGlobals() {
  * @param {boolean} zoom Zoom map to selected feature  
  */
 function commaFeatureSelect(selector, zoom = true) {
+    
     // if selector is already selected, we toggle
     if (selector === null || (selectedFeature && selectedFeature.id == selector)) {
         selectedFeature = null       
@@ -431,6 +428,7 @@ function commaFeatureSelect(selector, zoom = true) {
     // get the id 
     let id = null;
     if (selectedFeature) id = selectedFeature.id;
+    console.log(`Select new feature: ${id} zoom: ${zoom}`)
     // update highligher
     renderHighlighter(selectedFeature);
     // update map
@@ -551,6 +549,27 @@ function commaReloadGeoData(){
     });
 }
 
+/**
+ * Returns an array of colours
+ * 
+ */
+function commaGetColours(){
+  let colours = [
+      'darkblue',
+      'darkcyan',
+      'darkgoldenrod',
+      'darkmagenta',
+      'darkolivegreen',
+      'darkred',
+      'darkturquoise',
+      'darkslateblue',
+      'darkslategray',
+      'darkseagreen',
+      'darkorchid'
+  ]
+  return colours;
+
+}
 
 
 //---------------------------Timeline
@@ -758,6 +777,18 @@ function renderLeafletFeatures(features) {
     }
 }
 
+
+/**
+ * Returns a colour code for a category
+ * @param {*} category 
+ */
+function mapColour(category){
+  let colours = commaGetColours();  
+  if (typeof(category) === 'string') {
+    category = commaCategories[category] ? commaCategories[category].id : 0;
+  }
+  return colours[category]
+}
 /**
  * Returns an icon object, tailored for the current selector (category/type etc)
  * @param {string} category 
@@ -805,10 +836,14 @@ function mapOnEachFeaturePoints(feature, layer) {
 }
 
 function mapOnEachFeaturePoly(feature, layer) {
-    // store a reference
+    // store a reference    
     mapFeaturePolyLookup[feature.id] = L.stamp(layer);
-    let key = commaCategories[feature.properties.category] ? commaCategories[feature.properties.category].id : 0;
-    layer.setStyle({className:"category-"+key});
+    let category = commaCategories[feature.properties.category];
+    let key =  category ? category.id : 0;    
+    layer.setStyle({
+        className:"category-"+key,
+        'color': mapColour(key)
+        });    
     layer.on('click', e => {
         e.target.bringToBack();
         commaFeatureSelect(e.target.feature.id, false);
@@ -823,17 +858,22 @@ function mapOnEachFeaturePoly(feature, layer) {
  * @param {boolean} zoom  zoom to marker
  */
 function leafletHighightMarker(featureId, zoom = true) {
+    //reset old colours
     if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
-    if (clickedPoly) clickedPoly.setStyle({ 'color': leafletPolyStroke });
+    console.log(clickedPoly);
+    if (clickedPoly) clickedPoly.setStyle({ 'color': mapColour(clickedPoly.feature.properties.category) });
     if (featureId) {
-        let _leaflet_id = leafletFeatureLookup[featureId];        
+        let _leaflet_id = leafletFeatureLookup[featureId];  
+        console.log(`Highlighting leaflet id: ${_leaflet_id}`)      
         if (_leaflet_id) {
             leafletMap.eachLayer(function (layer) {                       	  
+                console.log(` - ${layer._leaflet_id}`)
                 if (layer._leaflet_id == _leaflet_id) {
                     layer.setIcon(mapIcon(layer.feature.properties.category, true));    
                     clickedMarker = layer;
-                    
+                    console.log("Found feature")
                     if (zoom) {
+                        console.log("Zooming")
                         var latLngs = [ clickedMarker.getLatLng() ];
                         var markerBounds = L.latLngBounds(latLngs);
                         leafletMap.fitBounds(markerBounds);
@@ -1372,9 +1412,7 @@ $(document).ready(function () {
         $("#control-liveMode").click(liveModeClick); 
         // Start off in live mode 
         $("#control-liveMode").trigger('click')
-        
-//        liveModeClick(null,true);
-
+  
         if (typeof test === "function") {
             $('#tests').html(test());
         }
