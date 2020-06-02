@@ -77,6 +77,26 @@ function renderCard(feature) {
     </div>`;
 }
 
+/** Updates the open graph metadata based on the selected feature */
+function commaSetMetadata(feature) {
+    let globals = commaGetGlobals();
+    let image = feature.properties.image ? feature.properties.image : 'browser/images/atlas-logo-x1.png';
+    let properties = feature.properties;
+    let title = globals.title + " >> " +feature.properties.title.replace(/"/g, '&quot;');    
+
+    let tags = `#${properties.category}`
+    if (properties.tags) {
+        tags = tags + ' #' + properties.tags.join(" #");        
+    }
+    let description = properties.description + ' ' + tags;
+
+    document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+    document.querySelector('meta[property="og:image"]').setAttribute("content", image);
+    document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+
+
+
+}
 /**
  * Renders the detailed display of a feature
  * @param {object} feature 
@@ -204,6 +224,11 @@ function renderHighlighter(feature) {
            ${content}
         </div>                
     `)
+
+
+    // set og metadata
+
+    commaSetMetadata(feature);
     // Attach events
     $('.tooltipped').tooltip();
     $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
@@ -411,6 +436,8 @@ function commaGetGlobals() {
     };
     return { ...defaults, ...commaGeo.properties }
 }
+
+
 
 /**
  * Sets the current selected feature
@@ -1319,13 +1346,14 @@ function initMaterialize() {
 /**
  * Apply translation
  */
-function translateTexts(selector = 'body') {
-    $('body').i18n();
+function translateTexts() {
+    globals = commaGetGlobals();
+    $('body').i18n();    
     // fix sort tooltips
     $("#card-sort-alpha").attr('data-tooltip',$.i18n('sort_alpha'))
     $("#card-sort-creation").attr('data-tooltip',$.i18n('sort_creation'))
     $("#card-sort-update").attr('data-tooltip',$.i18n('sort_update'))
-
+    document.title = $.i18n('title-commnity-atlas')+ " >> " + globals.title;
 
 }
 
@@ -1364,11 +1392,7 @@ $(document).ready(function () {
         let globals = commaGetGlobals();
 
 
-        //@todo...... Move these
-        document.title = "Community Atlas >> " + globals.title;
-        $("nav #title").html(globals.title);
-        $("#sidedrawer-title").html(globals.title);
-        $("#cards-header-content").html(globals.title);
+        
 
 
         // perform initial rendering of all aspects so that we start will all the right data
@@ -1426,7 +1450,10 @@ $(document).ready(function () {
             }
         ).done(translateTexts);
 
-
+        
+        $("nav #title").html(globals.title);
+        $("#sidedrawer-title").html(globals.title);
+        $("#cards-header-content").html(globals.title);
         
 
 
