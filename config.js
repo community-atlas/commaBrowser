@@ -4,6 +4,8 @@
  * 
  */
 
+
+var GA_MEASUREMENT_ID = "UA-168836142-1"
 var CONFIG = {
     "mehringplatz-de": {
         "editorUrl": "https://coda.io/d/daBTKgiA4dJ",

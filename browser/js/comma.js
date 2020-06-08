@@ -517,13 +517,18 @@ function commaFeatureSort(features, property=null, asc=null){
   }
 
 
-
+/**
+ * Push a Url into the window location
+ */
 function commaUrlPush() {
     const filterHash = filterEncode(commaFilters);
     const selectedHash = selectedFeature ? "/" + encodeURIComponent(selectedFeature.id) : '';
     const url = '#' + currentView + "/" + filterHash + selectedHash;
     window.location.assign(url);
+    analyticsUrlTrack(url);
 }
+
+
 
 /**
  * Retrieve settings from the URL
@@ -549,7 +554,6 @@ function commaUrlPop() {
             commaFilters = commaGetConfig('filters');
             filterChange = true;
         }
-
     }
     return filterChange;
 }
@@ -597,6 +601,21 @@ function commaGetColours(){
   return colours;
 
 }
+
+//------------------ Analytics
+
+
+/**
+ * Push a url to analytics
+ * @param {string} url 
+ */
+function analyticsUrlTrack(url) {
+    gtag('config', GA_MEASUREMENT_ID, {'page_path': url});
+}
+  
+
+
+
 
 
 //---------------------------Timeline
