@@ -1462,10 +1462,10 @@ $(document).ready(function () {
 
         $.i18n().load(
             {
-                "en": "browser/translation/en.json",
-                "de": "browser/translation/de.json",
-                "it": "browser/translation/it.json",
-                "pt": "browser/translation/pt.json",
+                "en": "./translation/en.json",
+                "de": "./browser/translation/de.json",
+                "it": "./browser/translation/it.json",
+                "pt": "./browser/translation/pt.json",
             }
         ).done(translateTexts);
 
