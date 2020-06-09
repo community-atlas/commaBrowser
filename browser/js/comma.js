@@ -1463,9 +1463,9 @@ $(document).ready(function () {
         $.i18n().load(
             {
                 "en": "./translation/en.json",
-                "de": "./browser/translation/de.json",
-                "it": "./browser/translation/it.json",
-                "pt": "./browser/translation/pt.json",
+                "de": "./translation/de.json",
+                "it": "./translation/it.json",
+                "pt": "./translation/pt.json",
             }
         ).done(translateTexts);
 
