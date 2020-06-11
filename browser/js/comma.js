@@ -169,6 +169,7 @@ function renderHighlighter(feature) {
                 let type = link.type || "website";
                 let description = link.description || "";
                 let icon = "web"; // default
+                let lightbox = ""; // disable lightbox on most links
                 switch(type){
                     case "website": 
                         icon="web";
@@ -181,15 +182,17 @@ function renderHighlighter(feature) {
                         break;
                     case "video":
                         icon="play_circle_filled"
+                        lightbox="lightbox";
                         break;
                     case "image":
-                        icon="image"
+                        icon="image";
+                        lightbox="lightbox"
                         break;
                 } 
  
 
                 let tooltip = link.description ? "tooltipped" : "";
-                return `<a href="${url}"  class="collection-item ${tooltip}" data-position="bottom" data-tooltip="${description}" target="_blank"><i class="material-icons tiny">${icon}</i> ${title}</a>`
+                return `<a href="${url}"  class="collection-item ${tooltip} ${lightbox}" data-position="bottom" data-tooltip="${description}" target="_blank"><i class="material-icons tiny">${icon}</i> ${title}</a>`
 
             }
         });
@@ -252,7 +255,7 @@ function renderHighlighter(feature) {
 
    if (commaDevMode()){
      $().fancybox({
-         selector : '#highlight-detail-links a:visible'
+         selector : '#highlight-detail-links a.lightbox'
      });
    }    
 
