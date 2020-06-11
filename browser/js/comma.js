@@ -47,6 +47,15 @@ var bodyElement = {};
 var localConfig;
 
 
+ function commaDevMode() {
+    let globals = commaGetGlobals();
+    if (globals.urlParams.get('devmode')) { 
+        return true
+    }
+    return false
+}
+
+
 /**
  * ----------------------------------------------------------------------------------------------
  * Primary Renderers
@@ -170,6 +179,12 @@ function renderHighlighter(feature) {
                     case "translation":
                         icon="language"
                         break;
+                    case "video":
+                        icon="play_circle_filled"
+                        break;
+                    case "image":
+                        icon="image"
+                        break;
                 } 
  
 
@@ -233,6 +248,14 @@ function renderHighlighter(feature) {
     $('.tooltipped').tooltip();
     $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
     //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
+
+
+   if (commaDevMode()){
+     $().fancybox({
+         selector : '#highlight-detail-links a:visible'
+     });
+   }    
+
 }
 
 
@@ -434,6 +457,7 @@ function commaGetGlobals() {
     let defaults = {
         type: 'Community atlas',
     };
+    defaults.urlParams = new URLSearchParams(window.location.search);    
     return { ...defaults, ...commaGeo.properties }
 }
 
