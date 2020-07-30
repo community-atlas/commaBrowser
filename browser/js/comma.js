@@ -251,14 +251,9 @@ function renderHighlighter(feature) {
     $('.tooltipped').tooltip();
     $("#highlight-detail .card-image,  #highlight-detail .card-content").unbind().click(cardClick);
     //  $('#highlight-detail [data-ref="filter"]').click(filterClick);   
-
-
-   if (commaDevMode()){
-     $().fancybox({
-         selector : '#highlight-detail-links a.lightbox'
-     });
-   }    
-
+    $().fancybox({
+      selector : '#highlight-detail-links a.lightbox'
+    });    
 }
 
 
