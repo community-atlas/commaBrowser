@@ -11,7 +11,7 @@
 
 
     <meta http-equiv="Content-Security-Policy"
-    content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * blob: * ; connect-src *">
+    content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * blob: * ; connect-src * ; frame-src *">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,6 +72,13 @@
     <script src="browser/js/jqueryi18n/jquery.i18n.parser.js"></script>
     <script src="browser/js/jqueryi18n/jquery.i18n.emitter.js"></script>
     <script src="browser/js/jqueryi18n/jquery.i18n.language.js"></script>
+
+
+        <!-- FancyBox-->
+        <!-- 1. Add latest jQuery and fancybox files -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
     <link type="text/css" rel="stylesheet" href="browser/css/comma.css" />
@@ -156,6 +163,10 @@
             <div id='timeline-embed'></div>
         </div>
         <div id="cards-wrapper" class="viewer">
+            <div id="card-size-controls" class="controls">
+                <i id="card-size-small" class="material-icons tooltipped"  data-tooltip="Small cards" >view_module</i>
+                <i id="card-size-large" class="material-icons tooltipped"  data-tooltip="Large cards" >view_agenda</i>
+            </div>
             <div id="card-sort-controls" class="controls">                
                 <i class="material-icons small"  >sort</i>
                 <i id="card-sort-alpha" class="material-icons tooltipped"  data-sort="title" data-tooltip="Sort by title" >sort_by_alpha</i>

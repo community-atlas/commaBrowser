@@ -19,6 +19,7 @@
     "toast_reset": "Non ci sono categorie che corrispondono ai tuoi filtri. Aggiorna o ripristina filtri",
     "sort_alpha": "Sort alphabetically",
     "sort_created": "Sort by creation time",
-    "sort_updated": "Sort by update time"
-    
+    "sort_updated": "Sort by update time",
+    "card_small": "Small cards",
+    "card_large": "Large cards"
 }

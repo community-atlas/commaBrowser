@@ -23,7 +23,7 @@
         "toast_reset": "There are no features that match your filter. Update or reset your filters.",
         "sort_alpha": "Sort alphabetically",
         "sort_creation": "Sort by creation time",
-        "sort_update": "Sort by update time"
-
-    
+        "sort_update": "Sort by update time",
+        "card_small": "Small cards",
+        "card_large": "Large cards"    
 }

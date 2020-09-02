@@ -1233,7 +1233,11 @@ function renderFilters(features) {
 function sortClick(event) {
     let element = event.currentTarget;    
     sortProperty = element.dataset.sort;
-    sortAsc = element.dataset.asc == 1;    
+    if (element.dataset.asc != null) {
+      sortAsc = element.dataset.asc == 1;
+    } else {
+       sortAsc = !sortAsc; 
+    }    
     $('body').removeClass(['sort-title','sort-created_date', 'sort-updated_date', 'sort-weight','sortDir-desc', 'sortDir-asc']);
     $('body').addClass('sort-'+sortProperty);
     if (sortAsc) {
@@ -1244,6 +1248,13 @@ function sortClick(event) {
     commaRender(false);
 }
 
+
+function sizeClick(event){
+    let element = event.currentTarget; 
+    let size=element.dataset.size;
+    $('body').removeClass(['card-size-small','card-size-large']);
+    $('body').addClass('card-size-'+size);
+}
 /**
  * Shows the home popup. 
  */
@@ -1394,6 +1405,8 @@ function translateTexts() {
     $("#card-sort-alpha").attr('data-tooltip',$.i18n('sort_alpha'))
     $("#card-sort-creation").attr('data-tooltip',$.i18n('sort_creation'))
     $("#card-sort-update").attr('data-tooltip',$.i18n('sort_update'))
+    $("#card-size-small").attr('data-tooltip',$.i18n('card_small'))
+    $("#card-size-large").attr('data-tooltip',$.i18n('card_large'))
     document.title = $.i18n('title-commnity-atlas')+ " >> " + globals.title;
 
 }
@@ -1466,7 +1479,9 @@ $(document).ready(function () {
         $("#highlight-summary").click(commaHighlighterDetailToggle);
         $("[data-ref='view']").click(commaViewer);
         $("#controls-reset").click(filterResetClick);
-        $("#cards-wrapper .controls .control").click(sortClick);
+        $("#card-sort-controls .control").click(sortClick);
+        $("#card-size-controls .control").click(sizeClick);
+
         $('.lang-switch').click(function (e) {
             e.preventDefault();
             $.i18n().locale = $(this).data('locale');

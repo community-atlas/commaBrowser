@@ -490,8 +490,11 @@ span.badge.new {
     overflow:auto;
 }
 
-#cards-wrapper .controls {
+#cards-wrapper #card-sort-controls {
   float:right;
+}
+#cards-wrapper #card-size-controls {
+  float:left;
 }
 
 .cards {
@@ -505,10 +508,22 @@ span.badge.new {
     clear: both;
 }
 
+.card-size-small .cards {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
+}
+
 .cards:after {
     content: '';
     display: inline-block;
     width: 100%;
+}
+
+.card-size-small .card.small {
+  height: 100px;
+}
+
+.card-size-small .card-title {
+  font-size: 18px;
 }
 
 .card.small .card-image {
@@ -573,6 +588,9 @@ span.badge.new {
   color:  #eb5757;
 }
 
+
+.card-size-small #card-size-small {display:none}
+.card-size-large #card-size-large {display:none}
 /* ------------------------*/
 
 .material-tooltip {
