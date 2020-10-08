@@ -793,10 +793,12 @@ function renderLeaflet() {
     // leafletMap = L.map('leafletMap').setView([51.505, -0.09], 13).addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
     // leafletMap = L.Wrld.map('leafletMap', '68e0ce6179ac3f8ae3df7a9949927879');
     leafletMap = L.map('leafletMap').setView([0,0],2);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: commaGetConfig('mapId'),
+        tileSize: 512,
+        id: commaGetConfig('mapId'),        
+        zoomOffset: -1,
         accessToken: commaGetConfig('mapBoxToken')
     }).addTo(leafletMap);
     leafletMap.on('move', mapOnMove);
