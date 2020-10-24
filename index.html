@@ -3,15 +3,15 @@
 
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    
-   <!-- Open graph -->
-   <meta property="og:title" content="community-atlas" />   
-   <meta property="og:image" content="browser/images/comensi-logo-atlas-heavy4x.png" />
-   <meta property="og:description" content="Community Atlas" />   
+
+    <!-- Open graph -->
+    <meta property="og:title" content="community-atlas" />
+    <meta property="og:image" content="browser/images/comensi-logo-atlas-heavy4x.png" />
+    <meta property="og:description" content="Community Atlas" />
 
 
     <meta http-equiv="Content-Security-Policy"
-    content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * blob: * ; connect-src * ; frame-src *">
+        content="worker-src blob: ; child-src blob: ;  img-src 'self' data: * blob: * ; connect-src * ; frame-src *">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,15 +20,15 @@
     <!-- initialise the Comma Browser -->
     <script src="config.js"></script>
     <script lang="javascript">
-      var gtag_script = document.createElement('script');
-      gtag_script.setAttribute('src',`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`);
-      gtag_script.async = 'async';
-      document.head.appendChild(gtag_script);
+        var gtag_script = document.createElement('script');
+        gtag_script.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`);
+        gtag_script.async = 'async';
+        document.head.appendChild(gtag_script);
     </script>
 
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', GA_MEASUREMENT_ID);
@@ -55,8 +55,7 @@
     <link type="text/css" rel="stylesheet" href="browser/css/materialize.css" media="screen,projection" />
 
     <!-- Timeline -->
-    <link title="timeline-styles" rel="stylesheet"
-        href="browser/js/timeline3/css/timeline.css">
+    <link title="timeline-styles" rel="stylesheet" href="browser/js/timeline3/css/timeline.css">
     <script src="browser/js/timeline3/js/timeline.js"></script>
 
     <!-- tools -->
@@ -74,13 +73,22 @@
     <script src="browser/js/jqueryi18n/jquery.i18n.language.js"></script>
 
 
-        <!-- FancyBox-->
-        <!-- 1. Add latest jQuery and fancybox files -->
+    <!-- FancyBox-->
+    <!-- 1. Add latest jQuery and fancybox files -->
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-        <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
+
+    <!-- Fontawesome-->
+    <script src="https://kit.fontawesome.com/4e9471cd4c.js" crossorigin="anonymous"></script>
+
+    <!-- Fontello icons -->
+    <!-- Custom icons can be added to markers-->
+    <link type="text/css" rel="stylesheet" href="commaBrowser/icons/css/commabrowser-default.css" />
+
+    <!-- Core css -->
     <link type="text/css" rel="stylesheet" href="browser/css/comma.css" />
     <link type="text/css" rel="stylesheet" href="browser/css/colors.css" />
 </head>
@@ -90,7 +98,8 @@
     <div id="sidedrawer" class="sidenav sidenav-fixed noautoinit z-depth-0">
         <!-- Side drawer content goes here -->
         <div id="sidedrawer-intro">
-            <a href="https://www.community-atlas.net"><img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png" alt="Community Atlas"></a>
+            <a href="https://www.community-atlas.net"><img id="logo" src="browser/images/comensi-logo-atlas-heavy4x.png"
+                    alt="Community Atlas"></a>
         </div>
         <h2 id="sidedrawer-title" class="hide-on-med-and-down" style="cursor:pointer">Community Atlas</h2>
         <div id="section-view" class="hide-on-large-only">
@@ -111,45 +120,45 @@
         <div id="section-filters">
             <div id="controls-status"></div>
             <ul id="control-wrapper" class="collapsible expandable">
-                    <li id="controls-reset"><a href="#" data-i18n="filter_reset">Reset filters</a> </li>
+                <li id="controls-reset"><a href="#" data-i18n="filter_reset">Reset filters</a> </li>
                 <li class="active">
-                    <div class="collapsible-header"><i class="material-icons">layers</i><span data-i18n="filter_categories">Categories</span><span
-                            id="controls-category-badge"></span></div>
+                    <div class="collapsible-header"><i class="material-icons">layers</i><span
+                            data-i18n="filter_categories">Categories</span><span id="controls-category-badge"></span>
+                    </div>
                     <div id="controls-category" class="collapsible-body controls" data-ref="controls"></div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">category</i><span data-i18n="filter_types">Types</span><span
-                            id="controls-type-badge"></span></div>
+                    <div class="collapsible-header"><i class="material-icons">category</i><span
+                            data-i18n="filter_types">Types</span><span id="controls-type-badge"></span></div>
                     <div id="controls-type" class="collapsible-body controls" data-ref="controls"></div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">tags</i><span data-i18n="filter_tags">Tags</span><span
-                            id="controls-tags-badge"></span></div>
+                    <div class="collapsible-header"><i class="material-icons">tags</i><span
+                            data-i18n="filter_tags">Tags</span><span id="controls-tags-badge"></span></div>
                     <div id="controls-tags" class="collapsible-body controls" data-ref="controls"></div>
                 </li>
-               
+
             </ul>
-        </div>        
+        </div>
     </div>
     <header id="header" class="navbar-fixed z-depth-0">
         <nav class="">
             <div class="nav-wrapper">
                 <a href="#" data-target="sidedrawer" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-menu" class="hide-on-med-and-down right">
-                    <li id="nav-menu-map" ><a class="collection-item" data-ref="view" data-view="map">
+                    <li id="nav-menu-map"><a class="collection-item" data-ref="view" data-view="map">
                             <span data-i18n="menu_map">Map</span><i class="material-icons right">map</i></a>
                     <li>
                     <li id="nav-menu-timeline"><a class="collection-item" data-ref="view" data-view="timeline">
-                            <span data-i18n="menu_timeline">Timeline</span><i
-                            class="material-icons right">event</i></a></li>
+                            <span data-i18n="menu_timeline">Timeline</span><i class="material-icons right">event</i></a>
+                    </li>
                     <li id="nav-menu-cards"><a class="collection-item" data-ref="view" data-view="cards">
                             <span data-i18n="menu_cards"> Cards</span><i
-                            class="material-icons right">collections</i></a></li>                    
+                                class="material-icons right">collections</i></a></li>
                 </ul>
-                <a id="info-icon" href="#info"><i
-                    class="material-icons small">info</i></a>
+                <a id="info-icon" href="#info"><i class="material-icons small">info</i></a>
                 <a id="settings-icon" class="modal-trigger" href="#config"><i
-                    class="material-icons small">settings_applications</i></a>
+                        class="material-icons small">settings_applications</i></a>
                 <span id="title" class="brand-logo hide-on-large-only">Community Atlas</span>
             </div>
 
@@ -164,20 +173,29 @@
         </div>
         <div id="cards-wrapper" class="viewer">
             <div id="card-size-controls" class="controls">
-                <i id="card-size-small" class="material-icons tooltipped"  data-tooltip="Small cards" >view_module</i>
-                <i id="card-size-large" class="material-icons tooltipped"  data-tooltip="Large cards" >view_agenda</i>
+                <i id="card-size-small" class="material-icons tooltipped" data-tooltip="Small cards">view_module</i>
+                <i id="card-size-large" class="material-icons tooltipped" data-tooltip="Large cards">view_agenda</i>
             </div>
-            <div id="card-sort-controls" class="controls">                
-                <i class="material-icons small"  >sort</i>
-                <i id="card-sort-alpha" class="material-icons tooltipped"  data-sort="title" data-tooltip="Sort by title" >sort_by_alpha</i>
-                <span data-ref="sort" class="direction-asc control" data-sort="title" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
-                <span data-ref="sort" class="direction-desc control" data-sort="title" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>
-                <i id="card-sort-creation"  class="material-icons tooltipped" data-sort="created_date" data-tooltip="Sort by creation time" >schedule</i>               <span
-                 data-ref="sort" class="direction-asc control" data-sort="created_date" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
-                <span data-ref="sort" class="direction-desc control " data-sort="created_date" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>
-                <i id="card-sort-update" class="material-icons tooltipped" data-sort="updated_date" data-tooltip="Sort by updated time">update</i>
-                <span data-ref="sort" class="direction-asc control" data-sort="updated_date" data-asc="1"><i class="material-icons">arrow_drop_up</i></span>
-                <span data-ref="sort" class="direction-desc control" data-sort="updated_date" data-asc="0"><i class="material-icons">arrow_drop_down</i></span>                
+            <div id="card-sort-controls" class="controls">
+                <i class="material-icons small">sort</i>
+                <i id="card-sort-alpha" class="material-icons tooltipped" data-sort="title"
+                    data-tooltip="Sort by title">sort_by_alpha</i>
+                <span data-ref="sort" class="direction-asc control" data-sort="title" data-asc="1"><i
+                        class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control" data-sort="title" data-asc="0"><i
+                        class="material-icons">arrow_drop_down</i></span>
+                <i id="card-sort-creation" class="material-icons tooltipped" data-sort="created_date"
+                    data-tooltip="Sort by creation time">schedule</i> <span data-ref="sort"
+                    class="direction-asc control" data-sort="created_date" data-asc="1"><i
+                        class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control " data-sort="created_date" data-asc="0"><i
+                        class="material-icons">arrow_drop_down</i></span>
+                <i id="card-sort-update" class="material-icons tooltipped" data-sort="updated_date"
+                    data-tooltip="Sort by updated time">update</i>
+                <span data-ref="sort" class="direction-asc control" data-sort="updated_date" data-asc="1"><i
+                        class="material-icons">arrow_drop_up</i></span>
+                <span data-ref="sort" class="direction-desc control" data-sort="updated_date" data-asc="0"><i
+                        class="material-icons">arrow_drop_down</i></span>
             </div>
             <div id="cards" class="cards" data-ref="container">
                 <div class="gap" data-ref="first-gap"></div>
@@ -229,16 +247,16 @@
                         <div id="tools-source" class="collapsible-body"></div>
                     </li>
                 </ul>
-            </div>            
+            </div>
 
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
-    
-    <footer id="footer" class="page-footer footer-fixed"> 
-        <div id="footer-logos"></div>       
+
+    <footer id="footer" class="page-footer footer-fixed">
+        <div id="footer-logos"></div>
     </footer>
 
     <div id="tests"></div>
