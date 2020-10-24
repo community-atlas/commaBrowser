@@ -864,22 +864,24 @@ function mapColour(category){
  * @param {string} category 
  * @param {boolean} active 
  */
-function mapIcon(category = null, active = false) {
+function mapIcon(category = null, icon_css_class = null, active = false) {
     let key = commaCategories[category] ? commaCategories[category].id : 0;
     active = active ? 'active' : '';
+    let icon_inner = '';
+    if (icon_css_class) icon_inner = `<i class="${icon_css_class}"></i>`
     const icon = L.divIcon({
         className: "mapMarker",
         iconAnchor: [0, 24],
         labelAnchor: [-6, 0],
         popupAnchor: [0, -36],
-        html: `<span class="category-${key} ${active}" />`
+        html: `<span class="category-${key} ${active}" >${icon_inner}</span>`
     })
     return icon;
 
 }
 
 function mapMarker(feature, latlng) {
-    let icon = mapIcon(feature.properties.category);
+    let icon = mapIcon(feature.properties.category,feature.properties.icon_css_class);
     return L.marker(latlng, { "icon": icon });
 }
 
@@ -929,7 +931,7 @@ function mapOnEachFeaturePoly(feature, layer) {
  */
 function leafletHighightMarker(featureId, zoom = true) {
     //reset old colours
-    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category, false));
+    if (clickedMarker) clickedMarker.setIcon(mapIcon(clickedMarker.feature.properties.category,clickedMarker.feature.properties.icon_css_class,false));
     console.log(clickedPoly);
     if (clickedPoly) clickedPoly.setStyle({ 'color': mapColour(clickedPoly.feature.properties.category) });
     if (featureId) {
@@ -939,7 +941,7 @@ function leafletHighightMarker(featureId, zoom = true) {
             leafletMap.eachLayer(function (layer) {                       	  
                 console.log(` - ${layer._leaflet_id}`)
                 if (layer._leaflet_id == _leaflet_id) {
-                    layer.setIcon(mapIcon(layer.feature.properties.category, true));    
+                    layer.setIcon(mapIcon(layer.feature.properties.category,layer.feature.properties.icon_css_class, true));    
                     clickedMarker = layer;
                     console.log("Found feature")
                     if (zoom) {

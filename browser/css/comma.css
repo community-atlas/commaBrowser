@@ -274,6 +274,17 @@ Map
   opacity: 1;
 }
 
+.mapMarker span i {
+  transform: rotate(-45deg);
+  padding-top: 0.7rem;
+  padding-left: 0.2rem;
+  font-size: 100%;
+}
+.mapMarker span.active i {
+  padding-top: 1rem;
+  padding-left: 0.4rem;
+  font-size: 125%;
+}
 
 
 /* Timeline
