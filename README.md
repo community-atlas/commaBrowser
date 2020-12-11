@@ -1,2 +1,9 @@
 # commaBrowser
-A simple reference browser for comma json files
+
+The commaBrowser is a tool for exploring CommaGeoJSON data.
+
+
+
+
+
+
